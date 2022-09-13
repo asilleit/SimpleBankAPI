@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -27,42 +28,42 @@ namespace SimpleBankAPI.Controllers
             _userBusiness = userBusiness;
         }
 
-        // GET: Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
-            return await _context.Users.ToListAsync();
-        }
+        //// GET: Users
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        //{
+        //  if (_context.Users == null)
+        //  {
+        //      return NotFound();
+        //  }
+        //    return await _context.Users.ToListAsync();
+        //}
 
-        // GET: Users/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
-        {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
-            var user = await _context.Users.FindAsync(id);
+        //// GET: Users/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<User>> GetUser(int id)
+        //{
+        //  if (_context.Users == null)
+        //  {
+        //      return NotFound();
+        //  }
+        //    var user = await _context.Users.FindAsync(id);
 
-            if (user == null || !UserExists(id))
-            {
-                return NotFound();
-            }
+        //    if (user == null || !UserExists(id))
+        //    {
+        //        return NotFound();
+        //    }
 
 
-            return Ok(user.Id + " "+ 
-                user.Username);
-        }
+        //    return Ok(user.Id + " "+ 
+        //        user.Username);
+        //}
 
 
 
         // POST: v1/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost (Name = "CreateUser")]
+        [HttpPost(Name="CreateUser")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -90,25 +91,34 @@ namespace SimpleBankAPI.Controllers
             }
             catch (Exception ex)
             {
+                return StatusCode(StatusCodes.Status400BadRequest, "Bad Request");
+                //return StatusCode(StatusCodes.Status500InternalServerError, "Server Error");
+                //return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost("login", Name = "Login")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> LoginUser([FromBody] LoginUserRequest userRequest)
+        {
+            try
+            {
+                var user = await _userBusiness.Login(userRequest);
+
+                var userResponse = LoginUserResponse.FromUserToLoginUserResponse(user);
+                return StatusCode(StatusCodes.Status201Created, userResponse);
+            }
+            catch (Exception ex)
+            {
                 switch (ex)
                 {
                     case ArgumentException: return BadRequest(ex.Message);
                     default: return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
                 };
             }
-        }
-
-        [HttpPost("login", Name = "Login")]
-        public async Task<ActionResult<User>> LoginUser(User user)
-        {
-            if (_context.Users == null)
-            {
-                return Problem("Entity set 'postgresContext.Users'  is null.");
-            }
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
 

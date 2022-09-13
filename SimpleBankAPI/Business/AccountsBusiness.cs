@@ -42,6 +42,12 @@ namespace SimpleBankAPI.Business
         public async Task<Account> GetById(int accountId)
         {
             return await _accountsDb.GetById(accountId);
+
+        }
+
+        public void Update(Account accountToUpdate)
+        {
+            _accountsDb.Update(accountToUpdate);
         }
 
     }

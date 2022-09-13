@@ -13,7 +13,6 @@ namespace SimpleBankAPI.Models.Request
         [Required]
         public int ToAccount { get; set; }
 
-        public DateTime CreatedAt { get; set; }
 
         public static Transfer FromTransferRequestToTransfer(TransferRequest transferRequest)
         {
@@ -23,7 +22,7 @@ namespace SimpleBankAPI.Models.Request
                 Amount = transferRequest.Amount,
                 Fromaccountid = transferRequest.FromAccount,
                 Toaccountid = transferRequest.ToAccount,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
             };
             return transfer;
         }

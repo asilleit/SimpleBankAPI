@@ -18,5 +18,10 @@ namespace SimpleBankAPI.Data
             return user;
         }
 
+        public async Task<User> GetByUsername(string userName)
+        {
+            return await _db.Users.FirstOrDefaultAsync(u => u.Username == userName);
+        }
+
     }
 }

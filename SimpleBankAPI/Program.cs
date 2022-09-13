@@ -25,6 +25,9 @@ builder.Services.AddTransient<IUsersDb, UsersDb>();
 builder.Services.AddTransient<IUserBusiness, UserBusiness>();
 builder.Services.AddTransient<IAccountsDb, AccountsDb>();
 builder.Services.AddTransient<IAccountsBusiness, AccountsBusiness>();
+
+builder.Services.AddTransient<ITransfersDb, TransferDb>();
+builder.Services.AddTransient<ITransfersBusiness, TransfersBusiness>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

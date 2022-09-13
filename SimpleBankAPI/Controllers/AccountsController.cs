@@ -59,12 +59,22 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> PostAccount([FromBody] AccountRequest request, [FromHeader] int userId)
         {
-            
-            
-            var createdUser = await _accountsBusiness.Create(request, userId);
+            try
+            {
+                var createdUser = await _accountsBusiness.Create(request, userId);
 
+                return StatusCode(StatusCodes.Status201Created, request);
+            }
+            catch (Exception ex)
+            {
+                switch (ex)
+                {
+                    case ArgumentException: return BadRequest(ex.Message);
+                    default: return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                };
+            }
             
-            return StatusCode(StatusCodes.Status201Created, request);
+
         }
 
        

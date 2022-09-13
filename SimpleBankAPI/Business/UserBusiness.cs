@@ -3,6 +3,7 @@ using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
 using SimpleBankAPI.Models;
+using System.Security.Authentication;
 
 namespace SimpleBankAPI.Business
 {
@@ -26,6 +27,20 @@ namespace SimpleBankAPI.Business
             //Convert user to UserResponse
             var createUserResponse = CreateUserResponse.ToCreateUserResponse(CreatedUser);
             return createUserResponse;
+        }
+        public async Task<User> Login(LoginUserRequest userRequest)
+        {
+            //Validate User Login
+            User user = await _userDb.GetByUsername(userRequest.Username);
+            
+            if ( user is null) { throw new AuthenticationException("User not found"); }
+
+            if(user.Password != userRequest.Password)
+            {
+                throw new AuthenticationException("Error Password");
+            }
+
+            return user;
         }
     }
 }

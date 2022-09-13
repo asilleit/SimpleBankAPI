@@ -6,6 +6,7 @@ using System.Transactions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
@@ -17,10 +18,12 @@ namespace SimpleBankAPI.Controllers
     public class TransfersController : ControllerBase
     {
         private readonly postgresContext _context;
+        protected ITransfersBusiness _transfersBusiness;
 
-        public TransfersController(postgresContext context)
+        public TransfersController(postgresContext context, ITransfersBusiness transfersBusiness)
         {
             _context = context;
+            _transfersBusiness = transfersBusiness;
         }
 
         //// GET: Transfers
@@ -39,32 +42,25 @@ namespace SimpleBankAPI.Controllers
         // POST: Transfers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Transfer>> PostTransfer(int id, Transfer transfer)
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> PostTransfer([FromHeader] int id, [FromBody] TransferRequest transfer)
         {
-            if (id != transfer.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(transfer).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                var response = await _transfersBusiness.Create(transfer);
+                return StatusCode(StatusCodes.Status201Created, response);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
-                if (!TransferExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
-            return NoContent();
+
         }
         private bool TransferExists(int id)
         {
