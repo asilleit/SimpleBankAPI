@@ -4,8 +4,6 @@ namespace SimpleBankAPI.Models.Request
 {
     public class CreateUserRequest
     {
-        [Required]
-        public int id { get; set; }
         [Required, EmailAddress]
         public string email { get; set; }
         [Required, MinLength(16)]
@@ -19,7 +17,6 @@ namespace SimpleBankAPI.Models.Request
         {
             var user = new User()
             {
-                Id = request.id,
                 Username = request.UserName,
                 Email = request.email,
                 Password = request.Password,

@@ -6,7 +6,6 @@ namespace SimpleBankAPI.Models.Response
 {
     public class CreateUserResponse
     {
-        [Required, DefaultValue("1")]
         public int UserId { get; set; }
         [Required, DefaultValue("string")]
         public DateTime CreatedAt { get; set; }

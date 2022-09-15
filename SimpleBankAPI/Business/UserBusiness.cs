@@ -17,18 +17,14 @@ namespace SimpleBankAPI.Business
 
         public async Task<CreateUserResponse> Create(CreateUserRequest userRequest)
         {
-           
+            //if (_userDb.GetByUsername(userRequest.UserName) is not null)
+            //{
+            //    throw new ArgumentException("Username cannot be repeated");
+            //}
+
             //UserRequest 
             User user = CreateUserRequest.RequestToUser(userRequest);
 
-            if (_userDb.GetByUsername(userRequest.UserName) is not null)
-            {
-                throw new ArgumentException("Username cannot be repeated");
-            }
-            if (_userDb.GetByUsername(userRequest.UserName) is not null)
-            {
-                throw new ArgumentException("Username cannot be repeated");
-            }
 
             //Persist User
             var CreatedUser = await _userDb.Create(user);
