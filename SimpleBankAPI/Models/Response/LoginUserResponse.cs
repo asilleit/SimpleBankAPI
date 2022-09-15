@@ -12,8 +12,6 @@ namespace SimpleBankAPI.Models.Response
         {
             var userResponse = new LoginUserResponse
             {
-                //AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
-                //AccessTokenExpiresAt = token.ValidTo,
                 User = CreateUserResponse.ToCreateUserResponse(user),
             };
             return userResponse;

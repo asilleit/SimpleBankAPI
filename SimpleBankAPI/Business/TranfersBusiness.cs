@@ -2,6 +2,7 @@
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
+using SimpleBankAPI.Models.Response;
 using System.Security.Authentication;
 using System.Transactions;
 
@@ -24,27 +25,25 @@ namespace SimpleBankAPI.Business
             var fromAccount = await _accountsDb.GetById(transfer.Fromaccountid);
             var toAccount = await _accountsDb.GetById(transfer.Toaccountid);
 
-            //Validate Account belongs to user
-            //if (fromAccount.UserId != userId) throw new AuthenticationException("Account owner and user dont match");
-            //Validate Accounts have some currency
-            if (fromAccount.Currency != toAccount.Currency) throw new ArgumentException("Currency of destination account is different from origin account");
-            //Validate Account have enough funds
-            if (fromAccount.Balance < transfer.Amount) throw new ArgumentException("Insufficient funds to make transfer");
+            //Validate Balance
+            if (fromAccount.Balance < transfer.Amount) throw new ArgumentException("Insufficient funds");
+            if(fromAccount is null || toAccount is null) throw new ArgumentException("Accounts not valid");
 
             await _transfersDb.Create(transfer);
 
             var amount = transfer.Amount;
-            //
+            
+            //Debit update account
             toAccount.Balance += amount;
             await _accountsDb.Update(toAccount);
 
+            //Credit update account
             amount = amount * -1;
-
             toAccount.Balance += amount;
             await _accountsDb.Update(fromAccount);
 
-
-            return "transfer completed";
+            return "Transfer completed";
         }
+
     }
 }

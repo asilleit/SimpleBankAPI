@@ -28,39 +28,6 @@ namespace SimpleBankAPI.Controllers
             _userBusiness = userBusiness;
         }
 
-        //// GET: Users
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        //{
-        //  if (_context.Users == null)
-        //  {
-        //      return NotFound();
-        //  }
-        //    return await _context.Users.ToListAsync();
-        //}
-
-        //// GET: Users/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<User>> GetUser(int id)
-        //{
-        //  if (_context.Users == null)
-        //  {
-        //      return NotFound();
-        //  }
-        //    var user = await _context.Users.FindAsync(id);
-
-        //    if (user == null || !UserExists(id))
-        //    {
-        //        return NotFound();
-        //    }
-
-
-        //    return Ok(user.Id + " "+ 
-        //        user.Username);
-        //}
-
-
-
         // POST: v1/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost(Name="CreateUser")]
@@ -75,25 +42,15 @@ namespace SimpleBankAPI.Controllers
                 var createdUser = await _userBusiness.Create(request);
 
                 return StatusCode(StatusCodes.Status201Created, request);
-
-                //User user = CreateUserRequest.RequestToUser(request);
-                //_context.Users.Add(user);
-                //await _context.SaveChangesAsync();
-
-                //return Ok(new CreateUserResponse
-                //    {
-                //        UserId = request.id,
-                //        Username = request.UserName,
-                //        Email = request.email,
-                //        FullName = request.FullName
-                //    });
-
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, "Bad Request");
-                //return StatusCode(StatusCodes.Status500InternalServerError, "Server Error");
-                //return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                switch (ex)
+                {
+                    case ArgumentException: return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                    default:
+                        return StatusCode(StatusCodes.Status400BadRequest, "Bad Request");
+                }
             }
         }
 
@@ -115,13 +72,13 @@ namespace SimpleBankAPI.Controllers
             {
                 switch (ex)
                 {
-                    case ArgumentException: return BadRequest(ex.Message);
-                    default: return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                    case ArgumentException: 
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                    default: 
+                        return StatusCode(StatusCodes.Status400BadRequest, "Bad request");
                 };
             }
         }
-
-
         private bool UserExists(int id)
         {
             return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();

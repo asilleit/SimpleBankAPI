@@ -27,7 +27,7 @@ namespace SimpleBankAPI.Models.Response
                 CreatedAt = user.CreatedAt,
                 Email = user.Email,
                 FullName = user.FullName,
-                PasswordChangedAt = DateTime.Today,
+                PasswordChangedAt = DateTime.UtcNow,
                 Username = user.Username,
 
             };

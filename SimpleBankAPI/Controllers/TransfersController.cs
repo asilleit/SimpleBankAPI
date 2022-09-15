@@ -26,19 +26,6 @@ namespace SimpleBankAPI.Controllers
             _transfersBusiness = transfersBusiness;
         }
 
-        //// GET: Transfers
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Transfer>>> GetTransfers()
-        //{
-        //  if (_context.Transfers == null)
-        //  {
-        //      return NotFound();
-        //  }
-        //    return await _context.Transfers.ToListAsync();
-        //}
-
-        
-
         // POST: Transfers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -52,15 +39,22 @@ namespace SimpleBankAPI.Controllers
             try
             {
                 var response = await _transfersBusiness.Create(transfer);
+                if (response is null)
+                {
+                    return BadRequest(StatusCodes.Status400BadRequest);
+                }
                 return StatusCode(StatusCodes.Status201Created, response);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                switch (ex)
+                {
+                    case  ArgumentException:
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                    default:
+                        return StatusCode(StatusCodes.Status400BadRequest, "Bad Request");
+                }
             }
-
-
         }
         private bool TransferExists(int id)
         {

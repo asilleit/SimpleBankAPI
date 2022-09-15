@@ -20,7 +20,7 @@ namespace SimpleBankAPI.Business
             //AccountRequest 
             if (accountRequest.Amount < 0)
             {
-                throw new ArgumentException("amount or currency not valid");
+                throw new ArgumentException("Amount invalid");
             }
 
             Account accont = AccountRequest.FromUserRequestToAccount(accountRequest, userId);
@@ -36,13 +36,20 @@ namespace SimpleBankAPI.Business
 
         public async Task<List<Account>> GetAccountsByUser(int userId)
         {
-            return await _accountsDb.GetAccountsByUser(userId);
+            if (_accountsDb.GetAccountsByUser(userId) is not null)
+            {
+                return await _accountsDb.GetAccountsByUser(userId);
+            }
+            throw new ArgumentException("Account not found");
         }
 
         public async Task<Account> GetById(int accountId)
         {
-            return await _accountsDb.GetById(accountId);
-
+            if(_accountsDb.GetById(accountId) is not null)
+            {
+                return await _accountsDb.GetById(accountId);
+            }
+            throw new ArgumentException("Account not found");
         }
 
         public void Update(Account accountToUpdate)

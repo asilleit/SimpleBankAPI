@@ -4,14 +4,14 @@
     {
         public decimal Amount { get; set; }
         public DateTime CreatedAt { get; set; }
-        public static TransferResponse ResponseToTransfer(TransferResponse movement)
+        public static TransferResponse ResponseToTransfer(TransferResponse transferResponse)
         {
-            var movim = new TransferResponse
+            var transfer = new TransferResponse
             {
-                Amount = movement.Amount,
-                CreatedAt = movement.CreatedAt,
+                Amount = transferResponse.Amount,
+                CreatedAt = transferResponse.CreatedAt,
             };
-            return movim;
+            return transfer;
         }
 
 

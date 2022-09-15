@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -32,8 +33,8 @@ namespace SimpleBankAPI.Controllers
         // GET: api/Accounts
         [HttpGet]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(List<AccountResponse>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<Account>>> GetAccounts([FromHeader] int userId)
         {
@@ -73,12 +74,7 @@ namespace SimpleBankAPI.Controllers
                     default: return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
                 };
             }
-            
-
         }
-
-       
-
 
         // GET: Accounts/5
         [HttpGet("{id}")]
@@ -86,26 +82,27 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById([FromBody] int id)
         {
             try
             {
-                //Get user Id from token
-
-
+                //Get Account ID
                 var account = await _accountsBusiness.GetById(id);
-
-                //Validate account exists
-                //if (account == null) return StatusCode(StatusCodes.Status404NotFound, "Account not found");
-                //validate account belongs to user
-                //if (account.UserId != id) return StatusCode(StatusCodes.Status401Unauthorized, "User LoggedIn and account dont match");
 
                 var accountResponse = AccountResponse.ToAcountResponse(account);
                 return StatusCode(StatusCodes.Status200OK, accountResponse);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                switch (ex)
+                {
+                    case AuthenticationException:
+                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
+                    case ArgumentException:
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                    default:
+                        return StatusCode(StatusCodes.Status400BadRequest, "Bad request");
+                }
             }
         }
         private bool AccountExists(int id)
