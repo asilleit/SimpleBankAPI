@@ -12,6 +12,7 @@ using SimpleBankAPI.Models;
 using SimpleBankAPI.Data;
 using SimpleBankAPI.Business;
 using SimpleBankAPI.Interfaces;
+using System.Buffers.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 

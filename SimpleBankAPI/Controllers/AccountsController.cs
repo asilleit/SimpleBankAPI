@@ -82,7 +82,7 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetById([FromBody] int id)
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace SimpleBankAPI.Controllers
                 var account = await _accountsBusiness.GetById(id);
 
                 var accountResponse = AccountResponse.ToAcountResponse(account);
-                return StatusCode(StatusCodes.Status200OK, accountResponse);
+                return StatusCode(StatusCodes.Status201Created, accountResponse);
             }
             catch (Exception ex)
             {

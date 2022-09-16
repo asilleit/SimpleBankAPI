@@ -10,7 +10,6 @@ namespace SimpleBankAPI.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
         public int UserId { get; set; }
         public decimal Balance { get; set; }
         [MinLength(3), DefaultValue("EUR")]
