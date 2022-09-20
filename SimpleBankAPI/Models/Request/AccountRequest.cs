@@ -20,10 +20,7 @@ namespace SimpleBankAPI.Models.Request
                 CreatedAt = DateTime.UtcNow,
                 Currency = accontReq.Currency,
                 UserId = userId,
-
             };
-
-
             return account;
         }
     }

@@ -16,7 +16,6 @@ namespace SimpleBankAPI.Models.Request
             {
                 Username = request.Username,
                 Password = request.Password
-
             };
             return user;
         }

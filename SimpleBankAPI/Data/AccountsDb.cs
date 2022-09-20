@@ -3,10 +3,12 @@ using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models;
 using static Dapper.SqlMapper;
 
+
 namespace SimpleBankAPI.Data
 {
     public class AccountsDb : BaseDb<Account>, IAccountsDb
     {
+
         public AccountsDb(DbContextOptions<postgresContext> options) : base(options)
         {
         }

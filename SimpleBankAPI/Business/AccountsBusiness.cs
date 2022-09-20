@@ -3,6 +3,7 @@ using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Data;
 using SimpleBankAPI.Models.Response;
+using System.Transactions;
 
 namespace SimpleBankAPI.Business
 {
@@ -14,24 +15,42 @@ namespace SimpleBankAPI.Business
             _accountsDb = accountsDb;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountRequest"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public async Task<AccountResponse> Create(AccountRequest accountRequest, int userId)
         {
-            //Validate arguments
-            //AccountRequest 
-            if (accountRequest.Amount < 0)
+            using (TransactionScope transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                throw new ArgumentException("Amount invalid");
+                try
+                {
+                //Validate arguments
+                //AccountRequest 
+                if (accountRequest.Amount < 0)
+                {
+                    throw new ArgumentException("Amount invalid");
+                }
+
+                Account accont = AccountRequest.FromUserRequestToAccount(accountRequest, userId);
+
+                //Persist account
+                var CreatedAccont = await _accountsDb.Create(accont);
+
+                //Convert account to UserResponse
+
+                var createAccountResponse = AccountResponse.ToAcountResponse(CreatedAccont);
+                return createAccountResponse;
+                }
+                catch (Exception ex)
+                {
+                    Transaction.Current.Rollback();
+                    throw new ArgumentException(ex.ToString());
+                }
             }
-
-            Account accont = AccountRequest.FromUserRequestToAccount(accountRequest, userId);
-
-            //Persist account
-            var CreatedAccont = await _accountsDb.Create(accont);
-
-            //Convert account to UserResponse
-
-            var createAccountResponse = AccountResponse.ToAcountResponse(CreatedAccont);
-            return createAccountResponse;
         }
 
         public async Task<List<Account>> GetAccountsByUser(int userId)
@@ -49,7 +68,7 @@ namespace SimpleBankAPI.Business
             //if(await _accountsDb.GetById(accountId) is not null)
           //  {
                 return await _accountsDb.GetById(accountId);
-            }
+           // }
             throw new ArgumentException("Account not found");
         }
 

@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SimpleBankAPI.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimpleBankAPI.Models.Request
 {
     public class TransferRequest
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         public decimal Amount { get; set; }
         [Required]
@@ -18,7 +17,6 @@ namespace SimpleBankAPI.Models.Request
         {
             var transfer = new Transfer
             {
-                Id = transferRequest.Id,
                 Amount = transferRequest.Amount,
                 Fromaccountid = transferRequest.FromAccount,
                 Toaccountid = transferRequest.ToAccount,

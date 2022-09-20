@@ -20,30 +20,43 @@ namespace SimpleBankAPI.Business
         }
         public async Task<string> Create(TransferRequest transferRequest)
         {
-            //Convert TransferRequest to Transfer
-            var transfer = TransferRequest.FromTransferRequestToTransfer(transferRequest);
-            var fromAccount = await _accountsDb.GetById(transfer.Fromaccountid);
-            var toAccount = await _accountsDb.GetById(transfer.Toaccountid);
+            try
+            {
+                using (TransactionScope transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    //Convert TransferRequest to Transfer
+                    var transfer = TransferRequest.FromTransferRequestToTransfer(transferRequest);
+                    var fromAccount = await _accountsDb.GetById(transfer.Fromaccountid);
+                    var toAccount = await _accountsDb.GetById(transfer.Toaccountid);
 
-            //Validate Balance
-            if (fromAccount.Balance < transfer.Amount) throw new ArgumentException("Insufficient funds");
-            if(fromAccount is null || toAccount is null) throw new ArgumentException("Accounts not valid");
 
-            await _transfersDb.Create(transfer);
+                    //Validate Balance
+                    if (fromAccount.Balance < transfer.Amount) throw new ArgumentException("Insufficient funds from your account");
+                    if (fromAccount is null || toAccount is null) throw new ArgumentException("Accounts not valid");
 
-            var amount = transfer.Amount;
-            
-            //Debit update account
-            toAccount.Balance += amount;
-            await _accountsDb.Update(toAccount);
+                    await _transfersDb.Create(transfer);
+                    //throw new ArgumentException("Transferencia terminada valida");
+                    var amount = transfer.Amount;
 
-            //Credit update account
-            amount = amount * -1;
-            toAccount.Balance += amount;
-            await _accountsDb.Update(fromAccount);
+                    //Debit update account
+                    toAccount.Balance += amount;
+                    //colocar exceção para validar os inserts!! para apanhar o transation
+                    await _accountsDb.Update(toAccount);
 
-            return "Transfer completed";
+                    //Credit update account
+                    amount = amount * -1;
+                    toAccount.Balance += amount;
+                    await _accountsDb.Update(fromAccount);
+
+                    transactionScope.Complete();
+                    return "Transfer completed";
+                }
+            }
+            catch (Exception ex)
+            {
+                Transaction.Current.Rollback();
+                throw new ArgumentException(ex.ToString());
+            }      
         }
-
     }
 }

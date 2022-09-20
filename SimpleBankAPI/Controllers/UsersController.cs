@@ -19,6 +19,7 @@ namespace SimpleBankAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+
         private readonly postgresContext _context;
         protected IUserBusiness _userBusiness;
 
@@ -27,6 +28,8 @@ namespace SimpleBankAPI.Controllers
             _context = context;
             _userBusiness = userBusiness;
         }
+
+
 
         // POST: v1/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
