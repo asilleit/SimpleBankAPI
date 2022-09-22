@@ -2,75 +2,157 @@
 using SimpleBankAPI.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SimpleBankAPI.JWT
 {
     public class JwtAuth : IJwtAuth 
     {
         private static string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
-        public JwtSecurityToken GenerateUserToken(User username)
-        {
-            byte[] key = Convert.FromBase64String(Secret);
-            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
-            SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[] {
-                     new Claim(ClaimTypes.Name, username.Username)}),
-                Expires = DateTime.UtcNow.AddMinutes(30),
-                SigningCredentials = new SigningCredentials(securityKey,
-                SecurityAlgorithms.HmacSha256Signature)
-            };
+        private readonly IConfiguration _config;
 
-            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-            JwtSecurityToken token = handler.CreateJwtSecurityToken(descriptor);
-            return token;
-        }
-        public ClaimsPrincipal GetPrincipal(string token)
+        public JwtAuth(IConfiguration configuration)
         {
-            try
-            {
-                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-                JwtSecurityToken jwtToken = (JwtSecurityToken)tokenHandler.ReadToken(token);
-                if (jwtToken == null)
-                    return null;
-                byte[] key = Convert.FromBase64String(Secret);
-                TokenValidationParameters parameters = new TokenValidationParameters()
-                {
-                    RequireExpirationTime = true,
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
-                };
-                SecurityToken securityToken;
-                ClaimsPrincipal principal = tokenHandler.ValidateToken(token,
-                      parameters, out securityToken);
-                return principal;
-            }
-            catch
-            {
-                return null;
-            }
+            _config = configuration;
         }
-        //public static string ValidateToken(string token)
+        //public JwtSecurityToken GenerateUserToken(User username)
         //{
-        //    string username = null;
-        //    ClaimsPrincipal principal = GetPrincipal(token);
-        //    if (principal == null)
-        //        return null;
-        //    ClaimsIdentity identity = null;
+        //    byte[] key = Convert.FromBase64String(Secret);
+        //    SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
+        //    SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
+        //    {
+        //        Subject = new ClaimsIdentity(new[] {
+        //             new Claim(ClaimTypes.Name, username.Username)}),
+        //        Expires = DateTime.UtcNow.AddMinutes(30),
+        //        SigningCredentials = new SigningCredentials(securityKey,
+        //        SecurityAlgorithms.HmacSha256Signature)
+        //    };
+
+        //    JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+        //    JwtSecurityToken token = handler.CreateJwtSecurityToken(descriptor);
+        //    return token;
+        //}
+        //public ClaimsPrincipal GetPrincipal(string token)
+        //{
         //    try
         //    {
-        //        identity = (ClaimsIdentity)principal.Identity;
+        //        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        //        JwtSecurityToken jwtToken = (JwtSecurityToken)tokenHandler.ReadToken(token);
+        //        if (jwtToken == null)
+        //            return null;
+        //        byte[] key = Convert.FromBase64String(Secret);
+        //        TokenValidationParameters parameters = new TokenValidationParameters()
+        //        {
+        //            RequireExpirationTime = true,
+        //            ValidateIssuer = false,
+        //            ValidateAudience = false,
+        //            IssuerSigningKey = new SymmetricSecurityKey(key)
+        //        };
+        //        SecurityToken securityToken;
+        //        ClaimsPrincipal principal = tokenHandler.ValidateToken(token,
+        //              parameters, out securityToken);
+        //        return principal;
         //    }
-        //    catch (NullReferenceException)
+        //    catch
         //    {
         //        return null;
         //    }
-        //    Claim usernameClaim = identity.FindFirst(ClaimTypes.Name);
-        //    username = usernameClaim.Value;
-        //    return username;
         //}
+        ////public static string ValidateToken(string token)
+        ////{
+        ////    string username = null;
+        ////    ClaimsPrincipal principal = GetPrincipal(token);
+        ////    if (principal == null)
+        ////        return null;
+        ////    ClaimsIdentity identity = null;
+        ////    try
+        ////    {
+        ////        identity = (ClaimsIdentity)principal.Identity;
+        ////    }
+        ////    catch (NullReferenceException)
+        ////    {
+        ////        return null;
+        ////    }
+        ////    Claim usernameClaim = identity.FindFirst(ClaimTypes.Name);
+        ////    username = usernameClaim.Value;
+        ////    return username;
+        ////}
 
-     
-}
+        private JwtSecurityToken CreateJwtToken(IEnumerable<Claim> claims)
+        {
+
+
+            SymmetricSecurityKey authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Secret"]));
+            SigningCredentials credentials = new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256);
+
+            // Create SecurityToken
+            JwtSecurityToken token = new JwtSecurityToken(
+                _config["Jwt:Issuer"],
+                _config["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: credentials);
+
+            return token;
+        }
+
+        public JwtSecurityToken CreateJwtToken(User user)
+        {
+            
+            // Prepare authorization claims
+            var claims = new List<Claim>
+                {
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Name, user.Username),
+                    new Claim("user", user.Id.ToString())
+                };
+
+            return CreateJwtToken(claims);
+        }
+
+        public string CreateUserRefreshToken()
+        {
+            var refreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+            return refreshToken;
+
+        }
+
+        public string GetClaimFromToken(string authToken, string claimName)
+        {
+            authToken = authToken.Replace("Bearer ", ""); // remove Bearer prefix
+            JwtSecurityToken token = new JwtSecurityToken(authToken);
+
+            return token.Claims.FirstOrDefault(claim => claim.Type == claimName).Value;
+        }
+
+        private TokenValidationParameters GetTokenValidationParameters()
+        {
+            TokenValidationParameters tokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                RequireSignedTokens = true,
+                RequireExpirationTime = true,
+                ValidIssuer = _config["Jwt:Issuer"],
+                ValidAudience = _config["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Secret"]))
+            };
+            return tokenValidationParameters;
+        }
+
+        public bool TokenIsValid(string authToken)
+        {
+            TokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            TokenValidationParameters validationParameters = GetTokenValidationParameters();
+            Task<TokenValidationResult> tokenValidationResult = tokenHandler.ValidateTokenAsync(authToken, validationParameters);
+            if (tokenValidationResult.Result.IsValid)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
 }

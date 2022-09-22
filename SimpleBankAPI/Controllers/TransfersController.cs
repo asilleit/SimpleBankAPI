@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Transactions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleBankAPI.Interfaces;
+using SimpleBankAPI.JWT;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
@@ -19,11 +23,13 @@ namespace SimpleBankAPI.Controllers
     {
         private readonly postgresContext _context;
         protected ITransfersBusiness _transfersBusiness;
+        protected IJwtAuth _jwtAuth;
 
-        public TransfersController(postgresContext context, ITransfersBusiness transfersBusiness)
+        public TransfersController(postgresContext context, ITransfersBusiness transfersBusiness, IJwtAuth jwtAuth)
         {
             _context = context;
             _transfersBusiness = transfersBusiness;
+            _jwtAuth = jwtAuth;
         }
 
         // POST: Transfers
@@ -34,11 +40,14 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PostTransfer([FromHeader] int id, [FromBody] TransferRequest transfer)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> PostTransfer([FromHeader] string Authorization, [FromBody] TransferRequest transfer)
         {
+
             try
             {
-                var response = await _transfersBusiness.Create(transfer, id);
+                int userId = int.Parse(_jwtAuth.GetClaimFromToken(Authorization, "user"));
+                var response = await _transfersBusiness.Create(transfer, userId);
                 if (response is null)
                 {
                     return BadRequest(StatusCodes.Status400BadRequest);

@@ -62,7 +62,6 @@ namespace SimpleBankAPI.Controllers
             }
         }
 
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("login", Name = "Login")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status201Created)]
@@ -72,9 +71,9 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                User user = await _userBusiness.Login(userRequest);
+                var user = await _userBusiness.Login(userRequest);
 
-                JwtSecurityToken token = _jwtAuth.GenerateUserToken(user);
+               JwtSecurityToken token = _jwtAuth.CreateJwtToken(user);
 
                 var userResponse = LoginUserResponse.FromUserToLoginUserResponse(user, token);
                 return StatusCode(StatusCodes.Status201Created, userResponse);
