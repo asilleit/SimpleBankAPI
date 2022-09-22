@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using SimpleBankAPI.Business;
 using SimpleBankAPI.Data;
 using SimpleBankAPI.Interfaces;
+using SimpleBankAPI.JWT;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
@@ -24,10 +25,12 @@ namespace SimpleBankAPI.Controllers
     {
         private readonly postgresContext _context;
         protected IAccountsBusiness _accountsBusiness;
-        public AccountsController(postgresContext context, IAccountsBusiness accountsBusiness)
+        protected IJwtAuth _jwtAuth;
+        public AccountsController(postgresContext context, IAccountsBusiness accountsBusiness, IJwtAuth jwtAuth)
         {
             _context = context;
             _accountsBusiness = accountsBusiness;
+            _jwtAuth = jwtAuth;
         }
 
         // GET: api/Accounts
@@ -36,10 +39,12 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAccounts([FromHeader] int userId)
+        public async Task<ActionResult<IEnumerable<Account>>> GetAccounts([FromHeader] string token)
         {
             try
             {
+                //int userId = int.Parse(_jwtAuth.GetClaimFromToken(token));
+                int userId = 2;
                 var accounts = await _accountsBusiness.GetAccountsByUser(userId);
                 var accountResponseList = AccountResponse.FromListAccountsUser(accounts);
                 return StatusCode(StatusCodes.Status201Created, accountResponseList);
@@ -53,15 +58,19 @@ namespace SimpleBankAPI.Controllers
 
         // POST: api/Accounts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Produces("application/json")]
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PostAccount([FromBody] AccountRequest request, [FromHeader] int userId)
+        public async Task<IActionResult> PostAccount([FromBody] AccountRequest request, [FromHeader] string authorization)
         {
             try
             {
+                int userId = 1;
+                    //int.Parse(_jwtAuth.GetClaimFromToken(authorization));
+
                 var createdUser = await _accountsBusiness.Create(request, userId);
 
                 return StatusCode(StatusCodes.Status201Created, request);

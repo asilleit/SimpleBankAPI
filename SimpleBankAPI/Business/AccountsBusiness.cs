@@ -7,7 +7,7 @@ using System.Transactions;
 
 namespace SimpleBankAPI.Business
 {
-    public class AccountsBusiness : IAccountsBusiness
+    public class AccountsBusiness : IAccountsBusiness 
     {
         protected IAccountsDb _accountsDb;
         public AccountsBusiness(IAccountsDb accountsDb)
@@ -47,6 +47,7 @@ namespace SimpleBankAPI.Business
                 }
                 catch (Exception ex)
                 {
+                    transactionScope.Dispose();
                     Transaction.Current.Rollback();
                     throw new ArgumentException(ex.ToString());
                 }

@@ -5,7 +5,7 @@ namespace SimpleBankAPI.Interfaces
 {
     public interface ITransfersBusiness
     {
-        Task<string> Create(TransferRequest transfer);
+        Task<string> Create(TransferRequest transfer, int id);
 
     }
 }

@@ -38,7 +38,7 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                var response = await _transfersBusiness.Create(transfer);
+                var response = await _transfersBusiness.Create(transfer, id);
                 if (response is null)
                 {
                     return BadRequest(StatusCodes.Status400BadRequest);

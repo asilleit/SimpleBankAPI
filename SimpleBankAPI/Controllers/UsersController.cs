@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NpgsqlTypes;
 using SimpleBankAPI.Interfaces;
+using SimpleBankAPI.JWT;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
@@ -22,11 +25,13 @@ namespace SimpleBankAPI.Controllers
 
         private readonly postgresContext _context;
         protected IUserBusiness _userBusiness;
+        protected IJwtAuth _jwtAuth;
 
-        public UsersController(postgresContext context, IUserBusiness userBusiness)
+        public UsersController(postgresContext context, IUserBusiness userBusiness, IJwtAuth jwtAuth)
         {
             _context = context;
             _userBusiness = userBusiness;
+            _jwtAuth = jwtAuth;
         }
 
 
@@ -57,6 +62,7 @@ namespace SimpleBankAPI.Controllers
             }
         }
 
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("login", Name = "Login")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status201Created)]
@@ -66,9 +72,11 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                var user = await _userBusiness.Login(userRequest);
+                User user = await _userBusiness.Login(userRequest);
 
-                var userResponse = LoginUserResponse.FromUserToLoginUserResponse(user);
+                JwtSecurityToken token = _jwtAuth.GenerateUserToken(user);
+
+                var userResponse = LoginUserResponse.FromUserToLoginUserResponse(user, token);
                 return StatusCode(StatusCodes.Status201Created, userResponse);
             }
             catch (Exception ex)

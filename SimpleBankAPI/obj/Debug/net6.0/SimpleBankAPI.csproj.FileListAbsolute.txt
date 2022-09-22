@@ -1058,3 +1058,4 @@ C:\Users\asilleit\source\repos\SimpleBankAPIV1\SimpleBankAPI\obj\Debug\net6.0\re
 C:\Users\asilleit\source\repos\SimpleBankAPIV1\SimpleBankAPI\obj\Debug\net6.0\SimpleBankAPI.pdb
 C:\Users\asilleit\source\repos\SimpleBankAPIV1\SimpleBankAPI\obj\Debug\net6.0\SimpleBankAPI.genruntimeconfig.cache
 C:\Users\asilleit\source\repos\SimpleBankAPIV1\SimpleBankAPI\obj\Debug\net6.0\ref\SimpleBankAPI.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

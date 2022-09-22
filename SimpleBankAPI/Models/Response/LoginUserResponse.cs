@@ -8,10 +8,12 @@ namespace SimpleBankAPI.Models.Response
         public DateTime AccessTokenExpiresAt { get; set; }
         public CreateUserResponse User { get; set; }
 
-        public static LoginUserResponse FromUserToLoginUserResponse(User user)
+        public static LoginUserResponse FromUserToLoginUserResponse(User user, JwtSecurityToken token)
         {
             var userResponse = new LoginUserResponse
             {
+                AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
+                AccessTokenExpiresAt = token.ValidFrom,
                 User = CreateUserResponse.ToCreateUserResponse(user),
             };
             return userResponse;

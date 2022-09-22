@@ -18,7 +18,7 @@ namespace SimpleBankAPI.Business
             _transfersDb = transfersDb;
             _accountsDb = accountsDb;
         }
-        public async Task<string> Create(TransferRequest transferRequest)
+        public async Task<string> Create(TransferRequest transferRequest, int userId)
         {
             try
             {
@@ -30,9 +30,11 @@ namespace SimpleBankAPI.Business
                     var toAccount = await _accountsDb.GetById(transfer.Toaccountid);
 
 
-                    //Validate Balance
-                    if (fromAccount.Balance < transfer.Amount) throw new ArgumentException("Insufficient funds from your account");
+                    //Validates
+                    if (fromAccount.UserId != userId) throw new AuthenticationException("Account owner and user dont match");
                     if (fromAccount is null || toAccount is null) throw new ArgumentException("Accounts not valid");
+                    if (fromAccount.Balance < transfer.Amount) throw new ArgumentException("Insufficient funds from your account");
+                    if (fromAccount.Currency != toAccount.Currency) throw new ArgumentException("Currency isn't the same");                 
 
                     await _transfersDb.Create(transfer);
                     //throw new ArgumentException("Transferencia terminada valida");
@@ -54,7 +56,7 @@ namespace SimpleBankAPI.Business
             }
             catch (Exception ex)
             {
-                Transaction.Current.Rollback();
+
                 throw new ArgumentException(ex.ToString());
             }      
         }
