@@ -108,7 +108,19 @@ namespace SimpleBankAPI.JWT
                     new Claim("user", user.Id.ToString())
                 };
 
-            return CreateJwtToken(claims);
+            SymmetricSecurityKey authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Secret"]));
+            SigningCredentials credentials = new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256);
+
+            // Create SecurityToken
+            JwtSecurityToken token = new JwtSecurityToken(
+                _config["Jwt:Issuer"],
+                _config["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: credentials);
+
+            return token;
+
         }
 
         public string CreateUserRefreshToken()
@@ -118,7 +130,7 @@ namespace SimpleBankAPI.JWT
 
         }
 
-        public string GetClaimFromToken(string authToken, string claimName)
+        public string GetClaim(string authToken, string claimName)
         {
             authToken = authToken.Replace("Bearer ", ""); // remove Bearer prefix
             JwtSecurityToken token = new JwtSecurityToken(authToken);

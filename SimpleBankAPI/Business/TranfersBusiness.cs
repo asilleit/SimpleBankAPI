@@ -20,11 +20,9 @@ namespace SimpleBankAPI.Business
         }
         public async Task<string> Create(TransferRequest transferRequest, int userId)
         {
-            try
-            {
+
                 using (TransactionScope transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-
                     //Convert TransferRequest to Transfer
                     var transfer = TransferRequest.FromTransferRequestToTransfer(transferRequest);
                     var fromAccount = await _accountsDb.GetById(transfer.Fromaccountid);
@@ -32,7 +30,7 @@ namespace SimpleBankAPI.Business
 
 
                     //Validates
-                    if (fromAccount.UserId != userId) throw new AuthenticationException("Account owner and user dont match");
+                    if (fromAccount.UserId != userId) throw new AuthenticationException("User don't owner account");
                     if (fromAccount is null || toAccount is null) throw new ArgumentException("Accounts not valid");
                     if (fromAccount.Balance < transfer.Amount) throw new ArgumentException("Insufficient funds from your account");
                     if (fromAccount.Currency != toAccount.Currency) throw new ArgumentException("Currency isn't the same");                 
@@ -54,12 +52,7 @@ namespace SimpleBankAPI.Business
                     transactionScope.Complete();
                     return "Transfer completed";
                 }
-            }
-            catch (Exception ex)
-            {
-
-                throw new ArgumentException(ex.ToString());
-            }      
+                
         }
     }
 }

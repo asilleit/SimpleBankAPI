@@ -50,10 +50,7 @@ namespace SimpleBankAPI.Business
             
             if ( user is null) { throw new AuthenticationException("User not found"); }
 
-            if(user.Password != userRequest.Password)
-            {
-                throw new ("Error Password");
-            }
+            if(user.Password != userRequest.Password){ throw new ("Error Password"); }
             return user;
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using System.Transactions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,10 +44,10 @@ namespace SimpleBankAPI.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> PostTransfer([FromHeader] string Authorization, [FromBody] TransferRequest transfer)
         {
-
             try
             {
-                int userId = int.Parse(_jwtAuth.GetClaimFromToken(Authorization, "user"));
+
+                int userId = int.Parse(_jwtAuth.GetClaim(Authorization, "user"));
                 var response = await _transfersBusiness.Create(transfer, userId);
                 if (response is null)
                 {
@@ -60,8 +61,10 @@ namespace SimpleBankAPI.Controllers
                 {
                     case  ArgumentException:
                         return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                    case AuthenticationException:
+                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
                     default:
-                        return StatusCode(StatusCodes.Status400BadRequest, "Bad Request");
+                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
                 }
             }
         }

@@ -13,7 +13,7 @@ namespace SimpleBankAPI.JWT
         ///      
         JwtSecurityToken CreateJwtToken(User user);
        // string CreateUserRefreshToken();
-        string GetClaimFromToken(string authToken, string claimName);
+        string GetClaim(string authToken, string claimName);
         bool TokenIsValid(string authToken);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -84,8 +85,10 @@ namespace SimpleBankAPI.Controllers
                 {
                     case ArgumentException: 
                         return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                    default: 
-                        return StatusCode(StatusCodes.Status400BadRequest, "Bad request");
+               case InvalidCastException:
+                    return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                default: 
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
                 };
             }
         }

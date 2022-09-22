@@ -43,7 +43,7 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                //int userId = int.Parse(_jwtAuth.GetClaimFromToken(token));
+                //int userId = int.Parse(_jwtAuth.GetClaim(token));
                 int userId = 2;
                 var accounts = await _accountsBusiness.GetAccountsByUser(userId);
                 var accountResponseList = AccountResponse.FromListAccountsUser(accounts);
@@ -69,7 +69,7 @@ namespace SimpleBankAPI.Controllers
             try
             {
                 int userId = 1;
-                    //int.Parse(_jwtAuth.GetClaimFromToken(authorization));
+                    //int.Parse(_jwtAuth.GetClaim(authorization));
 
                 var createdUser = await _accountsBusiness.Create(request, userId);
 
