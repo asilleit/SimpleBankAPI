@@ -40,11 +40,11 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAccounts([FromHeader] string token)
+        public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
         {
             try
             {
-                int userId = int.Parse(_jwtAuth.GetClaim(token, "user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
                 
                 var accounts = await _accountsBusiness.GetAccountsByUser(userId);
                 var accountResponseList = AccountResponse.FromListAccountsUser(accounts);
@@ -65,11 +65,11 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> PostAccount([FromHeader] string token, [FromBody] AccountRequest request)
+        public async Task<IActionResult> PostAccount([FromBody] AccountRequest request)
         {
             try
             {
-                int userId = int.Parse(_jwtAuth.GetClaim(token, "user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
 
                 var createdUser = await _accountsBusiness.Create(request, userId);
 
@@ -92,11 +92,11 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> GetById(int id, [FromHeader] string token)
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                int userId = int.Parse(_jwtAuth.GetClaim(token, "user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
                 var account = await _accountsBusiness.GetById(id);
                 //Get Account ID
                 if (account.UserId != userId) return StatusCode(StatusCodes.Status401Unauthorized, "User don't have Owner from account");

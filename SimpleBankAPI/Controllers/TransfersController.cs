@@ -42,12 +42,12 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> PostTransfer([FromHeader] string Authorization, [FromBody] TransferRequest transfer)
+        public async Task<IActionResult> PostTransfer([FromBody] TransferRequest transfer)
         {
             try
             {
 
-                int userId = int.Parse(_jwtAuth.GetClaim(Authorization, "user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
                 var response = await _transfersBusiness.Create(transfer, userId);
                 if (response is null)
                 {

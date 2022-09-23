@@ -6,11 +6,6 @@ namespace SimpleBankAPI.JWT
 {
     public interface IJwtAuth
     {
-
-        //public JwtSecurityToken GenerateUserToken(User username);
-        //public ClaimsPrincipal GetPrincipal(string token);
-        ////public string GetToken(string token);
-        ///      
         JwtSecurityToken CreateJwtToken(User user);
        // string CreateUserRefreshToken();
         string GetClaim(string authToken, string claimName);
