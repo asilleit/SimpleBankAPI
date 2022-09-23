@@ -40,8 +40,7 @@ namespace SimpleBankAPI.Business
                 //Persist account
                 var CreatedAccont = await _accountsDb.Create(accont);
 
-                //Convert account to UserResponse
-
+                //UserResponse
                 var createAccountResponse = AccountResponse.ToAcountResponse(CreatedAccont);
                 return createAccountResponse;
                 }

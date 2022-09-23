@@ -36,13 +36,13 @@ namespace SimpleBankAPI.Controllers
         }
 
 
-
         // POST: v1/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost(Name="CreateUser")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
@@ -52,14 +52,19 @@ namespace SimpleBankAPI.Controllers
 
                 return StatusCode(StatusCodes.Status201Created, request);
             }
+            catch (InvalidCastException ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                switch (ex)
-                {
-                    case ArgumentException: return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                    default:
-                        return StatusCode(StatusCodes.Status400BadRequest, "Bad Request");
-                }
+
+            return StatusCode(StatusCodes.Status401Unauthorized, "Bad Request passou +ersonal");
+
             }
         }
 
@@ -67,6 +72,7 @@ namespace SimpleBankAPI.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> LoginUser([FromBody] LoginUserRequest userRequest)
         {
@@ -85,9 +91,9 @@ namespace SimpleBankAPI.Controllers
                 {
                     case ArgumentException: 
                         return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-               case InvalidCastException:
-                    return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                default: 
+                   case InvalidCastException:
+                        return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+                    default: 
                         return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
                 };
             }

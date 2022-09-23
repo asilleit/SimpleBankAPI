@@ -64,7 +64,7 @@ namespace SimpleBankAPI.Controllers
                     case AuthenticationException:
                         return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
                     default:
-                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
                 }
             }
         }

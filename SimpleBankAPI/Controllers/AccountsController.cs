@@ -39,12 +39,13 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IEnumerable<Account>>> GetAccounts([FromHeader] string token)
         {
             try
             {
-                //int userId = int.Parse(_jwtAuth.GetClaim(token));
-                int userId = 2;
+                int userId = int.Parse(_jwtAuth.GetClaim(token, "user"));
+                
                 var accounts = await _accountsBusiness.GetAccountsByUser(userId);
                 var accountResponseList = AccountResponse.FromListAccountsUser(accounts);
                 return StatusCode(StatusCodes.Status201Created, accountResponseList);
@@ -58,18 +59,17 @@ namespace SimpleBankAPI.Controllers
 
         // POST: api/Accounts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Produces("application/json")]
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PostAccount([FromBody] AccountRequest request, [FromHeader] string authorization)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> PostAccount([FromHeader] string token, [FromBody] AccountRequest request)
         {
             try
             {
-                int userId = 1;
-                    //int.Parse(_jwtAuth.GetClaim(authorization));
+                int userId = int.Parse(_jwtAuth.GetClaim(token, "user"));
 
                 var createdUser = await _accountsBusiness.Create(request, userId);
 
@@ -91,12 +91,16 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetById(int id)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> GetById(int id, [FromHeader] string token)
         {
             try
             {
-                //Get Account ID
+                int userId = int.Parse(_jwtAuth.GetClaim(token, "user"));
                 var account = await _accountsBusiness.GetById(id);
+                //Get Account ID
+                if (account.UserId != userId) return StatusCode(StatusCodes.Status401Unauthorized, "User don't have Owner from account");
+             
 
                 var accountResponse = AccountResponse.ToAcountResponse(account);
                 return StatusCode(StatusCodes.Status201Created, accountResponse);
@@ -110,7 +114,7 @@ namespace SimpleBankAPI.Controllers
                     case ArgumentException:
                         return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
                     default:
-                        return StatusCode(StatusCodes.Status400BadRequest, "Bad request");
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
                 }
             }
         }

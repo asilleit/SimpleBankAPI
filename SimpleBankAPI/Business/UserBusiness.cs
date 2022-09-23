@@ -20,27 +20,31 @@ namespace SimpleBankAPI.Business
         {
             using (TransactionScope transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                try{
+                try
+                {
 
-                    if (await _userDb.GetByUsername(userRequest.UserName) is not null){
-                        throw new ArgumentException("Username cannot be repeated");}
+                    if (await _userDb.GetByUsername(userRequest.UserName) is not null)
+                    {
+                        throw new ArgumentException("Username cannot be repeated");
+                    }
 
-                //UserRequest 
-                User user = CreateUserRequest.RequestToUser(userRequest);
+                    //UserRequest 
+                    User user = CreateUserRequest.RequestToUser(userRequest);
 
-                //Persist User
-                var CreatedUser = await _userDb.Create(user);
+                    //Persist User
+                    var CreatedUser = await _userDb.Create(user);
 
-                //Convert user to UserResponse
-                var createUserResponse = CreateUserResponse.ToCreateUserResponse(CreatedUser);
-                transactionScope.Complete();
-                return createUserResponse;
+                    //Convert user to UserResponse
+                    var createUserResponse = CreateUserResponse.ToCreateUserResponse(CreatedUser);
+                    transactionScope.Complete();
+                    return createUserResponse;
+                }      
+                catch (Exception ex)
+                {
+                    Transaction.Current.Rollback();
+                    throw new ArgumentException(ex.ToString());
                 }
-            catch (Exception ex)
-            {
-                Transaction.Current.Rollback();
-                throw new ArgumentException(ex.ToString());
-            }
+          
             }
         }
         public async Task<User> Login(LoginUserRequest userRequest)
