@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NpgsqlTypes;
+using NuGet.Common;
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.JWT;
 using SimpleBankAPI.Models;
@@ -80,7 +82,7 @@ namespace SimpleBankAPI.Controllers
             {
                 var user = await _userBusiness.Login(userRequest);
 
-               JwtSecurityToken token = _jwtAuth.CreateJwtToken(user);
+                JwtSecurityToken token = _jwtAuth.CreateJwtToken(user);
 
                 var userResponse = LoginUserResponse.FromUserToLoginUserResponse(user, token);
                 return StatusCode(StatusCodes.Status201Created, userResponse);
@@ -98,6 +100,43 @@ namespace SimpleBankAPI.Controllers
                 };
             }
         }
+
+        [HttpPost("revalidate", Name = "revalidate")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(RevalidateResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> RevalidateUser([FromBody] string authorization)
+        {
+            try
+            {
+                //var token = _jwtAuth.GetClaim(userRequest, "user");
+
+
+                //int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+
+                var result = await _userBusiness.Revalidate(authorization);
+                if (result == null)
+                    return StatusCode(StatusCodes.Status404NotFound, "User not found");
+
+
+                var validateResponse = RevalidateResponse.CreateRevalidateResponse(authorization);
+                return StatusCode(StatusCodes.Status200OK, validateResponse);
+            }
+            catch (Exception ex)
+            {
+                switch (ex)
+                {
+                    case ArgumentException:
+                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
+                    case InvalidCastException:
+                        return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+                    default:
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                };
+            }
+        }
+
         private bool UserExists(int id)
         {
             return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();

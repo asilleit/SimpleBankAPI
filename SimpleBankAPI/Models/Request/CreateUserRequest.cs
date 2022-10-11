@@ -21,7 +21,6 @@ namespace SimpleBankAPI.Models.Request
                 Email = request.email,
                 Password = request.Password,
                 FullName = request.FullName
-
             };
             return user;
         }

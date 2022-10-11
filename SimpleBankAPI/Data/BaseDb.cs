@@ -22,9 +22,15 @@ namespace SimpleBankAPI.Data
             return entity;
         }
 
-        
+        public async Task<T> Update(T entityToUpdate)
+        {
+            _db.Update(entityToUpdate);
+            await _db.SaveChangesAsync();
+            return entityToUpdate;
+        }
 
 
-        
+
+
     }
 }

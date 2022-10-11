@@ -28,7 +28,6 @@ namespace SimpleBankAPI.Models.Response
                 FullName = user.FullName,
                 PasswordChangedAt = DateTime.UtcNow,
                 Username = user.Username,
-
             };
             return createUserResponse;
         }

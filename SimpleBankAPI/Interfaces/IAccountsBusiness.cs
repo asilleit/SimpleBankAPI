@@ -9,5 +9,6 @@ namespace SimpleBankAPI.Interfaces
         Task<AccountResponse> Create(AccountRequest accontm, int userId);
         Task<List<Account>> GetAccountsByUser(int userId);
         Task<Account> GetById(int accountId);
+        void Update(Account accountToUpdate);
     }
 }

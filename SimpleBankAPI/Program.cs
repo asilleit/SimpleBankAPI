@@ -24,7 +24,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 //Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle//
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddDbContext<postgresContext>(option => option.UseNpgsql(builder.Configuration["ConnectionStrings:DbConnection"]));
 builder.Services.AddScoped<IDbTransaction>(s =>
 {

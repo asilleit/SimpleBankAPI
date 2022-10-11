@@ -65,10 +65,10 @@ namespace SimpleBankAPI.Business
 
         public async Task<Account> GetById(int accountId)
         {
-            //if(await _accountsDb.GetById(accountId) is not null)
-          //  {
+            if (await _accountsDb.GetById(accountId) is not null)
+            {
                 return await _accountsDb.GetById(accountId);
-           // }
+            }
             throw new ArgumentException("Account not found");
         }
 
@@ -76,6 +76,5 @@ namespace SimpleBankAPI.Business
         {
             _accountsDb.Update(accountToUpdate);
         }
-
     }
 }

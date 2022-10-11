@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Authentication;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -44,8 +45,7 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
-                
+                int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
                 var accounts = await _accountsBusiness.GetAccountsByUser(userId);
                 var accountResponseList = AccountResponse.FromListAccountsUser(accounts);
                 return StatusCode(StatusCodes.Status201Created, accountResponseList);
@@ -61,7 +61,7 @@ namespace SimpleBankAPI.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -73,7 +73,7 @@ namespace SimpleBankAPI.Controllers
 
                 var createdUser = await _accountsBusiness.Create(request, userId);
 
-                return StatusCode(StatusCodes.Status201Created, request);
+                return StatusCode(StatusCodes.Status200OK, request);
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace SimpleBankAPI.Controllers
         // GET: Accounts/5
         [HttpGet("{id}")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -103,7 +103,7 @@ namespace SimpleBankAPI.Controllers
              
 
                 var accountResponse = AccountResponse.ToAcountResponse(account);
-                return StatusCode(StatusCodes.Status201Created, accountResponse);
+                return StatusCode(StatusCodes.Status200OK, accountResponse);
             }
             catch (Exception ex)
             {

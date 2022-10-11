@@ -37,7 +37,7 @@ namespace SimpleBankAPI.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
@@ -53,7 +53,7 @@ namespace SimpleBankAPI.Controllers
                 {
                     return BadRequest(StatusCodes.Status400BadRequest);
                 }
-                return StatusCode(StatusCodes.Status201Created, response);
+                return StatusCode(StatusCodes.Status200OK, response);
             }
             catch (Exception ex)
             {

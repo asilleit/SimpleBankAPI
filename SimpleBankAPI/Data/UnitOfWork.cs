@@ -19,8 +19,8 @@ namespace SimpleBankAPI.Data
             AccountRepository = accountsDb;
             TransferRepository = transfersDb;
             _dbTransaction = dbTransaction;
-
         }
+
         public IDbTransaction Begin()
         {
             try
