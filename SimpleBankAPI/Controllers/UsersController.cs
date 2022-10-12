@@ -101,41 +101,41 @@ namespace SimpleBankAPI.Controllers
             }
         }
 
-        [HttpPost("revalidate", Name = "revalidate")]
-        [Produces("application/json")]
-        [ProducesResponseType(typeof(RevalidateResponse), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> RevalidateUser([FromBody] string authorization)
-        {
-            try
-            {
-                //var token = _jwtAuth.GetClaim(userRequest, "user");
+        //[HttpPost("revalidate", Name = "revalidate")]
+        //[Produces("application/json")]
+        //[ProducesResponseType(typeof(RevalidateResponse), StatusCodes.Status201Created)]
+        //[ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        //public async Task<IActionResult> RevalidateUser([FromBody] string authorization)
+        //{
+        //    try
+        //    {
+        //        //var token = _jwtAuth.GetClaim(userRequest, "user");
 
 
-                //int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+        //        int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
 
-                var result = await _userBusiness.Revalidate(authorization);
-                if (result == null)
-                    return StatusCode(StatusCodes.Status404NotFound, "User not found");
+        //        //var result = await _userBusiness.Revalidate(authorization);
+        //        if (result == null)
+        //            return StatusCode(StatusCodes.Status404NotFound, "User not found");
 
 
-                var validateResponse = RevalidateResponse.CreateRevalidateResponse(authorization);
-                return StatusCode(StatusCodes.Status200OK, validateResponse);
-            }
-            catch (Exception ex)
-            {
-                switch (ex)
-                {
-                    case ArgumentException:
-                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
-                    case InvalidCastException:
-                        return StatusCode(StatusCodes.Status404NotFound, ex.Message);
-                    default:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                };
-            }
-        }
+        //        var validateResponse = RevalidateResponse.CreateRevalidateResponse(authorization);
+        //        return StatusCode(StatusCodes.Status200OK, validateResponse);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        switch (ex)
+        //        {
+        //            case ArgumentException:
+        //                return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
+        //            case InvalidCastException:
+        //                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+        //            default:
+        //                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+        //        };
+        //    }
+        //}
 
         private bool UserExists(int id)
         {

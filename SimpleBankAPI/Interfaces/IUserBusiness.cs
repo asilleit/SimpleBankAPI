@@ -9,7 +9,7 @@ namespace SimpleBankAPI.Interfaces
     {
         Task<CreateUserResponse> Create(CreateUserRequest userRequest);
         Task<User> Login(LoginUserRequest userRequest);
-        Task<string> Revalidate(string token);
+        //Task<string> Revalidate(string token);
         //Task<Token> Revalidate(Token token);
     }
 }

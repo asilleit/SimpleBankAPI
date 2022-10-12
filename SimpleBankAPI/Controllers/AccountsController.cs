@@ -45,7 +45,9 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                //int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+
                 var accounts = await _accountsBusiness.GetAccountsByUser(userId);
                 var accountResponseList = AccountResponse.FromListAccountsUser(accounts);
                 return StatusCode(StatusCodes.Status201Created, accountResponseList);
