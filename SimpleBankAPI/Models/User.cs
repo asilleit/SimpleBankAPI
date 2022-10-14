@@ -10,6 +10,7 @@ namespace SimpleBankAPI.Models
         public User()
         {
             Accounts = new HashSet<Account>();
+            Tokens = new HashSet<Token>();
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -19,5 +20,6 @@ namespace SimpleBankAPI.Models
         public string Email { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
         public virtual ICollection<Account> Accounts { get; set; }
+        public virtual ICollection<Token> Tokens { get; set; }
     }
 }

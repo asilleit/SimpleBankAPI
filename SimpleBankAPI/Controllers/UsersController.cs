@@ -29,12 +29,14 @@ namespace SimpleBankAPI.Controllers
         private readonly postgresContext _context;
         protected IUserBusiness _userBusiness;
         protected IJwtAuth _jwtAuth;
+        protected ITokenBusiness _ITokenBusiness;
 
-        public UsersController(postgresContext context, IUserBusiness userBusiness, IJwtAuth jwtAuth)
+        public UsersController(postgresContext context, IUserBusiness userBusiness, IJwtAuth jwtAuth, ITokenBusiness tokenBusiness)
         {
             _context = context;
             _userBusiness = userBusiness;
             _jwtAuth = jwtAuth;
+            _ITokenBusiness = tokenBusiness;
         }
 
 
@@ -80,11 +82,10 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                var user = await _userBusiness.Login(userRequest);
+                var response = await _userBusiness.Login(userRequest);
 
-                JwtSecurityToken token = _jwtAuth.CreateJwtToken(user);
 
-                var userResponse = LoginUserResponse.FromUserToLoginUserResponse(user, token);
+                var userResponse = new LoginUserResponse(response.Item1, response.Item2, response.Item3, response.Item4, response.Item5);
                 return StatusCode(StatusCodes.Status201Created, userResponse);
             }
             catch (Exception ex)
@@ -101,45 +102,34 @@ namespace SimpleBankAPI.Controllers
             }
         }
 
-        //[HttpPost("revalidate", Name = "revalidate")]
-        //[Produces("application/json")]
-        //[ProducesResponseType(typeof(RevalidateResponse), StatusCodes.Status201Created)]
-        //[ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        //public async Task<IActionResult> RevalidateUser([FromBody] string authorization)
-        //{
-        //    try
-        //    {
-        //        //var token = _jwtAuth.GetClaim(userRequest, "user");
 
 
-        //        int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+        [HttpPost("revalidate", Name = "Revalidate")]
+        [Produces("application/json")]
 
-        //        //var result = await _userBusiness.Revalidate(authorization);
-        //        if (result == null)
-        //            return StatusCode(StatusCodes.Status404NotFound, "User not found");
+        [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
 
-
-        //        var validateResponse = RevalidateResponse.CreateRevalidateResponse(authorization);
-        //        return StatusCode(StatusCodes.Status200OK, validateResponse);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        switch (ex)
-        //        {
-        //            case ArgumentException:
-        //                return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
-        //            case InvalidCastException:
-        //                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
-        //            default:
-        //                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-        //        };
-        //    }
-        //}
-
-        private bool UserExists(int id)
+        public async Task<IActionResult> RevalidateUser([FromBody] RevalidateRequest revalid)
         {
-            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+
+            int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+
+            var response = await _ITokenBusiness.Revalidate(userId, revalid);
+
+            var userResponse = new LoginUserResponse(response.Item1, response.Item2, response.Item3, response.Item4, response.Item5);
+            return StatusCode(StatusCodes.Status201Created, userResponse);
+
         }
+
+
+
+
+
+        //private bool UserExists(int id)
+        //{
+        //    return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+        //}
     }
 }

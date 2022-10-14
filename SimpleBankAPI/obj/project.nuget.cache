@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "NW6IQZJHSwrs98cwR8VPGxV+Rv7crtCt/p2JosNJjhgKBv8GFLYXh12fI1gPgY/HVjXK0VTYNDUaAKaDhEecHQ==",
+  "dgSpecHash": "a4toUoK19lWFFNSuIl+xAeKHOag1C8Kx1nJU3jSusjTgLYYlo7wx4xTTmxPW2wKQwtxaG8jca2+/681xf2Mugw==",
   "success": true,
   "projectFilePath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\asilleit\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",

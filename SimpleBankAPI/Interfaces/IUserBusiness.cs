@@ -8,8 +8,7 @@ namespace SimpleBankAPI.Interfaces
     public interface IUserBusiness
     {
         Task<CreateUserResponse> Create(CreateUserRequest userRequest);
-        Task<User> Login(LoginUserRequest userRequest);
-        //Task<string> Revalidate(string token);
-        //Task<Token> Revalidate(Token token);
+        Task<(User, string, string, DateTime, DateTime)> Login(LoginUserRequest userRequest);
+
     }
 }
