@@ -12,7 +12,7 @@ namespace SimpleBankAPI.Models.Response
         //public DateTime RefreshTokenExpiresAt { get; set; }
 
 
-        public static RevalidateResponse CreateRevalidateResponse(string authorization)
+        public static RevalidateResponse CreateRevalidateResponse(Token token, string authorization)
         {
             //JwtSecurityToken authorization1 = new JwtSecurityToken(authorization);
 

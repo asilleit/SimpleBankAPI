@@ -24,8 +24,6 @@ namespace SimpleBankAPI.Business
         /// <exception cref="ArgumentException"></exception>
         public async Task<AccountResponse> Create(AccountRequest accountRequest, int userId)
         {
-            using (TransactionScope transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {
                 try
                 {
                 //Validate arguments
@@ -46,11 +44,10 @@ namespace SimpleBankAPI.Business
                 }
                 catch (Exception ex)
                 {
-                    transactionScope.Dispose();
-                    Transaction.Current.Rollback();
+
                     throw new ArgumentException(ex.ToString());
                 }
-            }
+            
         }
 
         public async Task<List<Account>> GetAccountsByUser(int userId)

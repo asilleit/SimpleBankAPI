@@ -15,6 +15,7 @@ namespace SimpleBankAPI.Models
         public virtual DbSet<Account> Accounts { get; set; } = null!;
         public virtual DbSet<Transfer> Transfers { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<Token> Tokens { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -109,6 +110,38 @@ namespace SimpleBankAPI.Models
                 entity.Property(e => e.Username)
                     .HasColumnType("character varying")
                     .HasColumnName("username");
+            });
+
+            modelBuilder.Entity<Token>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("nextval('tokens_id_seq'::regclass)");
+
+
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.Refresh_token)
+                   .HasColumnName("refresh_token");
+
+                entity.Property(e => e.Refresh_token_expire_at)
+                   .HasColumnName("refresh_token_expire_at")
+                .HasDefaultValueSql("now()");
+
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("user_id");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Tokens)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("tokens_fkey");
+
+
             });
 
             OnModelCreatingPartial(modelBuilder);

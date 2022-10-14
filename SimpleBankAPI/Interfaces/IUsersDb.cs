@@ -7,5 +7,7 @@ namespace SimpleBankAPI.Interfaces
         Task<User> Create(User user);
         Task<User> GetByUsername(string userName);
 
+        Task<User> GetById(int userId);
+
     }
 }

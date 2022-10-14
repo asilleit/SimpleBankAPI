@@ -24,7 +24,8 @@ namespace SimpleBankAPI.JWT
                 {
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Name, user.Username),
-                    new Claim("user", user.Id.ToString())
+                    new Claim("user", user.Id.ToString()),
+
                 };
 
             SymmetricSecurityKey authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Secret"]));
@@ -35,9 +36,10 @@ namespace SimpleBankAPI.JWT
                 _config["Jwt:Issuer"],
                 _config["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.UtcNow.AddMinutes(1),
                 signingCredentials: credentials);
 
+            //var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(token);
             return token;
         }
 
@@ -84,10 +86,12 @@ namespace SimpleBankAPI.JWT
                 _config["Jwt:Issuer"],
                 _config["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.UtcNow.AddMinutes(int.Parse(_config["Jwt:ExpiresMin"])),
                 signingCredentials: credentials);
 
-            return token.ToString();
+            var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return tokenToReturn;
         }
 
         public bool TokenIsValid(string authToken)

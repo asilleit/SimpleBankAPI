@@ -16,6 +16,7 @@ using System.Buffers.Text;
 using SimpleBankAPI.JWT;
 using Npgsql;
 using System.Data;
+using NuGet.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,8 +38,11 @@ builder.Services.AddTransient<IUsersDb, UsersDb>();
 builder.Services.AddTransient<IUserBusiness, UserBusiness>();
 builder.Services.AddTransient<IAccountsDb, AccountsDb>();
 builder.Services.AddTransient<IAccountsBusiness, AccountsBusiness>();
-
 builder.Services.AddTransient<ITransfersDb, TransferDb>();
+
+builder.Services.AddTransient<ITokenDb, TokenDb>();
+
+builder.Services.AddTransient<ITokenBusiness, TokenBusiness>();
 builder.Services.AddTransient<ITransfersBusiness, TransfersBusiness>();
 builder.Services.AddTransient<IJwtAuth, JwtAuth>();
 builder.Services.AddEndpointsApiExplorer();

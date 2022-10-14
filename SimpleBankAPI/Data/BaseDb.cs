@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models;
-using static Dapper.SqlMapper;
 
 namespace SimpleBankAPI.Data
 {
-    public class BaseDb<T> 
+    public class BaseDb<T> : IBaseDb<T>
     {
         protected postgresContext _db;
         
