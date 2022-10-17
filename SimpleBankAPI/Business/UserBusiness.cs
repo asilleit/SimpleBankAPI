@@ -8,6 +8,7 @@ using System.Transactions;
 using SimpleBankAPI.Data;
 using System.IdentityModel.Tokens.Jwt;
 using SimpleBankAPI.JWT;
+using SimpleBankAPI.Infrastructure.Crypto;
 
 namespace SimpleBankAPI.Business
 {
@@ -30,16 +31,18 @@ namespace SimpleBankAPI.Business
         {
                 try
                 {
-                    //if (await _userDb.GetByUsername(userRequest.UserName) is not null)
-                    //{
-                    //    throw new ArgumentException("Username cannot be repeated");
-                    //}
+                if (await _userDb.GetByUsername(userRequest.UserName) is not null)
+                {
+                    throw new ArgumentException("Username cannot be repeated");
+                }
 
-                    //UserRequest 
-                    User user = CreateUserRequest.RequestToUser(userRequest);
 
-                    //Persist User
-                    var CreatedUser = await _userDb.Create(user);
+                //UserRequest 
+                User user = CreateUserRequest.RequestToUser(userRequest);
+
+                user.Password = Crypto.HashSecret(user.Password);
+                //Persist User
+                var CreatedUser = await _userDb.Create(user);
 
                     //Convert user to UserResponse
                     var createUserResponse = CreateUserResponse.ToCreateUserResponse(CreatedUser);
@@ -68,15 +71,14 @@ namespace SimpleBankAPI.Business
             token.Refresh_token = refreshToken;
             token.Refresh_token_expire_at = DateTime.UtcNow.AddMinutes(int.Parse(_config["Jwt:ExpiresMin"]));
 
-            //token.User = user;
 
-            
             //Persist Token
             await _tokenDb.Create(token);
 
             if ( user is null) { throw new AuthenticationException("User not found"); }
 
-            if(user.Password != userRequest.Password){ throw new ("Error Password"); }
+            if ( !Crypto.VerifySecret(user.Password, userRequest.Password)){ throw new ("Error Password"); }
+
             return (user, access, refreshToken,accessToken.ValidTo,token.Refresh_token_expire_at) ;
         }
 
