@@ -4,7 +4,7 @@ using SimpleBankAPI.Models.Response;
 
 namespace SimpleBankAPI.Interfaces
 {
-    public interface IAccountsDb 
+    public interface IAccountsDb : IBaseDb<Account>
     {
         Task<Account> Create(Account accountCreate);
         Task<List<Account>> GetAccountsByUser(int userId);

@@ -1,11 +1,11 @@
 ﻿using SimpleBankAPI.Models;
-using SimpleBankAPI.Models.Request;
-using SimpleBankAPI.Models.Response;
 
 namespace SimpleBankAPI.Interfaces
 {
     public interface ITransfersDb : IBaseDb<Transfer>
     {
-        Task<Transfer> Create(Transfer user);
+        Task<Transfer> Create(Transfer transferCreate);
+        Task<Transfer> Update(Transfer transferUpdate);
+        Task<Transfer> GetById(int userId);
     }
 }

@@ -62,13 +62,15 @@ namespace SimpleBankAPI.Models
 
             modelBuilder.Entity<Transfer>(entity =>
             {
-                entity.ToTable("transfer");
+
+                entity.ToTable("Transfer");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasDefaultValueSql("nextval('transfer_id_seq1'::regclass)");
+                    .HasDefaultValueSql("nextval('transfers_id_seq'::regclass)");
 
-                entity.Property(e => e.Amount).HasColumnName("amount");
+                entity.Property(e => e.Amount)
+                .HasColumnName("amount");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")
@@ -111,14 +113,12 @@ namespace SimpleBankAPI.Models
                     .HasColumnType("character varying")
                     .HasColumnName("username");
             });
-
+             
             modelBuilder.Entity<Token>(entity =>
             {
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .HasDefaultValueSql("nextval('tokens_id_seq'::regclass)");
-
-
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")

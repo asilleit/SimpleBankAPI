@@ -12,6 +12,6 @@ namespace SimpleBankAPI.Models
         public decimal Amount { get; set; }
         public int Fromaccountid { get; set; }
         public int Toaccountid { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

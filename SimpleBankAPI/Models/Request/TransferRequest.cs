@@ -19,8 +19,7 @@ namespace SimpleBankAPI.Models.Request
             {
                 Amount = transferRequest.Amount,
                 Fromaccountid = transferRequest.FromAccount,
-                Toaccountid = transferRequest.ToAccount,
-                CreatedAt = DateTime.UtcNow,
+                Toaccountid = transferRequest.ToAccount
             };
             return transfer;
         }

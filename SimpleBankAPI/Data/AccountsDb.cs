@@ -5,7 +5,7 @@ using SimpleBankAPI.Models;
 
 namespace SimpleBankAPI.Data
 {
-    public class AccountsDb : BaseDb<Account>, ITokenDb, IBaseDb<Token>
+    public class AccountsDb : BaseDb<Account>, IAccountsDb, IBaseDb<Account>
     {
 
         public AccountsDb(DbContextOptions<postgresContext> options) : base(options)
