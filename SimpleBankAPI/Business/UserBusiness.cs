@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using SimpleBankAPI.Infrastructure.Crypto;
 using SimpleBankAPI.Interfaces;
+using SimpleBankAPI.JWT;
+using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
-using SimpleBankAPI.Models;
-using System.Security.Authentication;
-using System.Transactions;
-using SimpleBankAPI.Data;
 using System.IdentityModel.Tokens.Jwt;
-using SimpleBankAPI.JWT;
-using SimpleBankAPI.Infrastructure.Crypto;
+using System.Security.Authentication;
 
 namespace SimpleBankAPI.Business
 {
@@ -29,8 +26,8 @@ namespace SimpleBankAPI.Business
 
         public async Task<CreateUserResponse> Create(CreateUserRequest userRequest)
         {
-                try
-                {
+            try
+            {
                 if (await _userDb.GetByUsername(userRequest.UserName) is not null)
                 {
                     throw new ArgumentException("Username cannot be repeated");
@@ -44,14 +41,14 @@ namespace SimpleBankAPI.Business
                 //Persist User
                 var CreatedUser = await _userDb.Create(user);
 
-                    //Convert user to UserResponse
-                    var createUserResponse = CreateUserResponse.ToCreateUserResponse(CreatedUser);
-                    return createUserResponse;
-                }      
-                catch (Exception ex)
-                {
-                    throw new ArgumentException(ex.ToString());
-                }
+                //Convert user to UserResponse
+                var createUserResponse = CreateUserResponse.ToCreateUserResponse(CreatedUser);
+                return createUserResponse;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.ToString());
+            }
 
         }
         public async Task<(User, string, string, DateTime, DateTime)> Login(LoginUserRequest userRequest)
@@ -75,11 +72,11 @@ namespace SimpleBankAPI.Business
             //Persist Token
             await _tokenDb.Create(token);
 
-            if ( user is null) { throw new AuthenticationException("User not found"); }
+            if (user is null) { throw new AuthenticationException("User not found"); }
 
-            if ( !Crypto.VerifySecret(user.Password, userRequest.Password)){ throw new ("Error Password"); }
+            if (!Crypto.VerifySecret(user.Password, userRequest.Password)) { throw new("Error Password"); }
 
-            return (user, access, refreshToken,accessToken.ValidTo,token.Refresh_token_expire_at) ;
+            return (user, access, refreshToken, accessToken.ValidTo, token.Refresh_token_expire_at);
         }
 
     }

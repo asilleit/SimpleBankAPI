@@ -1,6 +1,4 @@
-﻿using SimpleBankAPI.Data;
-using SimpleBankAPI.Models.Response;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace SimpleBankAPI.Models.Request

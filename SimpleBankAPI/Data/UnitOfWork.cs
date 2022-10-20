@@ -1,6 +1,5 @@
 ﻿using SimpleBankAPI.Interfaces;
 using System.Data;
-using System.Data.Common;
 
 namespace SimpleBankAPI.Data
 {
@@ -8,8 +7,8 @@ namespace SimpleBankAPI.Data
     {
 
         public IUsersDb UserRepository { get; }
-       public IAccountsDb AccountRepository { get; }
-       public ITransfersDb TransferRepository { get; }
+        public IAccountsDb AccountRepository { get; }
+        public ITransfersDb TransferRepository { get; }
 
         private readonly IDbTransaction _dbTransaction;
 

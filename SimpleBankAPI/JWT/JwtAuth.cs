@@ -2,12 +2,11 @@
 using SimpleBankAPI.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace SimpleBankAPI.JWT
 {
-    public class JwtAuth : IJwtAuth 
+    public class JwtAuth : IJwtAuth
     {
         private static string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
         private readonly IConfiguration _config;
@@ -18,14 +17,13 @@ namespace SimpleBankAPI.JWT
         }
 
         public JwtSecurityToken CreateJwtToken(User user)
-        {   
+        {
             //Claims
             var claims = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Name, user.Username),
                     new Claim("user", user.Id.ToString()),
-
                 };
 
             SymmetricSecurityKey authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Secret"]));
@@ -36,17 +34,17 @@ namespace SimpleBankAPI.JWT
                 _config["Jwt:Issuer"],
                 _config["Jwt:Audience"],
                 claims,
-                expires: DateTime.UtcNow.AddMinutes(1),
+                expires: DateTime.UtcNow.AddMinutes(2),
                 signingCredentials: credentials);
 
             //var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(token);
             return token;
         }
 
-        
+
         public string GetClaim(string authToken, string claimName)
         {
-            authToken = authToken.Replace("Bearer ", ""); 
+            authToken = authToken.Replace("Bearer ", "");
             JwtSecurityToken token = new JwtSecurityToken(authToken);
 
             return token.Claims.FirstOrDefault(claim => claim.Type == claimName).Value;

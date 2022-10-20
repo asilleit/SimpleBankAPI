@@ -1,8 +1,5 @@
-﻿using SimpleBankAPI.Data;
-using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.Models;
+﻿using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models.Request;
-using SimpleBankAPI.Models.Response;
 using System.Security.Authentication;
 using System.Transactions;
 
@@ -13,7 +10,7 @@ namespace SimpleBankAPI.Business
         protected ITransfersDb _transfersDb;
         protected IAccountsDb _accountsDb;
 
-        public TransfersBusiness(ITransfersDb transfersDb,  IAccountsDb accountsDb)
+        public TransfersBusiness(ITransfersDb transfersDb, IAccountsDb accountsDb)
         {
             _transfersDb = transfersDb;
             _accountsDb = accountsDb;
@@ -34,15 +31,17 @@ namespace SimpleBankAPI.Business
                 if (fromAccount.UserId != userId) throw new AuthenticationException("User don't owner account");
                 if (fromAccount is null || toAccount is null) throw new ArgumentException("Accounts not valid");
                 if (fromAccount.Balance < transfer.Amount) throw new ArgumentException("Insufficient funds from your account");
-                if (fromAccount.Currency != toAccount.Currency) throw new ArgumentException("Currency isn't the same");                 
+                if (fromAccount.Currency != toAccount.Currency) throw new ArgumentException("Currency isn't the same");
 
                 await _transfersDb.Create(transfer);
                 //throw new ArgumentException("Transferencia terminada valida");
+
                 var amount = transfer.Amount;
 
                 //Debit update account
                 toAccount.Balance += amount;
                 await _accountsDb.Update(toAccount);
+
 
                 //Credit update account
                 amount = amount * -1;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace SimpleBankAPI.Models
 {
@@ -16,6 +13,7 @@ namespace SimpleBankAPI.Models
         public virtual DbSet<Transfer> Transfers { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<Token> Tokens { get; set; } = null!;
+        public virtual DbSet<Document> Documents { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -76,9 +74,11 @@ namespace SimpleBankAPI.Models
                     .HasColumnName("created_at")
                     .HasDefaultValueSql("now()");
 
-                entity.Property(e => e.Fromaccountid).HasColumnName("fromaccountid");
+                entity.Property(e => e.Fromaccountid)
+                    .HasColumnName("fromaccountid");
 
-                entity.Property(e => e.Toaccountid).HasColumnName("toaccountid");
+                entity.Property(e => e.Toaccountid)
+                    .HasColumnName("toaccountid");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -113,7 +113,7 @@ namespace SimpleBankAPI.Models
                     .HasColumnType("character varying")
                     .HasColumnName("username");
             });
-             
+
             modelBuilder.Entity<Token>(entity =>
             {
                 entity.Property(e => e.Id)
@@ -144,9 +144,41 @@ namespace SimpleBankAPI.Models
 
             });
 
+            modelBuilder.Entity<Document>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("nextval('documents_id_seq'::regclass)");
+
+                entity.Property(e => e.FileName)
+                    .HasColumnName("file_name");
+
+                entity.Property(e => e.FileType)
+                    .HasColumnName("file_type");
+
+                entity.Property(e => e.File)
+                    .HasColumnType("bytea")
+                    .HasColumnName("file");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.AccountId)
+                    .HasColumnName("account_id");
+
+                //entity.HasOne(d => d.Users)
+                //    .WithMany(p => p.Documents)
+                //    .HasForeignKey(d => d.AccountId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("documents_fkey");
+
+            });
+
+
             OnModelCreatingPartial(modelBuilder);
         }
-      
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

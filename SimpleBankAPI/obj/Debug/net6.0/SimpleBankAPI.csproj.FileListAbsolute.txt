@@ -800,13 +800,15 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Simp
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\SimpleBankAPI.runtimeconfig.json
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\SimpleBankAPI.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\SimpleBankAPI.pdb
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\BCrypt.Net-Next.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Humanizer.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\MessagePack.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\MessagePack.Annotations.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.Build.Locator.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.Build.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.Build.Framework.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.CodeAnalysis.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -830,6 +832,7 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Micr
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.Identity.Client.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
@@ -837,6 +840,7 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Micr
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.NET.StringTools.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.OpenApi.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.VisualStudio.Debugger.Contracts.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
@@ -859,6 +863,7 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\NuGe
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\NuGet.ProjectModel.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\NuGet.Protocol.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\NuGet.Versioning.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\BouncyCastle.Crypto.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -1058,5 +1063,3 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\obj\Debug\net6.0\refi
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\obj\Debug\net6.0\SimpleBankAPI.pdb
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\obj\Debug\net6.0\SimpleBankAPI.genruntimeconfig.cache
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\obj\Debug\net6.0\ref\SimpleBankAPI.dll
-C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\BCrypt.Net-Next.dll
-C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\BouncyCastle.Crypto.dll

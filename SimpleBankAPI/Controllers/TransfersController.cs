@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Authentication;
-using System.Threading.Tasks;
-using System.Transactions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.JWT;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
-using SimpleBankAPI.Models.Response;
+using System.Security.Authentication;
 
 namespace SimpleBankAPI.Controllers
 {
@@ -59,7 +50,7 @@ namespace SimpleBankAPI.Controllers
             {
                 switch (ex)
                 {
-                    case  ArgumentException:
+                    case ArgumentException:
                         return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
                     case AuthenticationException:
                         return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);

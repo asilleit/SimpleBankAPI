@@ -1,7 +1,4 @@
-﻿using NuGet.Common;
-using SimpleBankAPI.Data;
-using SimpleBankAPI.Models;
-using Token = SimpleBankAPI.Models.Token;
+﻿using Token = SimpleBankAPI.Models.Token;
 
 namespace SimpleBankAPI.Interfaces
 {
@@ -10,6 +7,5 @@ namespace SimpleBankAPI.Interfaces
         Task<Token> Create(Token Token);
         Task<Token> GetTokensByRefreshToken(string refreshToken);
         //Task<Token> GetByToken(string token);
-
     }
 }

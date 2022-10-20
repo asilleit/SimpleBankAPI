@@ -1,6 +1,5 @@
 ﻿using SimpleBankAPI.Models;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace SimpleBankAPI.JWT
 {

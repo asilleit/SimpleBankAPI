@@ -31,7 +31,7 @@ namespace SimpleBankAPI.Data
 
         public async Task<Account> Update(Account accountUpdate)
         {
-             _db.Accounts.Update(accountUpdate);
+            _db.Accounts.Update(accountUpdate);
             await _db.SaveChangesAsync();
             return accountUpdate;
         }
