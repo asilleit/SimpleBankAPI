@@ -17,5 +17,16 @@
             };
             return documentResponse;
         }
+        public static DocumentResponse ToGetDocument(Document document)
+        {
+            var documentResponse = new DocumentResponse
+            {
+                FileName = document.FileName,
+                AccountId = document.AccountId,
+                FileType = document.FileType
+            };
+            return documentResponse;
+
+        }
     }
 }

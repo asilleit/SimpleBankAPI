@@ -29,39 +29,50 @@ namespace SimpleBankAPI.Business
         public async Task<DocumentResponse> Create(IFormFile file, int accountId, int userId)
         {
             //Validation
-            var extension = Path.GetExtension(file.FileName); 
+            var extension = Path.GetExtension(file.FileName);
             var account = await _accountsDb.GetById(accountId);
-            var documents = await _documentsDb.GetDocumentsByUser(userId);
+            //var documents = await _documentsDb.GetDocumentsByUser(userId);
 
             if (!permittedExtensions.Contains(extension)) throw new ArgumentException("Extension invalid");
             if (account.Equals(null)) throw new AuthenticationException("Account not exist");
             if (account.UserId != userId) throw new AuthenticationException("User don't owner account");
+            //if (file.Length > (2 * 1024)) throw new AuthenticationException("Document over 2MB");
 
             Document document = new Document();
-            //Convert file to byte
-            using (var ms = new MemoryStream())
-            {
-                file.CopyTo(ms);
-                document.File  = ms.ToArray();
-            }
-            document.FileName= Path.GetFileName(file.FileName); 
-            document.FileType = extension;
-            document.AccountId = accountId;
 
-            var CreatedDocument = await _documentsDb.Create(document);
-            var createDocumentResponse = DocumentResponse.ToCreateDocumentResponse(CreatedDocument);
+                //Convert file to byte
+                using (var ms = new MemoryStream())
+                {
+                    file.CopyTo(ms);
+                    document.File = ms.ToArray();
+                }
+                document.FileName = Path.GetFileName(file.FileName);
+                document.FileType = extension;
+                document.AccountId = accountId;
+
+                var CreatedDocument = await _documentsDb.Create(document);
+                var createDocumentResponse = DocumentResponse.ToCreateDocumentResponse(CreatedDocument);
+
+                return createDocumentResponse;
             
-            return createDocumentResponse;
         }
 
-        public Task<Document> GetById(int userId)
+        public async Task<Document> GetById(int documentId)
         {
-            throw new NotImplementedException();
+            if (await _documentsDb.GetById(documentId) is not null)
+            {
+                return await _documentsDb.GetById(documentId);
+            }
+            throw new ArgumentException("Account not found");
         }
 
-        public Task<List<Document>> GetDocumentsByUser(int userId)
+        public async Task<List<Document>> GetDocumentsByUser(int userId)
         {
-            throw new NotImplementedException();
+            //  if (await _documentsDb.GetDocumentsByUser(userId) is not null)
+            //  {
+            return await _documentsDb.GetDocumentsByUser(userId);
+            //    }
+            throw new ArgumentException("Account not found");
         }
 
     }

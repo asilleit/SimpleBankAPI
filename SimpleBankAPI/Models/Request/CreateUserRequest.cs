@@ -10,7 +10,6 @@ namespace SimpleBankAPI.Models.Request
         public string FullName { get; set; }
         [Required, MinLength(8)]
         public string Password { get; set; }
-
         [Required, MinLength(8)]
         public string UserName { get; set; }
         public static User RequestToUser(CreateUserRequest request)

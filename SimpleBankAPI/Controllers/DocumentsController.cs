@@ -28,12 +28,14 @@ namespace SimpleBankAPI.Controllers
         private readonly postgresContext _context;
         protected IDocumentsBusiness _documentsBusiness;
         protected IJwtAuth _jwtAuth;
+        protected IAccountsBusiness _accountsBusiness;
         string[] permittedExtensions = { ".png", ".pdf" };
 
-        public DocumentsController(postgresContext context, IDocumentsBusiness documentsBusiness)
+        public DocumentsController(postgresContext context, IDocumentsBusiness documentsBusiness, IAccountsBusiness accountsBusiness)
         {
             _context = context;
             _documentsBusiness = documentsBusiness;
+            _accountsBusiness = accountsBusiness;
         }
 
         // GET: api/Documents
@@ -45,16 +47,44 @@ namespace SimpleBankAPI.Controllers
 
         // GET: api/Documents/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Document>> GetDocument(int id)
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> GetDocument(int id)
         {
-            var document = await _context.Documents.FindAsync(id);
-
-            if (document == null)
+            try
             {
-                return NotFound();
+                int userId =3;
+                //int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                var documento = await _documentsBusiness.GetById(id);
+                var contaWithUser = await _accountsBusiness.GetById(documento.AccountId);
+                //Get Account ID
+                if (contaWithUser.UserId != userId) return StatusCode(StatusCodes.Status401Unauthorized, "User don't have Owner from document");
+
+                var document = await _context.Documents.FindAsync(id);
+
+                if (document == null)
+                {
+                    return NotFound();
+                }
+
+                return StatusCode(StatusCodes.Status200OK, document);
+            }
+            catch (Exception ex)
+            {
+                switch (ex)
+                {
+                    case AuthenticationException:
+                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
+                    case ArgumentException:
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                    default:
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                }
             }
 
-            return document;
 
         }
 
