@@ -55,6 +55,7 @@ namespace SimpleBankAPI.Controllers
             }
 
             return document;
+
         }
 
         // POST: api/Documents
@@ -64,13 +65,15 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> PostDocument(IFormFile file)
         {
             try
             {
-                int accountID = 3;
-
-                var createdDocument = await _documentsBusiness.Create(file, accountID);
+                int accountID = 21;
+                int userId = 3;
+                //int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                var createdDocument = await _documentsBusiness.Create(file, accountID, userId);
                 return StatusCode(StatusCodes.Status201Created, createdDocument);
 
             }
@@ -88,23 +91,6 @@ namespace SimpleBankAPI.Controllers
             }
 
         }
-
-        // DELETE: api/Documents/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDocument(int id)
-        {
-            var document = await _context.Documents.FindAsync(id);
-            if (document == null)
-            {
-                return NotFound();
-            }
-
-            _context.Documents.Remove(document);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
         private bool DocumentExists(int id)
         {
             return _context.Documents.Any(e => e.Id == id);

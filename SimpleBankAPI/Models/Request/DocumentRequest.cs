@@ -5,7 +5,6 @@ namespace SimpleBankAPI.Models.Request
     public class DocumentRequest
     {
         public int AccountId { get; set; }
-
         public string FileName { get; set; }
         public string FileType { get; set; }
         public byte[] File { get; set; }

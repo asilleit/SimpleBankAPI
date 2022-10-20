@@ -141,7 +141,6 @@ namespace SimpleBankAPI.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("tokens_fkey");
 
-
             });
 
             modelBuilder.Entity<Document>(entity =>
@@ -167,14 +166,13 @@ namespace SimpleBankAPI.Models
                 entity.Property(e => e.AccountId)
                     .HasColumnName("account_id");
 
-                //entity.HasOne(d => d.Users)
-                //    .WithMany(p => p.Documents)
-                //    .HasForeignKey(d => d.AccountId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("documents_fkey");
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Documents)
+                    .HasForeignKey(d => d.AccountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("documents_fkey");
 
             });
-
 
             OnModelCreatingPartial(modelBuilder);
         }
