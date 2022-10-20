@@ -31,7 +31,7 @@ namespace SimpleBankAPI.Business
             //Validation
             var extension = Path.GetExtension(file.FileName);
             var account = await _accountsDb.GetById(accountId);
-            //var documents = await _documentsDb.GetDocumentsByUser(userId);
+            //var documents = await _documentsDb.GetDocumentsByAccount(userId);
 
             if (!permittedExtensions.Contains(extension)) throw new ArgumentException("Extension invalid");
             if (account.Equals(null)) throw new AuthenticationException("Account not exist");
@@ -66,11 +66,11 @@ namespace SimpleBankAPI.Business
             throw new ArgumentException("Account not found");
         }
 
-        public async Task<List<Document>> GetDocumentsByUser(int userId)
+        public async Task<List<Document>> GetDocumentsByAccount(int userId)
         {
-            //  if (await _documentsDb.GetDocumentsByUser(userId) is not null)
+            //  if (await _documentsDb.GetDocumentsByAccount(userId) is not null)
             //  {
-            return await _documentsDb.GetDocumentsByUser(userId);
+            return await _documentsDb.GetDocumentsByAccount(userId);
             //    }
             throw new ArgumentException("Account not found");
         }

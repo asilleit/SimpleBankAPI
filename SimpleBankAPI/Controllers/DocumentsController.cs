@@ -40,7 +40,7 @@ namespace SimpleBankAPI.Controllers
 
         // GET: api/Documents
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Document>>> GetDocuments()
+        public async Task<ActionResult<IEnumerable<Document>>> GetDocumentsByAccount()
         {
             return await _context.Documents.ToListAsync();
         }

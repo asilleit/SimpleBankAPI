@@ -22,7 +22,7 @@ namespace SimpleBankAPI.Data
             return await _db.Documents.FirstOrDefaultAsync(a => a.Id == documentId);
         }
 
-        public Task<List<Document>> GetDocumentsByUser(int userId)
+        public Task<List<Document>> GetDocumentsByAccount(int userId)
         {
             throw new NotImplementedException();
         }
