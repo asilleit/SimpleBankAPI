@@ -29,23 +29,41 @@ namespace SimpleBankAPI.Controllers
         protected IDocumentsBusiness _documentsBusiness;
         protected IJwtAuth _jwtAuth;
         protected IAccountsBusiness _accountsBusiness;
-        string[] permittedExtensions = { ".png", ".pdf" };
 
-        public DocumentsController(postgresContext context, IDocumentsBusiness documentsBusiness, IAccountsBusiness accountsBusiness)
+        public DocumentsController(postgresContext context, IDocumentsBusiness documentsBusiness, IAccountsBusiness accountsBusiness, IJwtAuth jwtAuth)
         {
             _context = context;
             _documentsBusiness = documentsBusiness;
             _accountsBusiness = accountsBusiness;
+            _jwtAuth = jwtAuth;
         }
 
         // GET: api/Documents
         [HttpGet]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IEnumerable<Document>>> GetDocumentsByAccount()
         {
-            return await _context.Documents.ToListAsync();
+            //return await _context.Documents.ToListAsync();
+            try
+            {
+                int userId = 3;  // int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+
+                var documents = await _documentsBusiness.GetDocumentsByAccount(userId);
+                var accountResponseList = DocumentResponse.FromListDocumentAccount(documents);
+                return StatusCode(StatusCodes.Status201Created, accountResponseList);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+
+            }
         }
 
-        // GET: api/Documents/5
+        //// GET: api/Documents/5
         [HttpGet("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
@@ -56,7 +74,7 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                int userId =3;
+                int userId = 3;
                 //int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
                 var documento = await _documentsBusiness.GetById(id);
                 var contaWithUser = await _accountsBusiness.GetById(documento.AccountId);
@@ -84,26 +102,23 @@ namespace SimpleBankAPI.Controllers
                         return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
                 }
             }
-
-
         }
 
         // POST: api/Documents
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> PostDocument(IFormFile file)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> PostDocument(IFormFile file, int id)
         {
             try
             {
-                int accountID = 21;
-                int userId = 3;
-                //int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
-                var createdDocument = await _documentsBusiness.Create(file, accountID, userId);
+                var account = await _accountsBusiness.GetById(id);
+                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                var createdDocument = await _documentsBusiness.Create(file, account.Id, userId);
                 return StatusCode(StatusCodes.Status201Created, createdDocument);
 
             }

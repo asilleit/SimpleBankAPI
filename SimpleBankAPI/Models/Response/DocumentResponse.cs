@@ -17,16 +17,17 @@
             };
             return documentResponse;
         }
-        public static DocumentResponse ToGetDocument(Document document)
-        {
-            var documentResponse = new DocumentResponse
-            {
-                FileName = document.FileName,
-                AccountId = document.AccountId,
-                FileType = document.FileType
-            };
-            return documentResponse;
 
+        public static List<DocumentResponse> FromListDocumentAccount(List<Document> documents)
+        {
+            var documentResponseList = new List<DocumentResponse>();
+            foreach (var document in documents)
+            {
+                var accountResponse = DocumentResponse.ToCreateDocumentResponse(document);
+                documentResponseList.Add(accountResponse);
+            }
+            return documentResponseList;
         }
     }
+  
 }
