@@ -1,15 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
-using Org.BouncyCastle.Asn1.Ocsp;
-using SimpleBankAPI.Data;
-using SimpleBankAPI.Interfaces;
+﻿using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.JWT;
-using SimpleBankAPI.Models;
-using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
-using System.Linq;
-using System.Reflection.Metadata;
 using System.Security.Authentication;
-using System.Security.Cryptography.Xml;
 using Document = SimpleBankAPI.Models.Document;
 
 namespace SimpleBankAPI.Business
@@ -66,11 +58,11 @@ namespace SimpleBankAPI.Business
             throw new ArgumentException("Account not found");
         }
 
-        public async Task<List<Document>> GetDocumentsByAccount(int userId)
+        public async Task<List<Document>> GetDocumentsByAccount(int accountId)
         {
             //  if (await _documentsDb.GetDocumentsByAccount(userId) is not null)
             //  {
-            return await _documentsDb.GetDocumentsByAccount(userId);
+            return await _documentsDb.GetDocumentsByAccount(accountId);
             //    }
             throw new ArgumentException("Account not found");
         }

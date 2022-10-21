@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Security.Authentication;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
-using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1.Ocsp;
-using SimpleBankAPI.Business;
-using SimpleBankAPI.Data;
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.JWT;
 using SimpleBankAPI.Models;
-using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
+using System.Security.Authentication;
 
 namespace SimpleBankAPI.Controllers
 {
@@ -44,22 +32,35 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IEnumerable<Document>>> GetDocumentsByAccount()
         {
             //return await _context.Documents.ToListAsync();
             try
             {
-                int userId = 3;  // int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                int id = 23;  // 
+                                
+                var documento = await _documentsBusiness.GetById(id);
+                //Get Account ID
+                if (documento.AccountId != userId) return StatusCode(StatusCodes.Status401Unauthorized, "User don't have Owner from document");
+
 
                 var documents = await _documentsBusiness.GetDocumentsByAccount(userId);
                 var accountResponseList = DocumentResponse.FromListDocumentAccount(documents);
-                return StatusCode(StatusCodes.Status201Created, accountResponseList);
+                return StatusCode(StatusCodes.Status200OK, documents);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-
+                switch (ex)
+                {
+                    case AuthenticationException:
+                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
+                    case ArgumentException:
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                    default:
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                }
             }
         }
 
@@ -74,8 +75,7 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                int userId = 3;
-                //int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
                 var documento = await _documentsBusiness.GetById(id);
                 var contaWithUser = await _accountsBusiness.GetById(documento.AccountId);
                 //Get Account ID

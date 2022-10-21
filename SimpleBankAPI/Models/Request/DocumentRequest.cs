@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SimpleBankAPI.Models.Request
+﻿namespace SimpleBankAPI.Models.Request
 {
     public class DocumentRequest
     {
