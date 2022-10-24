@@ -1,13 +1,11 @@
 ﻿using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models;
-using SimpleBankAPI.Data;
+using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
-using System.Transactions;
 
 namespace SimpleBankAPI.Business
 {
-    public class AccountsBusiness : IAccountsBusiness 
+    public class AccountsBusiness : IAccountsBusiness
     {
         protected IAccountsDb _accountsDb;
         public AccountsBusiness(IAccountsDb accountsDb)
@@ -24,8 +22,8 @@ namespace SimpleBankAPI.Business
         /// <exception cref="ArgumentException"></exception>
         public async Task<AccountResponse> Create(AccountRequest accountRequest, int userId)
         {
-                try
-                {
+            try
+            {
                 //Validate arguments
                 //AccountRequest 
                 if (accountRequest.Amount < 0)
@@ -41,22 +39,22 @@ namespace SimpleBankAPI.Business
                 //UserResponse
                 var createAccountResponse = AccountResponse.ToAcountResponse(CreatedAccont);
                 return createAccountResponse;
-                }
-                catch (Exception ex)
-                {
+            }
+            catch (Exception ex)
+            {
 
-                    throw new ArgumentException(ex.ToString());
-                }
-            
+                throw new ArgumentException(ex.ToString());
+            }
+
         }
 
         public async Task<List<Account>> GetAccountsByUser(int userId)
         {
 
-          //  if (await _accountsDb.GetAccountsByUser(userId) is not null)
-          //  {
-                return await _accountsDb.GetAccountsByUser(userId);
-        //    }
+            //  if (await _accountsDb.GetAccountsByUser(userId) is not null)
+            //  {
+            return await _accountsDb.GetAccountsByUser(userId);
+            //    }
             throw new ArgumentException("Account not found");
         }
 

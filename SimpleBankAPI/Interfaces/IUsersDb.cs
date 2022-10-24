@@ -2,7 +2,7 @@
 
 namespace SimpleBankAPI.Interfaces
 {
-    public interface IUsersDb 
+    public interface IUsersDb
     {
         Task<User> Create(User user);
         Task<User> GetByUsername(string userName);

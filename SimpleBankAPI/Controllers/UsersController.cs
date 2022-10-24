@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Net;
-using System.Security.Authentication;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NpgsqlTypes;
-using NuGet.Common;
+﻿using Microsoft.AspNetCore.Mvc;
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.JWT;
 using SimpleBankAPI.Models;
@@ -42,7 +28,7 @@ namespace SimpleBankAPI.Controllers
 
         // POST: v1/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost(Name="CreateUser")]
+        [HttpPost(Name = "CreateUser")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -67,7 +53,7 @@ namespace SimpleBankAPI.Controllers
             catch (Exception ex)
             {
 
-            return StatusCode(StatusCodes.Status401Unauthorized, "Bad Request passou +ersonal");
+                return StatusCode(StatusCodes.Status401Unauthorized, "Bad Request passou +ersonal");
 
             }
         }
@@ -92,11 +78,11 @@ namespace SimpleBankAPI.Controllers
             {
                 switch (ex)
                 {
-                    case ArgumentException: 
+                    case ArgumentException:
                         return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                   case InvalidCastException:
+                    case InvalidCastException:
                         return StatusCode(StatusCodes.Status404NotFound, ex.Message);
-                    default: 
+                    default:
                         return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
                 };
             }

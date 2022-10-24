@@ -1,7 +1,5 @@
-﻿
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 
 namespace SimpleBankAPI.Models.Response
 {
@@ -15,7 +13,7 @@ namespace SimpleBankAPI.Models.Response
         public int Id { get; set; }
 
 
-       public static AccountResponse ToAcountResponse(Account account)
+        public static AccountResponse ToAcountResponse(Account account)
         {
             var accountResponse = new AccountResponse
             {
@@ -26,8 +24,8 @@ namespace SimpleBankAPI.Models.Response
             };
             return accountResponse;
 
-    }
-    public static List<AccountResponse> FromListAccountsUser(List<Account> accounts)
+        }
+        public static List<AccountResponse> FromListAccountsUser(List<Account> accounts)
         {
             var accountResponseList = new List<AccountResponse>();
             foreach (var account in accounts)
@@ -37,6 +35,6 @@ namespace SimpleBankAPI.Models.Response
             }
             return accountResponseList;
         }
-      
+
     }
 }

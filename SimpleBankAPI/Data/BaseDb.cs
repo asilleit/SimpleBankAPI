@@ -7,12 +7,12 @@ namespace SimpleBankAPI.Data
     public class BaseDb<T> : IBaseDb<T>
     {
         protected postgresContext _db;
-        
+
 
         public BaseDb(DbContextOptions<postgresContext> options)
         {
             _db = new postgresContext(options);
-            
+
         }
         public async virtual Task<T> Create(T entity)
         {

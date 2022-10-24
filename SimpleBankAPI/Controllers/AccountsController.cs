@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Authentication;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SimpleBankAPI.Business;
-using SimpleBankAPI.Data;
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.JWT;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
+using System.Security.Authentication;
 
 namespace SimpleBankAPI.Controllers
 {
@@ -102,7 +92,7 @@ namespace SimpleBankAPI.Controllers
                 var account = await _accountsBusiness.GetById(id);
                 //Get Account ID
                 if (account.UserId != userId) return StatusCode(StatusCodes.Status401Unauthorized, "User don't have Owner from account");
-             
+
 
                 var accountResponse = AccountResponse.ToAcountResponse(account);
                 return StatusCode(StatusCodes.Status200OK, accountResponse);

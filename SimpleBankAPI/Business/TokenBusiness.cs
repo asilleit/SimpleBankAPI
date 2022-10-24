@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using SimpleBankAPI.Interfaces;
+﻿using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.JWT;
-using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models;
+using SimpleBankAPI.Models.Request;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Authentication;
-using SimpleBankAPI.Data;
-using Microsoft.AspNetCore.Mvc;
 
 namespace SimpleBankAPI.Business
 {
@@ -31,12 +27,12 @@ namespace SimpleBankAPI.Business
             User user = await _usersDb.GetById(userId);
 
             Token token = await _tokenDb.GetTokensByRefreshToken(revalidateRequest.RefreshToken);
-            if(token == null || user == null)
+            if (token == null || user == null)
             {
                 throw new ArgumentException();
             }
 
-            if(!(user.Id.Equals(token.UserId)))
+            if (!(user.Id.Equals(token.UserId)))
             {
                 throw new ArgumentException();
             }
@@ -59,7 +55,7 @@ namespace SimpleBankAPI.Business
             await _tokenDb.Update(token);
 
 
-            
+
             return (user, access, refreshToken, accessToken.ValidTo, token.Refresh_token_expire_at);
         }
 

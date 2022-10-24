@@ -1,6 +1,4 @@
-﻿using SimpleBankAPI.Models;
-using SimpleBankAPI.Models.Request;
-using SimpleBankAPI.Models.Response;
+﻿using SimpleBankAPI.Models.Request;
 
 namespace SimpleBankAPI.Interfaces
 {
