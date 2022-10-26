@@ -7,8 +7,8 @@ namespace SimpleBankAPI.Business
 {
     public class AccountsBusiness : IAccountsBusiness
     {
-        protected IAccountsDb _accountsDb;
-        public AccountsBusiness(IAccountsDb accountsDb)
+        protected IAccountsRepository _accountsDb;
+        public AccountsBusiness(IAccountsRepository accountsDb)
         {
             _accountsDb = accountsDb;
         }
@@ -25,13 +25,9 @@ namespace SimpleBankAPI.Business
             try
             {
                 //Validate arguments
-                //AccountRequest 
-                if (accountRequest.Amount < 0)
-                {
-                    throw new ArgumentException("Amount invalid");
-                }
+                if (accountRequest.Amount < 0) throw new ArgumentException("Amount invalid");
 
-                Account accont = AccountRequest.FromUserRequestToAccount(accountRequest, userId);
+                var accont = AccountRequest.FromUserRequestToAccount(accountRequest, userId);
 
                 //Persist account
                 var CreatedAccont = await _accountsDb.Create(accont);

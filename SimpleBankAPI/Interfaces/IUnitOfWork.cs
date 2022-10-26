@@ -4,9 +4,9 @@ namespace SimpleBankAPI.Interfaces
 {
     public interface IUnitOfWork
     {
-        IUsersDb UserRepository { get; }
-        IAccountsDb AccountRepository { get; }
-        ITransfersDb TransferRepository { get; }
+        IUsersRepository UserRepository { get; }
+        IAccountsRepository AccountRepository { get; }
+        ITransfersRepository TransferRepository { get; }
         //ITransferRepository transferRepository { get; }
         //Guid Id { get; }
         //IDbConnection Connection { get; }

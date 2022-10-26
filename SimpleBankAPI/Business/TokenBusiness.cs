@@ -1,5 +1,4 @@
 ﻿using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.JWT;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,12 +7,12 @@ namespace SimpleBankAPI.Business
 {
     public class TokenBusiness : ITokenBusiness
     {
-        private ITokenDb _tokenDb;
-        private IUsersDb _usersDb;
+        private ITokenRepository _tokenDb;
+        private IUsersRepository _usersDb;
         private IJwtAuth _jwtAuth;
         private IConfiguration _config;
 
-        public TokenBusiness(ITokenDb tokenDb, IUsersDb usersDb, IJwtAuth jwtAuth, IConfiguration config)
+        public TokenBusiness(ITokenRepository tokenDb, IUsersRepository usersDb, IJwtAuth jwtAuth, IConfiguration config)
         {
             _tokenDb = tokenDb;
             _usersDb = usersDb;
@@ -26,7 +25,7 @@ namespace SimpleBankAPI.Business
             //Validate User Login
             User user = await _usersDb.GetById(userId);
 
-            Token token = await _tokenDb.GetTokensByRefreshToken(revalidateRequest.RefreshToken);
+            var token = await _tokenDb.GetTokensByRefreshToken(revalidateRequest.RefreshToken);
             if (token == null || user == null)
             {
                 throw new ArgumentException();

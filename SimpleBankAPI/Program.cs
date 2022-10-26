@@ -7,7 +7,7 @@ using Npgsql;
 using SimpleBankAPI.Business;
 using SimpleBankAPI.Data;
 using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.JWT;
+using SimpleBankAPI.Interfaces.Provider;
 using SimpleBankAPI.Models;
 using System.Data;
 using System.Text;
@@ -28,14 +28,14 @@ builder.Services.AddScoped<IDbTransaction>(s =>
     return connection.BeginTransaction();
 });
 
-builder.Services.AddTransient<IUsersDb, UsersDb>();
+builder.Services.AddTransient<IUsersRepository, UsersRepository>();
 builder.Services.AddTransient<IUserBusiness, UserBusiness>();
-builder.Services.AddTransient<IAccountsDb, AccountsDb>();
+builder.Services.AddTransient<IAccountsRepository, AccountsRepository>();
 builder.Services.AddTransient<IAccountsBusiness, AccountsBusiness>();
-builder.Services.AddTransient<ITransfersDb, TransferDb>();
+builder.Services.AddTransient<ITransfersRepository, TransferRepository>();
 builder.Services.AddTransient<IDocumentsBusiness, DocumentsBusiness>();
-builder.Services.AddTransient<IDocumentsDb, DocumentsDb>();
-builder.Services.AddTransient<ITokenDb, TokenDb>();
+builder.Services.AddTransient<IDocumentsRepository, DocumentsDb>();
+builder.Services.AddTransient<ITokenRepository, TokenRepository>();
 builder.Services.AddTransient<ITokenBusiness, TokenBusiness>();
 builder.Services.AddTransient<ITransfersBusiness, TransfersBusiness>();
 builder.Services.AddTransient<IJwtAuth, JwtAuth>();

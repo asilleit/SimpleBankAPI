@@ -1,5 +1,4 @@
 ﻿using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.JWT;
 using SimpleBankAPI.Models.Response;
 using System.Security.Authentication;
 using Document = SimpleBankAPI.Models.Document;
@@ -8,17 +7,17 @@ namespace SimpleBankAPI.Business
 {
     public class DocumentsBusiness : IDocumentsBusiness
     {
-        protected IDocumentsDb _documentsDb;
-        protected IAccountsDb _accountsDb;
+        protected IDocumentsRepository _documentsDb;
+        protected IAccountsRepository _accountsDb;
         protected IJwtAuth _jwtAuth;
         private string[] permittedExtensions = { ".png", ".pdf" };
-        public DocumentsBusiness(IDocumentsDb documentsDb, IJwtAuth jwtAuth, IAccountsDb accountsDb)
+        public DocumentsBusiness(IDocumentsRepository documentsDb, IJwtAuth jwtAuth, IAccountsRepository accountsDb)
         {
             _documentsDb = documentsDb;
             _jwtAuth = jwtAuth;
             _accountsDb = accountsDb;
         }
-        public async Task<DocumentResponse> Create(IFormFile file, int accountId, int userId)
+        public async Task<string> Create(IFormFile file, int accountId, int userId)
         {
             //Validation
             var extension = Path.GetExtension(file.FileName);
@@ -30,22 +29,21 @@ namespace SimpleBankAPI.Business
             if (account.UserId != userId) throw new AuthenticationException("User don't owner account");
             //if (file.Length > (2 * 1024)) throw new AuthenticationException("Document over 2MB");
 
-            Document document = new Document();
+            //Convert file to byte
+            var document = new Document
+            {
+                FileName = Path.GetFileName(file.FileName),
+                FileType = extension,
+                AccountId = accountId,
+            };
+            using (var ms = new MemoryStream())
+            {
+                file.CopyTo(ms);
+                document.File = ms.ToArray();
+            }
+            var CreatedDocument = await _documentsDb.Create(document);
 
-                //Convert file to byte
-                using (var ms = new MemoryStream())
-                {
-                    file.CopyTo(ms);
-                    document.File = ms.ToArray();
-                }
-                document.FileName = Path.GetFileName(file.FileName);
-                document.FileType = extension;
-                document.AccountId = accountId;
-
-                var CreatedDocument = await _documentsDb.Create(document);
-                var createDocumentResponse = DocumentResponse.ToCreateDocumentResponse(CreatedDocument);
-
-                return createDocumentResponse;
+                return "Upload document sucess";
             
         }
 

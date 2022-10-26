@@ -1,6 +1,5 @@
 ﻿using SimpleBankAPI.Infrastructure.Crypto;
 using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.JWT;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
@@ -11,12 +10,12 @@ namespace SimpleBankAPI.Business
 {
     public class UserBusiness : IUserBusiness
     {
-        protected IUsersDb _userDb;
-        protected ITokenDb _tokenDb;
+        protected IUsersRepository _userDb;
+        protected ITokenRepository _tokenDb;
         protected IJwtAuth _jwtAuth;
         protected IConfiguration _config;
 
-        public UserBusiness(IUsersDb usersDb, IJwtAuth jwtAuth, ITokenDb tokenDb, IConfiguration _configuration)
+        public UserBusiness(IUsersRepository usersDb, IJwtAuth jwtAuth, ITokenRepository tokenDb, IConfiguration _configuration)
         {
             _userDb = usersDb;
             _jwtAuth = jwtAuth;

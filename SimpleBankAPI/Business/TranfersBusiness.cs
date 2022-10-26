@@ -7,10 +7,10 @@ namespace SimpleBankAPI.Business
 {
     public class TransfersBusiness : ITransfersBusiness
     {
-        protected ITransfersDb _transfersDb;
-        protected IAccountsDb _accountsDb;
+        protected ITransfersRepository _transfersDb;
+        protected IAccountsRepository _accountsDb;
 
-        public TransfersBusiness(ITransfersDb transfersDb, IAccountsDb accountsDb)
+        public TransfersBusiness(ITransfersRepository transfersDb, IAccountsRepository accountsDb)
         {
             _transfersDb = transfersDb;
             _accountsDb = accountsDb;
@@ -18,7 +18,7 @@ namespace SimpleBankAPI.Business
         public async Task<string> Create(TransferRequest transferRequest, int userId)
         {
 
-            using (TransactionScope transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
 
                 //Convert TransferRequest to Transfer
@@ -26,7 +26,7 @@ namespace SimpleBankAPI.Business
                 var fromAccount = await _accountsDb.GetById(transfer.Fromaccountid);
                 var toAccount = await _accountsDb.GetById(transfer.Toaccountid);
 
-
+                //switch
                 //Validates
                 if (fromAccount.UserId != userId) throw new AuthenticationException("User don't owner account");
                 if (fromAccount is null || toAccount is null) throw new ArgumentException("Accounts not valid");
