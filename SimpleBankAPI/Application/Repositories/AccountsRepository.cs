@@ -3,7 +3,7 @@ using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models;
 
 
-namespace SimpleBankAPI.Data
+namespace SimpleBankAPI.Application.Repositories
 {
     public class AccountsRepository : BaseRepository<Account>, IAccountsRepository, IBaseRepository<Account>
     {

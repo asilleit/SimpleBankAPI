@@ -226,5 +226,38 @@ namespace SimpleBankAPI.Controllers
                 }
             }
         }
+
+
+        [HttpGet("{id:int}/doc/{docid}", Name = "DownloadDocument")]
+        [RequestSizeLimit(2 * 1024 * 1024)]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(IFormFile), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> DownloadDocument([FromRoute] int id, string docId)
+        {
+            try
+            {
+                var content = HttpContext.Request.Form.Files[0];
+                var account = await _accountsBusiness.GetById(id);
+                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                var createdDocument = await _documentsBusiness.Create(content, account.Id, userId);
+                return StatusCode(StatusCodes.Status200OK, createdDocument);
+
+            }
+            catch (Exception ex)
+            {
+                switch (ex)
+                {
+                    case AuthenticationException:
+                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
+                    case ArgumentException:
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                    default:
+                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                }
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using SimpleBankAPI.Interfaces;
 using System.Data;
 
-namespace SimpleBankAPI.Data
+namespace SimpleBankAPI.Application.Repositories
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

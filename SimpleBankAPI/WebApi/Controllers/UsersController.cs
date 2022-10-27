@@ -57,28 +57,6 @@ namespace SimpleBankAPI.Controllers
             }
         }
 
-
-
-        [HttpPost("revalidate", Name = "Revalidate")]
-        [Produces("application/json")]
-
-        [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-
-        public async Task<IActionResult> RevalidateUser([FromBody] RevalidateRequest revalid)
-        {
-
-            int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
-
-            var response = await _ITokenBusiness.Revalidate(userId, revalid);
-
-            var userResponse = new LoginUserResponse(response.Item1, response.Item2, response.Item3, response.Item4, response.Item5);
-            return StatusCode(StatusCodes.Status201Created, userResponse);
-
-        }
-
-
         //private bool UserExists(int id)
         //{
         //    return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();

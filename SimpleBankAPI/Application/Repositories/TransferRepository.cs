@@ -2,7 +2,7 @@
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models;
 
-namespace SimpleBankAPI.Data
+namespace SimpleBankAPI.Application.Repositories
 {
     public class TransferRepository : BaseRepository<Transfer>, ITransfersRepository, IBaseRepository<Transfer>
     {

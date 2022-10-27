@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SimpleBankAPI.Business;
 using SimpleBankAPI.Interfaces;
+using SimpleBankAPI.Interfaces.Provider;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;
@@ -13,13 +15,15 @@ namespace SimpleBankAPI.WebApi.Controllers
 
         private readonly postgresContext _context;
         protected IUserBusiness _userBusiness;
-        protected IJwtAuth _JwtAuth;
+        protected IJwtAuth _jwtAuth;
+        protected ITokenBusiness _ITokenBusiness;
 
-        public LoginController(postgresContext context, IUserBusiness userBusiness, IJwtAuth jwtAuth)
+        public LoginController(postgresContext context, IUserBusiness userBusiness, IJwtAuth jwtAuth, ITokenBusiness iTokenBusiness)
         {
             _context = context;
             _userBusiness = userBusiness;
-            _JwtAuth = jwtAuth;
+            _jwtAuth = jwtAuth;
+            _ITokenBusiness = iTokenBusiness;
         }
 
         [HttpPost("login", Name = "Login")]
@@ -50,6 +54,25 @@ namespace SimpleBankAPI.WebApi.Controllers
                         return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
                 };
             }
+        }
+
+
+        [HttpPost("revalidate", Name = "Revalidate")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+
+        public async Task<IActionResult> RevalidateUser([FromBody] RevalidateRequest revalid)
+        {
+
+            int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+
+            var response = await _ITokenBusiness.Revalidate(userId, revalid);
+
+            var userResponse = new LoginUserResponse(response.Item1, response.Item2, response.Item3, response.Item4, response.Item5);
+            return StatusCode(StatusCodes.Status201Created, userResponse);
+
         }
 
     }
