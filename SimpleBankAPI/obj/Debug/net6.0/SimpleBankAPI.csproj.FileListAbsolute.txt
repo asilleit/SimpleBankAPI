@@ -1091,3 +1091,5 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\runt
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\runtimes\win-x86\native\vcruntime140.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\runtimes\win-x86\native\zlib1.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\runtimes\win-x86\native\zstd.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\MailKit.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\MimeKit.dll

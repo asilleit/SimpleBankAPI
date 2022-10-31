@@ -14,9 +14,9 @@ namespace SimpleBankAPI.WebApi.Controllers
     {
 
         private readonly postgresContext _context;
-        protected IUserBusiness _userBusiness;
-        protected IJwtAuth _jwtAuth;
-        protected ITokenBusiness _ITokenBusiness;
+        private readonly IUserBusiness _userBusiness;
+        private readonly IJwtAuth _jwtAuth;
+        private readonly ITokenBusiness _ITokenBusiness;
 
         public LoginController(postgresContext context, IUserBusiness userBusiness, IJwtAuth jwtAuth, ITokenBusiness iTokenBusiness)
         {
@@ -44,14 +44,11 @@ namespace SimpleBankAPI.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                switch (ex)
+                return ex switch
                 {
-                    case ArgumentException:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                    case InvalidCastException:
-                        return StatusCode(StatusCodes.Status404NotFound, ex.Message);
-                    default:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                    ArgumentException => BadRequest(ex.Message),
+                    InvalidCastException => Unauthorized(ex.Message),
+                    _ => StatusCode(StatusCodes.Status400BadRequest, ex.Message)
                 };
             }
         }
@@ -66,7 +63,7 @@ namespace SimpleBankAPI.WebApi.Controllers
         public async Task<IActionResult> RevalidateUser([FromBody] RevalidateRequest revalid)
         {
 
-            int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+            int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
 
             var response = await _ITokenBusiness.Revalidate(userId, revalid);
 

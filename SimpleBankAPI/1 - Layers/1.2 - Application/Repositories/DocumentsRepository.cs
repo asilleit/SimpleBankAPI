@@ -1,12 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models;
 
 namespace SimpleBankAPI.Application.Repositories
 {
-    public class DocumentsDb : BaseRepository<Document>, IDocumentsRepository, IBaseRepository<Document>
+    public class DocumentsRepository : BaseRepository<Document>, IDocumentsRepository, IBaseRepository<Document>
     {
-        public DocumentsDb(DbContextOptions<postgresContext> options) : base(options)
+        public DocumentsRepository(DbContextOptions<postgresContext> options) : base(options)
         {
         }
 
@@ -25,6 +26,19 @@ namespace SimpleBankAPI.Application.Repositories
         public async Task<List<Document>> GetDocumentsByAccount(int accountId)
         {
             return await _db.Documents.Where(a => a.AccountId == accountId).ToListAsync();
+        }
+
+        public async Task<FileStreamResult> GetDocument(Document document)
+        {
+            //try
+            //{
+                var stream = System.IO.File.OpenRead(document.FileName);
+                return new FileStreamResult(stream, document.File.ToString());
+            //}
+            //catch (Exception ex)
+            //{
+            //    return false;
+            //}
         }
     }
 }

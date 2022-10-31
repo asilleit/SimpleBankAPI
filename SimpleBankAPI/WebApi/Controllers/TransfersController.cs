@@ -13,8 +13,8 @@ namespace SimpleBankAPI.Controllers
     public class TransfersController : ControllerBase
     {
         private readonly postgresContext _context;
-        protected ITransfersBusiness _transfersBusiness;
-        protected IJwtAuth _jwtAuth;
+        private readonly ITransfersBusiness _transfersBusiness;
+        private readonly IJwtAuth _jwtAuth;
 
         public TransfersController(postgresContext context, ITransfersBusiness transfersBusiness, IJwtAuth jwtAuth)
         {
@@ -37,7 +37,7 @@ namespace SimpleBankAPI.Controllers
             try
             {
 
-                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
                 var response = await _transfersBusiness.Create(transfer, userId);
                 if (response is null)
                 {
@@ -47,20 +47,13 @@ namespace SimpleBankAPI.Controllers
             }
             catch (Exception ex)
             {
-                switch (ex)
+                return ex switch
                 {
-                    case ArgumentException:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                    case AuthenticationException:
-                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
-                    default:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                }
+                    ArgumentException => BadRequest(ex.Message),
+                    AuthenticationException => Unauthorized(ex.Message),
+                    _ => StatusCode(StatusCodes.Status400BadRequest, ex.Message)
+                };
             }
-        }
-        private bool TransferExists(int id)
-        {
-            return (_context.Transfers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -33,9 +33,8 @@ namespace SimpleBankAPI.Business
 
             if (!(user.Id.Equals(token.UserId)))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Token not valid!");
             }
-
 
             JwtSecurityToken accessToken = _jwtAuth.CreateJwtToken(user);
 
@@ -47,13 +46,8 @@ namespace SimpleBankAPI.Business
             token.Refresh_token = refreshToken;
             token.Refresh_token_expire_at = DateTime.UtcNow.AddMinutes(int.Parse(_config["Jwt:ExpiresMin"]));
 
-            //token.User = user;
-
-
             //Persist Token
             await _tokenDb.Update(token);
-
-
 
             return (user, access, refreshToken, accessToken.ValidTo, token.Refresh_token_expire_at);
         }

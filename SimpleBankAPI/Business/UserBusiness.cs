@@ -10,10 +10,10 @@ namespace SimpleBankAPI.Business
 {
     public class UserBusiness : IUserBusiness
     {
-        protected IUsersRepository _userDb;
-        protected ITokenRepository _tokenDb;
-        protected IJwtAuth _jwtAuth;
-        protected IConfiguration _config;
+        private readonly IUsersRepository _userDb;
+        private readonly ITokenRepository _tokenDb;
+        private readonly IJwtAuth _jwtAuth;
+        private readonly IConfiguration _config;
 
         public UserBusiness(IUsersRepository usersDb, IJwtAuth jwtAuth, ITokenRepository tokenDb, IConfiguration _configuration)
         {

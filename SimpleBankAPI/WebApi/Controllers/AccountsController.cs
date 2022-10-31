@@ -14,15 +14,17 @@ namespace SimpleBankAPI.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly postgresContext _context;
-        protected IAccountsBusiness _accountsBusiness;
-        protected IJwtAuth _jwtAuth;
-        protected IDocumentsBusiness _documentsBusiness;
-        public AccountsController(postgresContext context, IAccountsBusiness accountsBusiness, IJwtAuth jwtAuth, IDocumentsBusiness documentsBusiness)
+        private readonly IAccountsBusiness _accountsBusiness;
+        private readonly IJwtAuth _jwtAuth;
+        private readonly IDocumentsBusiness _documentsBusiness;
+        private readonly IDocumentsRepository _documentsRepository;
+        public AccountsController(postgresContext context, IAccountsBusiness accountsBusiness, IDocumentsRepository documentsRepository ,IJwtAuth jwtAuth, IDocumentsBusiness documentsBusiness)
         {
             _context = context;
             _accountsBusiness = accountsBusiness;
             _jwtAuth = jwtAuth;
             _documentsBusiness = documentsBusiness;
+            _documentsRepository = documentsRepository;
         }
 
         // GET: api/Accounts
@@ -37,7 +39,7 @@ namespace SimpleBankAPI.Controllers
             try
             {
                 //int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName:"user"));
 
                 var accounts = await _accountsBusiness.GetAccountsByUser(userId);
                 var accountResponseList = AccountResponse.FromListAccountsUser(accounts);
@@ -62,7 +64,7 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
 
                 var createdUser = await _accountsBusiness.Create(request, userId);
 
@@ -70,10 +72,10 @@ namespace SimpleBankAPI.Controllers
             }
             catch (Exception ex)
             {
-                switch (ex)
+                return ex switch
                 {
-                    case ArgumentException: return BadRequest(ex.Message);
-                    default: return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                    ArgumentException => BadRequest(ex.Message),
+                    _ => StatusCode(StatusCodes.Status500InternalServerError, ex.Message)
                 };
             }
         }
@@ -89,7 +91,7 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
                 var account = await _accountsBusiness.GetById(id);
                 //Get Account ID
                 if (account.UserId != userId) return StatusCode(StatusCodes.Status401Unauthorized, "User don't have Owner from account");
@@ -100,22 +102,14 @@ namespace SimpleBankAPI.Controllers
             }
             catch (Exception ex)
             {
-                switch (ex)
+                return ex switch
                 {
-                    case AuthenticationException:
-                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
-                    case ArgumentException:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                    default:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                }
+                    ArgumentException => BadRequest(ex.Message),
+                    AuthenticationException => Unauthorized(ex.Message),
+                    _ => StatusCode(StatusCodes.Status400BadRequest, ex.Message)
+                };
             }
         }
-        private bool AccountExists(int id)
-        {
-            return (_context.Accounts?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
-
         // GET: api/Documents
         [HttpGet("{id:int}/doc", Name = "ListDocuments")]
         [Produces("application/json")]
@@ -127,11 +121,11 @@ namespace SimpleBankAPI.Controllers
         {
             try
             {
-                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
-               // int id = 23;  // 
+                int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
+                // int id = 23;  // 
 
                 var documento = await _documentsBusiness.GetById(id);
-                //Get Account ID
+                //Get Document ID
                 if (documento.AccountId != userId) return StatusCode(StatusCodes.Status401Unauthorized, "User don't have Owner from document");
 
 
@@ -139,17 +133,15 @@ namespace SimpleBankAPI.Controllers
                 var accountResponseList = DocumentResponse.FromListDocumentAccount(documents);
                 return StatusCode(StatusCodes.Status200OK, documents);
             }
+
             catch (Exception ex)
             {
-                switch (ex)
+                return ex switch
                 {
-                    case AuthenticationException:
-                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
-                    case ArgumentException:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                    default:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                }
+                    ArgumentException => BadRequest(ex.Message),
+                    AuthenticationException => Unauthorized(ex.Message),
+                    _ => StatusCode(StatusCodes.Status400BadRequest, ex.Message)
+                };
             }
         }
 
@@ -208,56 +200,63 @@ namespace SimpleBankAPI.Controllers
             {
                 var content = HttpContext.Request.Form.Files[0];
                 var account = await _accountsBusiness.GetById(id);
-                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
                 var createdDocument = await _documentsBusiness.Create(content, account.Id, userId);
                 return StatusCode(StatusCodes.Status201Created, createdDocument);
 
             }
             catch (Exception ex)
             {
-                switch (ex)
+                return ex switch
                 {
-                    case AuthenticationException:
-                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
-                    case ArgumentException:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                    default:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                }
+                    AuthenticationException => Unauthorized(ex.Message),
+                    ArgumentException => BadRequest(ex.Message),
+                    _ => StatusCode(StatusCodes.Status400BadRequest, ex.Message)
+                };
             }
         }
 
 
         [HttpGet("{id:int}/doc/{docid}", Name = "DownloadDocument")]
-        [RequestSizeLimit(2 * 1024 * 1024)]
         [Produces("application/json")]
         [ProducesResponseType(typeof(IFormFile), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> DownloadDocument([FromRoute] int id, string docId)
         {
             try
             {
-                var content = HttpContext.Request.Form.Files[0];
-                var account = await _accountsBusiness.GetById(id);
-                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
-                var createdDocument = await _documentsBusiness.Create(content, account.Id, userId);
-                return StatusCode(StatusCodes.Status200OK, createdDocument);
+                int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
+
+                var result = await _documentsRepository.GetById(id);
+
+
+                int userId1 = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
+                //var createdDocument = await _documentsBusiness.Create(content, account.Id, userId);
+                return StatusCode(StatusCodes.Status200OK, result);
 
             }
             catch (Exception ex)
             {
-                switch (ex)
-                {
-                    case AuthenticationException:
-                        return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
-                    case ArgumentException:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                    default:
-                        return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-                }
-            }
+                return ex switch
+                    {
+                        AuthenticationException => Unauthorized(ex.Message),
+                        ArgumentException => BadRequest(ex.Message),
+                        _ => StatusCode(StatusCodes.Status400BadRequest, ex.Message)
+                    };
+
+            //    switch (ex)
+            //    {
+            //        case AuthenticationException:
+            //            return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
+            //        case ArgumentException:
+            //            return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            //        default:
+            //            return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            //    }
+            //}
         }
+    }
     }
 }

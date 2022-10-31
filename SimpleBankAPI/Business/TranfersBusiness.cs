@@ -7,8 +7,8 @@ namespace SimpleBankAPI.Business
 {
     public class TransfersBusiness : ITransfersBusiness
     {
-        protected ITransfersRepository _transfersDb;
-        protected IAccountsRepository _accountsDb;
+        private readonly ITransfersRepository _transfersDb;
+        private readonly IAccountsRepository _accountsDb;
 
         public TransfersBusiness(ITransfersRepository transfersDb, IAccountsRepository accountsDb)
         {

@@ -12,9 +12,9 @@ namespace SimpleBankAPI.Controllers
     {
 
         private readonly postgresContext _context;
-        protected IUserBusiness _userBusiness;
-        protected IJwtAuth _jwtAuth;
-        protected ITokenBusiness _ITokenBusiness;
+        private readonly IUserBusiness _userBusiness;
+        private readonly IJwtAuth _jwtAuth;
+        private readonly ITokenBusiness _ITokenBusiness;
 
         public UsersController(postgresContext context, IUserBusiness userBusiness, IJwtAuth jwtAuth, ITokenBusiness tokenBusiness)
         {

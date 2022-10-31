@@ -7,9 +7,9 @@ namespace SimpleBankAPI.Business
 {
     public class DocumentsBusiness : IDocumentsBusiness
     {
-        protected IDocumentsRepository _documentsDb;
-        protected IAccountsRepository _accountsDb;
-        protected IJwtAuth _jwtAuth;
+        private readonly IDocumentsRepository _documentsDb;
+        private readonly IAccountsRepository _accountsDb;
+        private readonly IJwtAuth _jwtAuth;
         private string[] permittedExtensions = { ".png", ".pdf" };
         public DocumentsBusiness(IDocumentsRepository documentsDb, IJwtAuth jwtAuth, IAccountsRepository accountsDb)
         {
@@ -22,12 +22,11 @@ namespace SimpleBankAPI.Business
             //Validation
             var extension = Path.GetExtension(file.FileName);
             var account = await _accountsDb.GetById(accountId);
-            //var documents = await _documentsDb.GetDocumentsByAccount(userId);
 
+            //Validations
             if (!permittedExtensions.Contains(extension)) throw new ArgumentException("Extension invalid");
             if (account.Equals(null)) throw new AuthenticationException("Account not exist");
             if (account.UserId != userId) throw new AuthenticationException("User don't owner account");
-            //if (file.Length > (2 * 1024)) throw new AuthenticationException("Document over 2MB");
 
             //Convert file to byte
             var document = new Document
@@ -41,10 +40,11 @@ namespace SimpleBankAPI.Business
                 file.CopyTo(ms);
                 document.File = ms.ToArray();
             }
-            var CreatedDocument = await _documentsDb.Create(document);
+            
+            //Persist Document
+            await _documentsDb.Create(document);
 
                 return "Upload document sucess";
-            
         }
 
         public async Task<Document> GetById(int documentId)

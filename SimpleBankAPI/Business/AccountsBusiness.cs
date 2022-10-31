@@ -7,7 +7,7 @@ namespace SimpleBankAPI.Business
 {
     public class AccountsBusiness : IAccountsBusiness
     {
-        protected IAccountsRepository _accountsDb;
+        private readonly IAccountsRepository _accountsDb;
         public AccountsBusiness(IAccountsRepository accountsDb)
         {
             _accountsDb = accountsDb;
@@ -47,10 +47,10 @@ namespace SimpleBankAPI.Business
         public async Task<List<Account>> GetAccountsByUser(int userId)
         {
 
-            //  if (await _accountsDb.GetAccountsByUser(userId) is not null)
-            //  {
-            return await _accountsDb.GetAccountsByUser(userId);
-            //    }
+            if (await _accountsDb.GetAccountsByUser(userId) is not null)
+            {
+                return await _accountsDb.GetAccountsByUser(userId);
+            }
             throw new ArgumentException("Account not found");
         }
 

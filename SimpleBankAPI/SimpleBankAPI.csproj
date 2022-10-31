@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Confluent.Kafka" Version="1.9.3" />
+    <PackageReference Include="MailKit" Version="3.4.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
@@ -20,11 +21,17 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+    <PackageReference Include="MimeKit" Version="3.4.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageReference Include="SendGrid" Version="9.28.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.24.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="1 - Layers\1.4 - Data\" />
+    <Folder Include="1 - Layers\1.5 - Infrastructure\" />
   </ItemGroup>
 
 </Project>

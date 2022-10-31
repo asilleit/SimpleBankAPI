@@ -34,7 +34,7 @@ builder.Services.AddTransient<IAccountsRepository, AccountsRepository>();
 builder.Services.AddTransient<IAccountsBusiness, AccountsBusiness>();
 builder.Services.AddTransient<ITransfersRepository, TransferRepository>();
 builder.Services.AddTransient<IDocumentsBusiness, DocumentsBusiness>();
-builder.Services.AddTransient<IDocumentsRepository, DocumentsDb>();
+builder.Services.AddTransient<IDocumentsRepository, DocumentsRepository>();
 builder.Services.AddTransient<ITokenRepository, TokenRepository>();
 builder.Services.AddTransient<ITokenBusiness, TokenBusiness>();
 builder.Services.AddTransient<ITransfersBusiness, TransfersBusiness>();
