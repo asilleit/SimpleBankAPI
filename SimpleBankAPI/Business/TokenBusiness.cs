@@ -28,7 +28,7 @@ namespace SimpleBankAPI.Business
             var token = await _tokenDb.GetTokensByRefreshToken(revalidateRequest.RefreshToken);
             if (token == null || user == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("User not the same!");
             }
 
             if (!(user.Id.Equals(token.UserId)))

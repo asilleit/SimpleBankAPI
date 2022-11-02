@@ -58,10 +58,10 @@ namespace SimpleBankAPI.Business
 
         public async Task<List<Document>> GetDocumentsByAccount(int accountId)
         {
-            //  if (await _documentsDb.GetDocumentsByAccount(userId) is not null)
-            //  {
-            return await _documentsDb.GetDocumentsByAccount(accountId);
-            //    }
+            if (await _documentsDb.GetDocumentsByAccount(accountId) is not null)
+            {
+                return await _documentsDb.GetDocumentsByAccount(accountId);
+            }
             throw new ArgumentException("Account not found");
         }
 

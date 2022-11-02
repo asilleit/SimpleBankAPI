@@ -111,7 +111,7 @@ namespace SimpleBankAPI.Controllers
             }
         }
         // GET: api/Documents
-        [HttpGet("{id:int}/doc", Name = "ListDocuments")]
+        [HttpGet("{id:int}/doc", Name = "DownloadDocuments")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]

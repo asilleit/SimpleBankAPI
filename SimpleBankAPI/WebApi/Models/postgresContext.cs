@@ -128,9 +128,7 @@ namespace SimpleBankAPI.Models
                    .HasColumnName("refresh_token");
 
                 entity.Property(e => e.Refresh_token_expire_at)
-                   .HasColumnName("refresh_token_expire_at")
-                .HasDefaultValueSql("now()");
-
+                   .HasColumnName("refresh_token_expire_at");
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("user_id");

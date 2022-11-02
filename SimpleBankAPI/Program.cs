@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using Npgsql;
 using SimpleBankAPI.Application.Repositories;
 using SimpleBankAPI.Business;
+using SimpleBankAPI.Infrastructure.Kafka;
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Interfaces.Provider;
 using SimpleBankAPI.Models;
@@ -39,6 +40,9 @@ builder.Services.AddTransient<ITokenRepository, TokenRepository>();
 builder.Services.AddTransient<ITokenBusiness, TokenBusiness>();
 builder.Services.AddTransient<ITransfersBusiness, TransfersBusiness>();
 builder.Services.AddTransient<IJwtAuth, JwtAuth>();
+builder.Services.AddTransient<INotificationsService, MailService>();
+builder.Services.AddTransient<INotificationsBusiness, NotificationsBusiness>();
+builder.Services.AddTransient<IEventProducer, KafkaProducer>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
