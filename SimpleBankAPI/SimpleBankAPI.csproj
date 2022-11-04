@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="1 - Layers\1.4 - Data\" />
-    <Folder Include="1 - Layers\1.5 - Infrastructure\" />
   </ItemGroup>
 
 </Project>

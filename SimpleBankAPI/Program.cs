@@ -29,20 +29,21 @@ builder.Services.AddScoped<IDbTransaction>(s =>
     return connection.BeginTransaction();
 });
 
-builder.Services.AddTransient<IUsersRepository, UsersRepository>();
-builder.Services.AddTransient<IUserBusiness, UserBusiness>();
-builder.Services.AddTransient<IAccountsRepository, AccountsRepository>();
-builder.Services.AddTransient<IAccountsBusiness, AccountsBusiness>();
-builder.Services.AddTransient<ITransfersRepository, TransferRepository>();
-builder.Services.AddTransient<IDocumentsBusiness, DocumentsBusiness>();
-builder.Services.AddTransient<IDocumentsRepository, DocumentsRepository>();
-builder.Services.AddTransient<ITokenRepository, TokenRepository>();
-builder.Services.AddTransient<ITokenBusiness, TokenBusiness>();
-builder.Services.AddTransient<ITransfersBusiness, TransfersBusiness>();
-builder.Services.AddTransient<IJwtAuth, JwtAuth>();
-builder.Services.AddTransient<INotificationsService, MailService>();
-builder.Services.AddTransient<INotificationsBusiness, NotificationsBusiness>();
-builder.Services.AddTransient<IEventProducer, KafkaProducer>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUserBusiness, UserBusiness>();
+builder.Services.AddScoped<IAccountsRepository, AccountsRepository>();
+builder.Services.AddScoped<IAccountsBusiness, AccountsBusiness>();
+builder.Services.AddScoped<ITransfersRepository, TransferRepository>();
+builder.Services.AddScoped<IDocumentsBusiness, DocumentsBusiness>();
+builder.Services.AddScoped<IDocumentsRepository, DocumentsRepository>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<ITokenBusiness, TokenBusiness>();
+builder.Services.AddScoped<ITransfersBusiness, TransfersBusiness>();
+builder.Services.AddScoped<IJwtAuth, JwtAuth>();
+builder.Services.AddScoped<INotificationsService, MailService>();
+builder.Services.AddScoped<INotificationsBusiness, NotificationsBusiness>();
+builder.Services.AddScoped<IEventProducer, KafkaProducer>();
+builder.Services.AddHostedService<KafkaConsumer>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
