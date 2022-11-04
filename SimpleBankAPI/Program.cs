@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Npgsql;
+using SimpleBankAPI.Application.Repositories;
 using SimpleBankAPI.Business;
-using SimpleBankAPI.Data;
+using SimpleBankAPI.Infrastructure.Kafka;
 using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.JWT;
+using SimpleBankAPI.Interfaces.Provider;
 using SimpleBankAPI.Models;
 using System.Data;
 using System.Text;
@@ -28,17 +29,21 @@ builder.Services.AddScoped<IDbTransaction>(s =>
     return connection.BeginTransaction();
 });
 
-builder.Services.AddTransient<IUsersDb, UsersDb>();
-builder.Services.AddTransient<IUserBusiness, UserBusiness>();
-builder.Services.AddTransient<IAccountsDb, AccountsDb>();
-builder.Services.AddTransient<IAccountsBusiness, AccountsBusiness>();
-builder.Services.AddTransient<ITransfersDb, TransferDb>();
-builder.Services.AddTransient<IDocumentsBusiness, DocumentsBusiness>();
-builder.Services.AddTransient<IDocumentsDb, DocumentsDb>();
-builder.Services.AddTransient<ITokenDb, TokenDb>();
-builder.Services.AddTransient<ITokenBusiness, TokenBusiness>();
-builder.Services.AddTransient<ITransfersBusiness, TransfersBusiness>();
-builder.Services.AddTransient<IJwtAuth, JwtAuth>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUserBusiness, UserBusiness>();
+builder.Services.AddScoped<IAccountsRepository, AccountsRepository>();
+builder.Services.AddScoped<IAccountsBusiness, AccountsBusiness>();
+builder.Services.AddScoped<ITransfersRepository, TransferRepository>();
+builder.Services.AddScoped<IDocumentsBusiness, DocumentsBusiness>();
+builder.Services.AddScoped<IDocumentsRepository, DocumentsRepository>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<ITokenBusiness, TokenBusiness>();
+builder.Services.AddScoped<ITransfersBusiness, TransfersBusiness>();
+builder.Services.AddScoped<IJwtAuth, JwtAuth>();
+builder.Services.AddScoped<INotificationsService, MailService>();
+builder.Services.AddScoped<INotificationsBusiness, NotificationsBusiness>();
+builder.Services.AddScoped<IEventProducer, KafkaProducer>();
+builder.Services.AddHostedService<KafkaConsumer>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
