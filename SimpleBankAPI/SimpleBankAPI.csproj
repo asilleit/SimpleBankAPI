@@ -29,8 +29,4 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.24.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="1 - Layers\1.4 - Data\" />
-  </ItemGroup>
-
 </Project>

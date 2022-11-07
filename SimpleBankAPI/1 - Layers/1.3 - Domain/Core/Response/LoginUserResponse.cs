@@ -19,21 +19,6 @@
             User = CreateUserResponse.ToCreateUserResponse(user);
 
         }
-        //public static LoginUserResponse FromUserToLoginUserResponse(User user)
-        //{
-        //    JwtSecurityToken token = new JwtSecurityToken();
 
-        //    var userResponse = new LoginUserResponse
-        //    {
-        //        AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
-        //        AccessTokenExpiresAt = token.ValidTo,
-
-        //        RefreshToken = new JwtSecurityTokenHandler().WriteToken(token),
-        //        RefreshExpiresAt = token.ValidTo,
-
-        //        User = CreateUserResponse.ToCreateUserResponse(user),
-        //    };
-        //    return userResponse;
-        //}
     }
 }

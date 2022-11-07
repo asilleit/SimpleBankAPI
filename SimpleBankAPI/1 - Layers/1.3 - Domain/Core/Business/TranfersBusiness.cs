@@ -10,14 +10,14 @@ namespace SimpleBankAPI.Business
     public class TransfersBusiness : ITransfersBusiness
     {
         private readonly ITransfersRepository _transfersDb;
-        private readonly INotificationsBusiness _notificationsBusiness;
+        private readonly ICommunicationsBusiness _communicationsBusiness;
         private readonly IAccountsRepository _accountsDb;
 
-        public TransfersBusiness(ITransfersRepository transfersDb, IAccountsRepository accountsDb, INotificationsBusiness notificationsBusiness)
+        public TransfersBusiness(ITransfersRepository transfersDb, IAccountsRepository accountsDb, ICommunicationsBusiness communicationsBusiness)
         {
             _transfersDb = transfersDb;
             _accountsDb = accountsDb;
-            _notificationsBusiness = notificationsBusiness;
+            _communicationsBusiness = communicationsBusiness;
         }
         public async Task<string> Create(TransferRequest transferRequest, int userId)
         {
@@ -52,7 +52,7 @@ namespace SimpleBankAPI.Business
                 fromAccount.Balance += amount;
                 await _accountsDb.Update(fromAccount);
 
-                await _notificationsBusiness.TransferNotification(transfer);
+                await _communicationsBusiness.TransferNotification(transfer);
 
                 transactionScope.Complete();
                 
