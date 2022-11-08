@@ -16,7 +16,7 @@ namespace SimpleBankAPI.Infrastructure.Kafka
             _accountsDb = accountsDb;
             _eventProducer = eventProducer;
         }
-        public async Task TransferNotification(Transfer transfer)
+        public async Task TransferCommunication(Transfer transfer)
         {
             //Get accounts and users
             var account1 = await _accountsDb.GetById(transfer.Fromaccountid);
@@ -52,8 +52,6 @@ namespace SimpleBankAPI.Infrastructure.Kafka
         }
         public async Task SendCommunication(Communication communication)
         {
-            //if (!communication.User.Email.Any()) return;
-
             await _communicationsService.SendCommunication(communication);
         }
 

@@ -5,6 +5,6 @@ namespace SimpleBankAPI.Infrastructure.Kafka
     public interface ICommunicationsBusiness
     {
         Task SendCommunication(Communication communication);
-        Task TransferNotification(Transfer transfer);
+        Task TransferCommunication(Transfer transfer);
     }
 }

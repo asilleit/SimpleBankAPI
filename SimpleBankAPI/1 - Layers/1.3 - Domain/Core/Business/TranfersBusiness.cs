@@ -52,7 +52,7 @@ namespace SimpleBankAPI.Business
                 fromAccount.Balance += amount;
                 await _accountsDb.Update(fromAccount);
 
-                await _communicationsBusiness.TransferNotification(transfer);
+                await _communicationsBusiness.TransferCommunication(transfer);
 
                 transactionScope.Complete();
                 
