@@ -58,7 +58,7 @@ namespace SimpleBankAPI.Infrastructure.Kafka
 
         public override void Dispose()
         {
-            _kafkaConsumer.Close(); // Commit offsets and leave the group cleanly.
+            _kafkaConsumer.Close();
             _kafkaConsumer.Dispose();
 
             base.Dispose();
