@@ -26,15 +26,9 @@ namespace SimpleBankAPI.Business
             User user = await _usersDb.GetById(userId);
 
             var token = await _tokenDb.GetTokensByRefreshToken(revalidateRequest.RefreshToken);
-            if (token == null || user == null)
-            {
-                throw new ArgumentException("User not the same!");
-            }
+            if (token == null || user == null) throw new ArgumentException("User not the same!");
 
-            if (!(user.Id.Equals(token.UserId)))
-            {
-                throw new ArgumentException("Token not valid!");
-            }
+            if (!(user.Id.Equals(token.UserId))) throw new ArgumentException("Token not valid!");
 
             JwtSecurityToken accessToken = _jwtAuth.CreateJwtToken(user);
 

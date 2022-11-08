@@ -1,44 +1,38 @@
 ﻿using Confluent.Kafka;
-using System.Configuration;
 using System.Text.Json;
 
 namespace SimpleBankAPI.Infrastructure.Kafka
 {
     public class KafkaProducer : IEventProducer
     {
-        private readonly IConfiguration _configuration;
         private readonly IProducer<int, string> _producerBuilder;
         private readonly string _topic;
 
         public KafkaProducer(IConfiguration configuration)
         {
-            _configuration = configuration;
+            var producer = configuration.GetSection("KafkaProducer").GetChildren().ToDictionary(x => x.Key, x => x.Value).ToList();
 
-            var producer = _configuration.GetSection("Kafka:Producer").GetChildren().ToDictionary(x => x.Key, x => x.Value).ToList();
-            if (producer != null && producer.Count() > 0)
-            {
+            if (producer.Any()){
                 var producerConfig = new ProducerConfig()
                 {
                     BootstrapServers = producer.FirstOrDefault(x => x.Key.Equals("BootstrapServers")).Value
                 };
                 _producerBuilder = new ProducerBuilder<int, string>(producerConfig).Build();
-            }
-            _topic = producer.FirstOrDefault(x => x.Key.Equals("TopicName")).Value;
-        }
-        public async Task PublishEvent(Notification notification)
-        {
-            var key = notification.User.Id;
-            var data = JsonSerializer.Serialize(notification);
 
+                _topic = producer.FirstOrDefault(x => x.Key.Equals("TopicName")).Value;
+            }
+        }
+        public async Task PublishEvent(Communication communication)
+        {
             var message = new Message<int, string>
             {
-                Key = key,
-                Value = data
+                Key = communication.User.Id,
+                Value = JsonSerializer.Serialize(communication)
             };
 
             await Publish(message);
         }
-        public async Task<(DeliveryResult<int, string>, string)> Publish(Message<int, string> message)
+        private async Task<(DeliveryResult<int, string>, string)> Publish(Message<int, string> message)
         {
             try
             {
@@ -49,6 +43,5 @@ namespace SimpleBankAPI.Infrastructure.Kafka
                 return (null, ex.Error.Reason);
             }
         }
-
     }
 }

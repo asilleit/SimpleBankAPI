@@ -203,7 +203,6 @@ namespace SimpleBankAPI.Controllers
                 int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
                 var createdDocument = await _documentsBusiness.Create(content, account.Id, userId);
                 return StatusCode(StatusCodes.Status201Created, createdDocument);
-
             }
             catch (Exception ex)
             {
@@ -245,17 +244,6 @@ namespace SimpleBankAPI.Controllers
                         ArgumentException => BadRequest(ex.Message),
                         _ => StatusCode(StatusCodes.Status400BadRequest, ex.Message)
                     };
-
-            //    switch (ex)
-            //    {
-            //        case AuthenticationException:
-            //            return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
-            //        case ArgumentException:
-            //            return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-            //        default:
-            //            return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
-            //    }
-            //}
         }
     }
     }

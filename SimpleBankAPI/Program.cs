@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -40,8 +39,8 @@ builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<ITokenBusiness, TokenBusiness>();
 builder.Services.AddScoped<ITransfersBusiness, TransfersBusiness>();
 builder.Services.AddScoped<IJwtAuth, JwtAuth>();
-builder.Services.AddScoped<INotificationsService, MailService>();
-builder.Services.AddScoped<INotificationsBusiness, NotificationsBusiness>();
+builder.Services.AddScoped<ICommunicationsService, MailService>();
+builder.Services.AddScoped<ICommunicationsBusiness, NotificationsBusiness>();
 builder.Services.AddScoped<IEventProducer, KafkaProducer>();
 builder.Services.AddHostedService<KafkaConsumer>();
 builder.Services.AddEndpointsApiExplorer();

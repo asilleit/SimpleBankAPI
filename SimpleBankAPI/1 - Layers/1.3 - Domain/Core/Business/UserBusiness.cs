@@ -32,7 +32,6 @@ namespace SimpleBankAPI.Business
                     throw new ArgumentException("Username cannot be repeated");
                 }
 
-
                 //UserRequest 
                 User user = CreateUserRequest.RequestToUser(userRequest);
 
@@ -48,13 +47,12 @@ namespace SimpleBankAPI.Business
             {
                 throw new ArgumentException(ex.ToString());
             }
-
         }
+
         public async Task<(User, string, string, DateTime, DateTime)> Login(LoginUserRequest userRequest)
         {
             //Validate User Login
             User user = await _userDb.GetByUsername(userRequest.Username);
-
             JwtSecurityToken accessToken = _jwtAuth.CreateJwtToken(user);
 
             var access = new JwtSecurityTokenHandler().WriteToken(accessToken);
@@ -67,7 +65,6 @@ namespace SimpleBankAPI.Business
             token.Refresh_token = refreshToken;
             token.Refresh_token_expire_at = DateTime.UtcNow.AddMinutes(int.Parse(_config["Jwt:ExpiresMin"]));
 
-
             //Persist Token
             await _tokenDb.Create(token);
 
@@ -77,6 +74,5 @@ namespace SimpleBankAPI.Business
 
             return (user, access, refreshToken, accessToken.ValidTo, token.Refresh_token_expire_at);
         }
-
     }
 }
