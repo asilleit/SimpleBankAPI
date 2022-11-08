@@ -13,12 +13,12 @@ namespace SimpleBankAPI.Infrastructure.Kafka
             }
             public async Task SendCommunication(Communication communication)
             {
-                //Map communication to mailRequest   
+                //Build Message 
                 var ToEmail = communication.User.Email;
                 var Subject = communication.Subject;
                 var Body = communication.Body;
  
-                //build email
+                //build email configuration
                 var email = new MimeMessage();
                 email.Sender = MailboxAddress.Parse(_configuration["MailSettings:Mail"]);
                 email.To.Add(MailboxAddress.Parse(ToEmail));
