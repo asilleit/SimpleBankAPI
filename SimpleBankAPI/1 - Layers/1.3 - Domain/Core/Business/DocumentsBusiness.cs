@@ -46,12 +46,12 @@ namespace SimpleBankAPI.Business
             return "Upload document sucess";
         }
 
-        public async Task<Document> GetById(int documentId)
+        public async Task<Document> DownloadDocument(int documentId)
         {
-            //if (await _documentsDb.GetById(documentId) is not null)
-            //{
+            if (await _documentsDb.GetById(documentId) is not null)
+            {
                 return await _documentsDb.GetById(documentId);
-            //}
+            }
             throw new ArgumentException("Account not found");
         }
 

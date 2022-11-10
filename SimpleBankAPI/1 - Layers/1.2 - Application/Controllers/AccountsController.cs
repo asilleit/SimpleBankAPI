@@ -109,7 +109,7 @@ namespace SimpleBankAPI.Controllers
                 };
             }
         }
-        // GET: api/Documents
+        // GET: Accounts/5/Documents
         [HttpGet("{id:int}/doc", Name = "GetDoccumentByAccount")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
@@ -218,24 +218,30 @@ namespace SimpleBankAPI.Controllers
 
         [HttpGet("{id:int}/doc/{docid}", Name = "DownloadDocument")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(IFormFile), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> DownloadDocument([FromRoute] int id, string docId)
+        public async Task<IActionResult> DownloadDocument([FromRoute] int id, int docId)
         {
             try
             {
                 int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
 
-                var result = await _documentsRepository.GetById(id);
+                var account = await _accountsBusiness.GetById(id);
+
+                var result = await _documentsBusiness.DownloadDocument(docId);
 
 
-                int userId1 = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
-                //var createdDocument = await _documentsBusiness.Create(content, account.Id, userId);
-                return StatusCode(StatusCodes.Status200OK, result);
+                MemoryStream ms = new MemoryStream(result.File);
+                return new FileStreamResult(ms, "application/pdf");
+
+                var stream = new MemoryStream();
+                await stream.WriteAsync(result.File, 0, result.File.Length);
+                stream.Position = 0;
+                return File(stream, result.FileType, result.FileName);
 
             }
             catch (Exception ex)
