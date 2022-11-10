@@ -10,10 +10,10 @@
         {
             var document = new Document()
             {
-               File = request.File,
-               AccountId = request.AccountId,
-               FileName = request.FileName,
-               FileType = request.FileType
+                File = request.File,
+                AccountId = request.AccountId,
+                FileName = request.FileName,
+                FileType = request.FileType
             };
             return document;
 

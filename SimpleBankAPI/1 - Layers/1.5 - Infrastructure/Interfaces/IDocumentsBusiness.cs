@@ -1,5 +1,4 @@
 ﻿using SimpleBankAPI.Models;
-using SimpleBankAPI.Models.Response;
 
 namespace SimpleBankAPI.Interfaces
 {

@@ -12,7 +12,8 @@ namespace SimpleBankAPI.Infrastructure.Kafka
         {
             var producer = configuration.GetSection("KafkaProducer").GetChildren().ToDictionary(x => x.Key, x => x.Value).ToList();
 
-            if (producer.Any()){
+            if (producer.Any())
+            {
                 var producerConfig = new ProducerConfig()
                 {
                     BootstrapServers = producer.FirstOrDefault(x => x.Key.Equals("BootstrapServers")).Value

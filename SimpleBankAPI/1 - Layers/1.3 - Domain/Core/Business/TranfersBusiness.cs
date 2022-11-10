@@ -1,6 +1,5 @@
 ﻿using SimpleBankAPI.Infrastructure.Kafka;
 using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using System.Security.Authentication;
 using System.Transactions;
@@ -55,10 +54,10 @@ namespace SimpleBankAPI.Business
                 await _communicationsBusiness.TransferCommunication(transfer);
 
                 transactionScope.Complete();
-                
+
                 return "Transfer completed";
             }
-            
+
 
         }
     }

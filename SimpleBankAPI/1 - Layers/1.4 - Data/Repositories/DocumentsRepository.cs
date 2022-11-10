@@ -32,8 +32,8 @@ namespace SimpleBankAPI.Application.Repositories
         {
             //try
             //{
-                var stream = System.IO.File.OpenRead(document.FileName);
-                return new FileStreamResult(stream, document.File.ToString());
+            var stream = System.IO.File.OpenRead(document.FileName);
+            return new FileStreamResult(stream, document.File.ToString());
             //}
             //catch (Exception ex)
             //{

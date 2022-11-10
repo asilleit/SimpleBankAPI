@@ -47,7 +47,7 @@ namespace SimpleBankAPI.Infrastructure.Kafka
                     $"Your current balance is: {account2.Balance} {account2.Currency}, <br/><br/> " +
                     $"<H3>Thanks,<br />Simple Bank API</H3>"
                 };
-            await _eventProducer.PublishEvent(creditCommunication);
+                await _eventProducer.PublishEvent(creditCommunication);
             }
         }
         public async Task SendCommunication(Communication communication)
