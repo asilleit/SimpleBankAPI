@@ -15,13 +15,12 @@ public class AccountTest
     private int _userId;
     private AccountRequest _accountRequest;
     private Account _account;
+    private int _accountId;
     #endregion
 
     #region Constructor
     public AccountTest()
     {
-
-
         Setup();
     }
     #endregion
@@ -29,7 +28,7 @@ public class AccountTest
     #region Setup
     private void Setup()
     {
-        User _user = new User{Id = 1, Username="adrianoleite", Password="123456789", FullName="adrianofullname", Email="adriano@gmail.com", CreatedAt = DateTime.Now};
+        var _user = new User { Id = 1, Username = "adrianoleite", Password = "123456789", FullName = "adrianofullname", Email = "adriano@gmail.com", CreatedAt = DateTime.Now };
         _account = new Account { Id = 1, UserId = 1, Balance = 1, Currency = "EUR", CreatedAt = DateTime.Now };
 
         _userId = 1;
@@ -38,22 +37,15 @@ public class AccountTest
             Amount = 1,
             Currency = "EUR"
         };
+        _accountId = 1;
         _accountsDb = new Mock<IAccountsRepository>();
 
         _accountsDb.Setup(a => a.Create(It.IsAny<Account>())).ReturnsAsync(new Account());
         _accountsDb.Setup(r => r.GetById(_userId)).ReturnsAsync(() => _account);
-       // _accountsDb.Setup(r => r.GetById(_userId)).Returns(ReadByAccountMockOk());
 
-        _accountsBusiness = new AccountsBusiness( _accountsDb.Object);
+        _accountsBusiness = new AccountsBusiness(_accountsDb.Object);
     }
 
-
-     private async Task<IEnumerable<Account>?> ReadByAccountMockOk()
-    {
-        var accounts = new List<Account>();
-        accounts.Add(_account);
-        return accounts;
-    }
     #endregion
 
     #region Tests
@@ -61,15 +53,16 @@ public class AccountTest
     public async Task CreateAccount_TestOK()
     {
         // Arrange
-        _accountsDb.Setup(a => a.Create(It.IsAny<Account>())).ReturnsAsync(new Account());
+        _accountsDb.Setup(a => a.Create(It.IsAny<Account>())).ReturnsAsync(_account);
         // Act
         var result = await _accountsBusiness.Create(_accountRequest, _userId);
 
         // Assert
         Assert.NotNull(result);
-        Assert.True(result.GetType() == typeof(AccountResponse));
+        Assert.Equal(_account.Id, result.Id);
+        Assert.Equal(_account.Currency, result.Currency);
+        Assert.Equal(_account.Balance.ToString(), result.Balance.ToString());
     }
-
     [Fact]
     public async Task CreateAccount_TestError()
     {
@@ -81,12 +74,12 @@ public class AccountTest
         Assert.ThrowsAsync<Exception>(() => result);
         Assert.Equal("One or more errors occurred. (Account not found)", result.Exception.Message.ToString());
     }
-
     [Fact]
     public async Task GetAllAccounts_TestOK()
     {
         // Arrange
-        var userId = 1;
+        _accountsDb.Setup(a => a.GetAccountsByUser(_userId)).ReturnsAsync(new List<Account>());
+        const int userId = 1;
         // Act
         var result = await _accountsBusiness.GetAccountsByUser(userId);
         // Assert
@@ -96,13 +89,38 @@ public class AccountTest
     public async void GetAllAccounts_TestError()
     {
         // Arrange
-        _accountsDb.Setup(r => r.GetAccountsByUser(4)).Throws(new ArgumentException());
-        _accountsBusiness = new AccountsBusiness(_accountsDb.Object);
+        _accountsDb.Setup(a => a.GetAccountsByUser(_userId)).ReturnsAsync(new List<Account>());
         // Act
-        var result = _accountsBusiness.GetAccountsByUser(4);
+        const int userId = 4;
+        var result = _accountsBusiness.GetAccountsByUser(userId);
         // Assert
-        Assert.ThrowsAsync<Exception>(() => result);
+        Assert.NotEqual(_accountsDb.GetType, result.GetType);
     }
+    [Fact]
+    public async Task GetAccountById_TestOK()
+    {
+        // Arrange
+        _accountsDb.Setup(a => a.GetById(_accountId)).ReturnsAsync(_account);
+        var result = await _accountsBusiness.GetById(_accountId);
+        // Act
 
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(_account.Id, result.Id);
+        Assert.Equal(_account.Currency, result.Currency);
+        Assert.Equal(_account.Balance.ToString(), result.Balance.ToString());
+    }
+    [Fact]
+    public async Task GetAccountById_TestError()
+    {
+        // Arrange
+        var id = 1;
+        var userId = 1;
+        _accountsDb.Setup(r => r.GetById(id)).Throws(new ArgumentException());
+        // Act
+        var result = await _accountsBusiness.GetAccountsByUser(userId);
+        // Assert
+        Assert.Null(result);
+    }
     #endregion
 }
