@@ -1,6 +1,5 @@
 ﻿using SimpleBankAPI.Infrastructure.Kafka;
 using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using System.Security.Authentication;
 using System.Transactions;
@@ -13,11 +12,10 @@ namespace SimpleBankAPI.Business
         private readonly ICommunicationsBusiness _communicationsBusiness;
         private readonly IAccountsRepository _accountsDb;
 
-        public TransfersBusiness(ITransfersRepository transfersDb, IAccountsRepository accountsDb, ICommunicationsBusiness communicationsBusiness)
+        public TransfersBusiness(ITransfersRepository transfersDb, IAccountsRepository accountsRepository)
         {
             _transfersDb = transfersDb;
-            _accountsDb = accountsDb;
-            _communicationsBusiness = communicationsBusiness;
+            _accountsDb = accountsRepository;
         }
         public async Task<string> Create(TransferRequest transferRequest, int userId)
         {
@@ -55,10 +53,10 @@ namespace SimpleBankAPI.Business
                 await _communicationsBusiness.TransferCommunication(transfer);
 
                 transactionScope.Complete();
-                
+
                 return "Transfer completed";
             }
-            
+
 
         }
     }

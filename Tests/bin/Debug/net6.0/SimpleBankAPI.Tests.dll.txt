@@ -1,0 +1,5 @@
+SimpleBankAPI.Tests.AccountTest.CreateAccount_TestOK
+SimpleBankAPI.Tests.AccountTest.CreateAccount_TestError
+SimpleBankAPI.Tests.AccountTest.GetAllAccounts_TestOK
+SimpleBankAPI.Tests.AccountTest.GetAllAccounts_TestError
+SimpleBankAPI.Tests.TransferTests.CreateTransfer_TestOK

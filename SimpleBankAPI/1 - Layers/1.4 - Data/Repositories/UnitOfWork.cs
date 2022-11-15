@@ -9,16 +9,9 @@ namespace SimpleBankAPI.Application.Repositories
         public IUsersRepository UserRepository { get; }
         public IAccountsRepository AccountRepository { get; }
         public ITransfersRepository TransferRepository { get; }
+        public IDocumentsRepository DocumentsRepository { get; }
 
         private readonly IDbTransaction _dbTransaction;
-
-        public UnitOfWork(IUsersRepository usersDb, IAccountsRepository accountsDb, ITransfersRepository transfersDb, IDbTransaction dbTransaction)
-        {
-            UserRepository = usersDb;
-            AccountRepository = accountsDb;
-            TransferRepository = transfersDb;
-            _dbTransaction = dbTransaction;
-        }
 
         public IDbTransaction Begin()
         {

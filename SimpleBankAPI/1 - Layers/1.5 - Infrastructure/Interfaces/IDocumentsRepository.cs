@@ -7,7 +7,6 @@ namespace SimpleBankAPI.Interfaces
     {
         Task<Document> Create(Document documentCreate);
         Task<List<Document>> GetDocumentsByAccount(int accountId);
-        Task<Document> GetById(int userId);
-        Task<FileStreamResult> GetDocument(Document document);
+        Task<Document> GetById(int documentID);
     }
 }

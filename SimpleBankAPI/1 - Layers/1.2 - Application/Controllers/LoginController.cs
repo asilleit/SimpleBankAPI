@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SimpleBankAPI.Business;
 using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.Interfaces.Provider;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
 using SimpleBankAPI.Models.Response;

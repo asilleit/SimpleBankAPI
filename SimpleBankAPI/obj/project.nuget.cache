@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "t1E2xYJPpm9Ryr98XiuaPkqV2nQFTOLA8cq3IIk+2QzhNGXKYKZZZl2K5lae0nEYpCNfR24Qvys5G0HysLujnA==",
+  "dgSpecHash": "5nXYQ/D8RSUEokAGq/xqSWxZJd/qfqpKJcpz16QiwzM04HsbyvvSe5Bv4PWT4TZZpalhHcdti3O7/NWQycACPQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj",
   "expectedPackageFiles": [
@@ -192,7 +192,11 @@
     "C:\\Users\\asilleit\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\asilleit\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\asilleit\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\asilleit\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
+    "C:\\Users\\asilleit\\.nuget\\packages\\xunit.core\\2.4.2\\xunit.core.2.4.2.nupkg.sha512",
+    "C:\\Users\\asilleit\\.nuget\\packages\\xunit.extensibility.core\\2.4.2\\xunit.extensibility.core.2.4.2.nupkg.sha512",
+    "C:\\Users\\asilleit\\.nuget\\packages\\xunit.extensibility.execution\\2.4.2\\xunit.extensibility.execution.2.4.2.nupkg.sha512"
   ],
   "logs": []
 }

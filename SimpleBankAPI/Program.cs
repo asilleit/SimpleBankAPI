@@ -3,11 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Npgsql;
-using SimpleBankAPI.Application.Repositories;
-using SimpleBankAPI.Business;
-using SimpleBankAPI.Infrastructure.Kafka;
-using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.Interfaces.Provider;
+using SimpleBankAPI._1___Layers._1._3___Domain.Core.Bootstrap;
 using SimpleBankAPI.Models;
 using System.Data;
 using System.Text;
@@ -15,7 +11,6 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 
 builder.Services.AddControllers();
 //Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle//
@@ -28,21 +23,8 @@ builder.Services.AddScoped<IDbTransaction>(s =>
     return connection.BeginTransaction();
 });
 
-builder.Services.AddScoped<IUsersRepository, UsersRepository>();
-builder.Services.AddScoped<IUserBusiness, UserBusiness>();
-builder.Services.AddScoped<IAccountsRepository, AccountsRepository>();
-builder.Services.AddScoped<IAccountsBusiness, AccountsBusiness>();
-builder.Services.AddScoped<ITransfersRepository, TransferRepository>();
-builder.Services.AddScoped<IDocumentsBusiness, DocumentsBusiness>();
-builder.Services.AddScoped<IDocumentsRepository, DocumentsRepository>();
-builder.Services.AddScoped<ITokenRepository, TokenRepository>();
-builder.Services.AddScoped<ITokenBusiness, TokenBusiness>();
-builder.Services.AddScoped<ITransfersBusiness, TransfersBusiness>();
-builder.Services.AddScoped<IJwtAuth, JwtAuth>();
-builder.Services.AddScoped<ICommunicationsService, MailService>();
-builder.Services.AddScoped<ICommunicationsBusiness, NotificationsBusiness>();
-builder.Services.AddScoped<IEventProducer, KafkaProducer>();
-builder.Services.AddHostedService<KafkaConsumer>();
+builder.Services.AddServices();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
@@ -89,11 +71,9 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -109,4 +89,3 @@ app.UseAuthorization();
 app.MapControllers();
 app.UseHttpsRedirection();
 app.Run();
-

@@ -1,5 +1,4 @@
 ﻿using SimpleBankAPI.Interfaces;
-using SimpleBankAPI.Models.Response;
 using System.Security.Authentication;
 using Document = SimpleBankAPI.Models.Document;
 
@@ -40,14 +39,14 @@ namespace SimpleBankAPI.Business
                 file.CopyTo(ms);
                 document.File = ms.ToArray();
             }
-            
+
             //Persist Document
             await _documentsDb.Create(document);
 
-                return "Upload document sucess";
+            return "Upload document sucess";
         }
 
-        public async Task<Document> GetById(int documentId)
+        public async Task<Document> DownloadDocument(int documentId)
         {
             if (await _documentsDb.GetById(documentId) is not null)
             {

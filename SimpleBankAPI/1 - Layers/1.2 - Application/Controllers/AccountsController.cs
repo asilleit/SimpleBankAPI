@@ -18,7 +18,7 @@ namespace SimpleBankAPI.Controllers
         private readonly IJwtAuth _jwtAuth;
         private readonly IDocumentsBusiness _documentsBusiness;
         private readonly IDocumentsRepository _documentsRepository;
-        public AccountsController(postgresContext context, IAccountsBusiness accountsBusiness, IDocumentsRepository documentsRepository ,IJwtAuth jwtAuth, IDocumentsBusiness documentsBusiness)
+        public AccountsController(postgresContext context, IAccountsBusiness accountsBusiness, IDocumentsRepository documentsRepository, IJwtAuth jwtAuth, IDocumentsBusiness documentsBusiness)
         {
             _context = context;
             _accountsBusiness = accountsBusiness;
@@ -33,13 +33,13 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
         {
             try
             {
                 //int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-                int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName:"user"));
+                int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
 
                 var accounts = await _accountsBusiness.GetAccountsByUser(userId);
                 var accountResponseList = AccountResponse.FromListAccountsUser(accounts);
@@ -59,7 +59,7 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         public async Task<IActionResult> PostAccount([FromBody] AccountRequest request)
         {
             try
@@ -86,7 +86,7 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             try
@@ -95,7 +95,6 @@ namespace SimpleBankAPI.Controllers
                 var account = await _accountsBusiness.GetById(id);
                 //Get Account ID
                 if (account.UserId != userId) return StatusCode(StatusCodes.Status401Unauthorized, "User don't have Owner from account");
-
 
                 var accountResponse = AccountResponse.ToAcountResponse(account);
                 return StatusCode(StatusCodes.Status200OK, accountResponse);
@@ -110,26 +109,25 @@ namespace SimpleBankAPI.Controllers
                 };
             }
         }
-        // GET: api/Documents
-        [HttpGet("{id:int}/doc", Name = "DownloadDocuments")]
+        // GET: Accounts/5/Documents
+        [HttpGet("{id:int}/doc", Name = "GetDoccumentByAccount")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Document>>> GetDocumentsByAccount([FromRoute] int id)
         {
             try
             {
-                int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
-                // int id = 23;  // 
+                int userId = int.Parse(_jwtAuth.GetClaim(Request.Headers.Authorization, "user"));
 
-                var documento = await _documentsBusiness.GetById(id);
+                var account = await _accountsBusiness.GetById(id);
                 //Get Document ID
-                if (documento.AccountId != userId) return StatusCode(StatusCodes.Status401Unauthorized, "User don't have Owner from document");
+                if (account.UserId != userId) return StatusCode(StatusCodes.Status401Unauthorized, "User don't have Owner from document");
 
 
-                var documents = await _documentsBusiness.GetDocumentsByAccount(userId);
+                var documents = await _documentsBusiness.GetDocumentsByAccount(id);
                 var accountResponseList = DocumentResponse.FromListDocumentAccount(documents);
                 return StatusCode(StatusCodes.Status200OK, documents);
             }
@@ -151,7 +149,7 @@ namespace SimpleBankAPI.Controllers
         //[ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         //[ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         //[ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        ////[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        ////[Authorize]
         //public async Task<IActionResult> GetDocument(int id)
         //{
         //    try
@@ -190,10 +188,12 @@ namespace SimpleBankAPI.Controllers
         [HttpPost("{id:int}/doc", Name = "UploadDocument")]
         [RequestSizeLimit(2 * 1024 * 1024)]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status415UnsupportedMediaType)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         public async Task<IActionResult> PostDocument([FromRoute] int id)
         {
             try
@@ -218,33 +218,41 @@ namespace SimpleBankAPI.Controllers
 
         [HttpGet("{id:int}/doc/{docid}", Name = "DownloadDocument")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(IFormFile), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> DownloadDocument([FromRoute] int id, string docId)
+        [Authorize]
+        public async Task<IActionResult> DownloadDocument([FromRoute] int id, int docId)
         {
             try
             {
                 int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
 
-                var result = await _documentsRepository.GetById(id);
+                var account = await _accountsBusiness.GetById(id);
+
+                var result = await _documentsBusiness.DownloadDocument(docId);
 
 
-                int userId1 = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
-                //var createdDocument = await _documentsBusiness.Create(content, account.Id, userId);
-                return StatusCode(StatusCodes.Status200OK, result);
+                MemoryStream ms = new MemoryStream(result.File);
+                return new FileStreamResult(ms, "application/pdf");
+
+                var stream = new MemoryStream();
+                await stream.WriteAsync(result.File, 0, result.File.Length);
+                stream.Position = 0;
+                return File(stream, result.FileType, result.FileName);
 
             }
             catch (Exception ex)
             {
                 return ex switch
-                    {
-                        AuthenticationException => Unauthorized(ex.Message),
-                        ArgumentException => BadRequest(ex.Message),
-                        _ => StatusCode(StatusCodes.Status400BadRequest, ex.Message)
-                    };
+                {
+                    AuthenticationException => Unauthorized(ex.Message),
+                    ArgumentException => BadRequest(ex.Message),
+                    _ => StatusCode(StatusCodes.Status400BadRequest, ex.Message)
+                };
+            }
         }
-    }
     }
 }
