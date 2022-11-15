@@ -7,6 +7,7 @@ namespace SimpleBankAPI.Interfaces
         IUsersRepository UserRepository { get; }
         IAccountsRepository AccountRepository { get; }
         ITransfersRepository TransferRepository { get; }
+        IDocumentsRepository DocumentsRepository { get; }
         //ITransferRepository transferRepository { get; }
         //Guid Id { get; }
         //IDbConnection Connection { get; }

@@ -8,6 +8,7 @@ namespace SimpleBankAPI.Business
     public class AccountsBusiness : IAccountsBusiness
     {
         private readonly IAccountsRepository _accountsDb;
+        private readonly IConfiguration _config;
         public AccountsBusiness(IAccountsRepository accountsDb)
         {
             _accountsDb = accountsDb;
@@ -33,6 +34,7 @@ namespace SimpleBankAPI.Business
                 var CreatedAccont = await _accountsDb.Create(accont);
 
                 //UserResponse
+                
                 var createAccountResponse = AccountResponse.ToAcountResponse(CreatedAccont);
                 return createAccountResponse;
             }
@@ -51,7 +53,7 @@ namespace SimpleBankAPI.Business
             {
                 return await _accountsDb.GetAccountsByUser(userId);
             }
-            throw new ArgumentException("Account not found");
+            throw new ArgumentException("Not found account to user");
         }
 
         public async Task<Account> GetById(int accountId)
@@ -63,7 +65,7 @@ namespace SimpleBankAPI.Business
             throw new ArgumentException("Account not found");
         }
 
-        public void Update(Account accountToUpdate)
+        public async void Update(Account accountToUpdate)
         {
             _accountsDb.Update(accountToUpdate);
         }

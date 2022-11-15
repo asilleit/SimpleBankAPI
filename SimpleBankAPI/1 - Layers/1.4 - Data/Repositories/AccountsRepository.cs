@@ -11,7 +11,7 @@ namespace SimpleBankAPI.Application.Repositories
         public AccountsRepository(DbContextOptions<postgresContext> options) : base(options)
         {
         }
-        public async override Task<Account> Create(Account account)
+        public async  Task<Account> Create(Account account)
         {
             await _db.AddAsync(account);
             await _db.SaveChangesAsync();
