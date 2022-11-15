@@ -12,10 +12,11 @@ namespace SimpleBankAPI.Business
         private readonly ICommunicationsBusiness _communicationsBusiness;
         private readonly IAccountsRepository _accountsDb;
 
-        public TransfersBusiness(ITransfersRepository transfersDb, IAccountsRepository accountsRepository)
+        public TransfersBusiness(ITransfersRepository transfersDb, IAccountsRepository accountsRepository,ICommunicationsBusiness communicationsBusiness)
         {
             _transfersDb = transfersDb;
             _accountsDb = accountsRepository;
+            _communicationsBusiness= communicationsBusiness;
         }
         public async Task<string> Create(TransferRequest transferRequest, int userId)
         {
