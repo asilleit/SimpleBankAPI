@@ -1,4 +1,4 @@
-﻿using SimpleBankAPI.Application.Repositories;
+﻿
 using SimpleBankAPI.Business;
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models;
@@ -44,6 +44,10 @@ public class TransferTests
 
         _accountRepository.Setup(a => a.GetById(_transfer.Fromaccountid)).ReturnsAsync(_account1);
         _accountRepository.Setup(a => a.GetById(_transfer.Toaccountid)).ReturnsAsync(_account2);
+        _accountRepository.Setup(a => a.Create(It.IsAny<Account>())).ReturnsAsync(_account1);
+
+        _accountRepository.Setup(a => a.Create(It.IsAny<Account>())).ReturnsAsync(_account2);
+        _transfersRepository.Setup(a => a.Create(It.IsAny<Transfer>())).ReturnsAsync(_transfer);
     }
     #endregion
 
@@ -54,10 +58,6 @@ public class TransferTests
     [Fact]
     public async Task CreateTransfer_TestOK()
     {
-        //Act  
-        _accountRepository.Setup(a => a.Create(It.IsAny<Account>())).ReturnsAsync(_account1);
-        _accountRepository.Setup(a => a.Create(It.IsAny<Account>())).ReturnsAsync(_account2);
-        _transfersRepository.Setup(a => a.Create(It.IsAny<Transfer>())).ReturnsAsync(_transfer);
         //Act
         var result = await _transferBusiness.Create(_transferRequest, _userId);
         // Assert
@@ -65,4 +65,57 @@ public class TransferTests
         Assert.Equal(result.ToString(), "Transfer completed");
     }
     #endregion
+    [Fact]
+    //"Currency isn't the same"
+    public async Task Transfer_TestCurrencyAccountError()
+    {
+        _accountRepository.Setup(a => a.Create(It.IsAny<Account>())).Throws(new ArgumentException());
+        // Arrange
+        _account2.Currency = "USD";
+        // Act
+        var result = _transferBusiness.Create(_transferRequest, _userId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("One or more errors occurred. (Currency isn't the same)", result.Exception.Message.ToString());
+    }
+    [Fact]
+    //Insufficient funds from your account
+    public async Task Transfer_TestBalanceAccountError()
+    {
+        _transfersRepository.Setup(a => a.Create(It.IsAny<Transfer>())).Throws(new ArgumentException());
+        // Arrange
+        _account1.Balance = _transfer.Amount - 1000;
+        // Act
+        var result = _transferBusiness.Create(_transferRequest, _userId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("One or more errors occurred. (Insufficient funds from your account)", result.Exception.Message.ToString());
+    }
+
+    [Fact]
+    //User don't owner account
+    public async Task Transfer_TestUserError()
+    {
+        _transfersRepository.Setup(a => a.Create(It.IsAny<Transfer>())).Throws(new ArgumentException());
+        // Arrange
+      _account1.UserId=10;
+        // Act
+        var result = _transferBusiness.Create(_transferRequest, _userId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("One or more errors occurred. (User don't owner account)", result.Exception.Message.ToString());
+    }
+    [Fact]
+    //The accounts are the same.
+    public async Task Transfer_TestSameAccountsError()
+    {
+        _transfersRepository.Setup(a => a.Create(It.IsAny<Transfer>())).Throws(new ArgumentException());
+        // Arrange
+        _transferRequest.FromAccount = _transferRequest.ToAccount;
+        // Act
+        var result = _transferBusiness.Create(_transferRequest, _userId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("One or more errors occurred. (Accounts not valid, because is the same)", result.Exception.Message.ToString(), true);
+    }
 }
