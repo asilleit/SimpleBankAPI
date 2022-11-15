@@ -48,12 +48,16 @@ namespace SimpleBankAPI.Business
 
         public async Task<List<Account>> GetAccountsByUser(int userId)
         {
+            try{
 
-            if (await _accountsDb.GetAccountsByUser(userId) is not null)
-            {
                 return await _accountsDb.GetAccountsByUser(userId);
-            }
-            throw new ArgumentException("Not found account to user");
+
+            }catch(Exception ex)
+        {
+         throw new ArgumentException(ex.ToString());
+        }
+
+           
         }
 
         public async Task<Account> GetById(int accountId)

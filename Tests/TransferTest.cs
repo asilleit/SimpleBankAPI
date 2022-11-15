@@ -1,60 +1,72 @@
-﻿using Moq;
+﻿using SimpleBankAPI.Application.Repositories;
 using SimpleBankAPI.Business;
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
-
-namespace simplebankapi.tests;
-
-public class transfertest
+namespace SimpleBankAPI.Tests;
+public class TransferTests
 {
-   #region members
+   #region Members
+   private Mock<ITransfersRepository> _transfersRepository;
+    private Mock<IAccountsRepository> _accountRepository;
+   private ITransfersBusiness _transferBusiness;
+   private IAccountsBusiness _accountsBusiness;
+   private TransferRequest _transferRequest;
+   private Transfer _transfer;
+   private Account _account1;
+   private Account _account2;
+   private int userId = 1;
 
-    private readonly ITransfersBusiness _transferUseCase;
-    private readonly Mock<ITransfersRepository> _unitOfWork;
+   #endregion
 
+   #region Constructor
+   public TransferTests()
+    {
+        _transfersRepository = new Mock<ITransfersRepository>();
+        _accountRepository = new Mock<IAccountsRepository>();
+        _transferBusiness = new TransfersBusiness(_transfersRepository.Object, _accountRepository.Object);
+        _accountRepository = new Mock<IAccountsRepository>();
+        _accountsBusiness = new AccountsBusiness( _accountRepository.Object);
+        Setup();
+    }
+
+    private void Setup()
+    {
+      _transfersRepository = new Mock<ITransfersRepository>();
+
+      _transfer = new Transfer { Id = 1, Fromaccountid = 1, Toaccountid = 2, Amount = 100, CreatedAt = DateTime.Now };
+      User _user = new User{Id = 1, Username="adrianoleite", Password="123456789", FullName="adrianofullname", Email="adriano@gmail.com", CreatedAt = DateTime.Now};
+      _account1 = new Account { Id = 26, UserId = 6, Balance = 1, Currency = "EUR", CreatedAt = DateTime.Now, User = _user };
+      _account2 = new Account { Id = 28, UserId = 6, Balance = 1, Currency = "EUR", CreatedAt = DateTime.Now, User = _user };
+
+
+      _accountRepository.Setup(r => r.Create(_account1));
+      _accountRepository.Setup(r => r.GetById(_account1.Id));
+      _accountRepository.Setup(r => r.Create(_account2));
+      _accountRepository.Setup(r => r.GetById(_account2.Id));
+
+      // _accountRepository.Setup(r => r.Update(It.IsAny<Account>())).Returns(() => (true));
+      // _accountRepository.Setup(r => r.Update(It.IsAny<Account>())).Returns(() => (true));
+
+      _transferRequest = new TransferRequest { Amount = 1, FromAccount = 26, ToAccount = 28};
+
+
+    }
     #endregion
-    private Transfer _transfer;
-    private AccountRequest _accountRequest;
-    private Account _account1;
-    private Account _account2;
-        private int _userId;
-        private int _accountId;
 
+    #region Setup
 
-   private void Setup()
+   #endregion
+   #region Tests
+   [Fact]
+   public async Task CreateTransfer_TestOK()
    {
-       _transfer = new Transfer { Id = 1, Fromaccountid = 1, Toaccountid = 2, Amount = 100, CreatedAt = DateTime.Now };
-
-       _account1 = new Account { Id = 1, UserId = 1, Balance = 900, Currency = "EUR", CreatedAt = DateTime.Now };
-       _account2 = new Account { Id = 2, UserId = 2, Balance = 90, Currency = "EUR", CreatedAt = DateTime.Now };
-        _userId = 1;
-        _accountRequest = new AccountRequest()
-        {
-            Amount = 1,
-            Currency = "EUR"
-        };
-        _accountId = 1;
-
-        _unitOfWork.Setup(r => r.GetById(_account1.Id)).Returns(() => (_account1));
-        _unitOfWork.Setup(r => r.GetById(_account2.Id)).Returns(() =>  (_account2));
-
-       _unitOfWork.Setup(r => r.GetById( _account1.Id)).Returns(() => (_account1));
-       _unitOfWork.Setup(r => r.GetById(_account2.Id)).Returns(() => (_account2));
-
-       //_unitOfWork.Setup(r => r.Update(It.IsAny<Transfer>())).ReturnsAsync(() => (true));
-       //_unitOfWork.Setup(r => r.Update(It.IsAny<Transfer>())).ReturnsAsync(() => (true));
-
+      //Act  
+      _transferBusiness = new TransfersBusiness(_transfersRepository.Object, _accountRepository.Object);      
+      // Act
+      var result1 = await _transferBusiness.Create(_transferRequest,6);
+      // Assert
+      Assert.Equal(result1, "Transfer completed successfully");
    }
-   // #region Tests
-   // [Fact]
-   // public async Task Transfer_TestOK()
-   // {
-   //     // Arrange
-   //     // Act
-   //     var result = await _transferUseCase.Create(_transfer, _userId);
-   //     // Assert
-   //     Assert.Null(result.Item1);
-   // }
-   // #endregion
+   #endregion
 }

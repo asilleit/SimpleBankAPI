@@ -13,6 +13,6 @@ namespace SimpleBankAPI.Models
         [MinLength(3), DefaultValue("EUR")]
         public string Currency { get; set; }
         public DateTime CreatedAt { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }

@@ -3,13 +3,13 @@ using SimpleBankAPI.Models;
 
 namespace SimpleBankAPI.Infrastructure.Kafka
 {
-    public class NotificationsBusiness : ICommunicationsBusiness
+    public class CommunicationsBusiness : ICommunicationsBusiness
     {
         private ICommunicationsService _communicationsService;
         private IUsersRepository _usersRepository;
         private IAccountsRepository _accountsDb;
         private IEventProducer _eventProducer;
-        public NotificationsBusiness(ICommunicationsService communicationsService, IUsersRepository usersDb, IAccountsRepository accountsDb, IEventProducer eventProducer)
+        public CommunicationsBusiness(ICommunicationsService communicationsService, IUsersRepository usersDb, IAccountsRepository accountsDb, IEventProducer eventProducer)
         {
             _communicationsService = communicationsService;
             _usersRepository = usersDb;

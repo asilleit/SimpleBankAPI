@@ -2,7 +2,6 @@
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
-
 using Moq;
 using SimpleBankAPI.Models.Response;
 
@@ -11,19 +10,17 @@ namespace SimpleBankAPI.Tests;
 public class AccountTest
 {
     #region Members
-    private IAccountsBusiness _accountsBusiness;
+    private AccountsBusiness _accountsBusiness;
     private Mock<IAccountsRepository> _accountsDb;
     private int _userId;
     private AccountRequest _accountRequest;
-    private int _accountId;
     private Account _account;
     #endregion
 
     #region Constructor
     public AccountTest()
     {
-        _accountsDb = new Mock<IAccountsRepository>();
-        _accountsBusiness = new AccountsBusiness( _accountsDb.Object);
+
 
         Setup();
     }
@@ -32,9 +29,8 @@ public class AccountTest
     #region Setup
     private void Setup()
     {
-
         User _user = new User{Id = 1, Username="adrianoleite", Password="123456789", FullName="adrianofullname", Email="adriano@gmail.com", CreatedAt = DateTime.Now};
-        _account = new Account { Id = 1, UserId = 1, Balance = 1, Currency = "EUR", CreatedAt = DateTime.Now, User = _user };
+        _account = new Account { Id = 1, UserId = 1, Balance = 1, Currency = "EUR", CreatedAt = DateTime.Now };
 
         _userId = 1;
         _accountRequest = new AccountRequest()
@@ -42,9 +38,21 @@ public class AccountTest
             Amount = 1,
             Currency = "EUR"
         };
-        _accountId = 1;
-        _accountsDb.Setup(r => r.Create(_account));
-        _accountsDb.Setup(r => r.GetById(_accountId));
+        _accountsDb = new Mock<IAccountsRepository>();
+
+        _accountsDb.Setup(a => a.Create(It.IsAny<Account>())).ReturnsAsync(new Account());
+        _accountsDb.Setup(r => r.GetById(_userId)).ReturnsAsync(() => _account);
+       // _accountsDb.Setup(r => r.GetById(_userId)).Returns(ReadByAccountMockOk());
+
+        _accountsBusiness = new AccountsBusiness( _accountsDb.Object);
+    }
+
+
+     private async Task<IEnumerable<Account>?> ReadByAccountMockOk()
+    {
+        var accounts = new List<Account>();
+        accounts.Add(_account);
+        return accounts;
     }
     #endregion
 
@@ -53,24 +61,22 @@ public class AccountTest
     public async Task CreateAccount_TestOK()
     {
         // Arrange
-        _accountsDb.Setup(a => a.Create(It.IsAny<Account>())).ReturnsAsync(_account);
+        _accountsDb.Setup(a => a.Create(It.IsAny<Account>())).ReturnsAsync(new Account());
         // Act
-        var result = _accountsBusiness.Create(_accountRequest, _userId);
-        // Assert
-        //Assert.True(result.GetType() == typeof(AccountResponse));
-        Assert.NotNull(result);
+        var result = await _accountsBusiness.Create(_accountRequest, _userId);
 
+        // Assert
+        Assert.NotNull(result);
+        Assert.True(result.GetType() == typeof(AccountResponse));
     }
 
     [Fact]
     public async Task CreateAccount_TestError()
     {
         // Arrange
-        _accountsDb.Setup(a => a.Create(It.IsAny<Account>()).Result).Throws(new ArgumentException());
-        //Act
+        _accountsDb.Setup(a => a.Create(It.IsAny<Account>())).Throws(new ArgumentException());
         var result = _accountsBusiness.GetById(99999);
         // Assert
-        
         Assert.NotNull(result);
         Assert.ThrowsAsync<Exception>(() => result);
         Assert.Equal("One or more errors occurred. (Account not found)", result.Exception.Message.ToString());
@@ -82,7 +88,7 @@ public class AccountTest
         // Arrange
         var userId = 1;
         // Act
-        var result = _accountsBusiness.GetAccountsByUser(userId);
+        var result = await _accountsBusiness.GetAccountsByUser(userId);
         // Assert
         Assert.NotNull(result);
     }
@@ -90,14 +96,13 @@ public class AccountTest
     public async void GetAllAccounts_TestError()
     {
         // Arrange
-        _accountsDb.Setup(r => r.GetAccountsByUser(4)).ReturnsAsync(new List<Account>());
+        _accountsDb.Setup(r => r.GetAccountsByUser(4)).Throws(new ArgumentException());
         _accountsBusiness = new AccountsBusiness(_accountsDb.Object);
         // Act
         var result = _accountsBusiness.GetAccountsByUser(4);
         // Assert
-        Assert.NotNull(result);  
         Assert.ThrowsAsync<Exception>(() => result);
-        }
+    }
 
     #endregion
 }

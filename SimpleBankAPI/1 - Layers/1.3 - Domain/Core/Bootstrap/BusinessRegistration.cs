@@ -23,7 +23,7 @@ namespace SimpleBankAPI._1___Layers._1._3___Domain.Core.Bootstrap
             .AddTransient<ITransfersBusiness, TransfersBusiness>()
             .AddTransient<IJwtAuth, JwtAuth>()
             .AddTransient<ICommunicationsService, MailService>()
-            .AddTransient<ICommunicationsBusiness, NotificationsBusiness>()
+            .AddTransient<ICommunicationsBusiness, CommunicationsBusiness>()
             .AddTransient<IEventProducer, KafkaProducer>()
             .AddHostedService<KafkaConsumer>();
 
