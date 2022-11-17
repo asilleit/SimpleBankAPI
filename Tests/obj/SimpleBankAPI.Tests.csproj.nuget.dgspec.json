@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj": {}
+    "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj": {
+    "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj",
+        "projectUniqueName": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj",
         "projectName": "SimpleBankAPI",
-        "projectPath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj",
+        "projectPath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj",
         "packagesPath": "C:\\Users\\asilleit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\obj\\",
+        "outputPath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\asilleit\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\asilleit\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -130,32 +128,30 @@
         }
       }
     },
-    "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj": {
+    "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj",
+        "projectUniqueName": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj",
         "projectName": "SimpleBankAPI.Tests",
-        "projectPath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj",
+        "projectPath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj",
         "packagesPath": "C:\\Users\\asilleit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\obj\\",
+        "outputPath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\asilleit\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\asilleit\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj": {
-                "projectPath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj"
+              "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj": {
+                "projectPath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj"
               }
             }
           }
