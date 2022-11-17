@@ -12,7 +12,6 @@ public class TransferTests
     private Mock<IAccountsRepository> _accountRepository;
     private Mock<ICommunicationsBusiness> _communicationsBusiness;
     private TransfersBusiness _transferBusiness;
-    private AccountsBusiness _accountsBusiness;
     private TransferRequest _transferRequest;
     private Transfer _transfer;
     private Account _account1;
@@ -98,7 +97,7 @@ public class TransferTests
     {
         _transfersRepository.Setup(a => a.Create(It.IsAny<Transfer>())).Throws(new ArgumentException());
         // Arrange
-      _account1.UserId=10;
+        _account1.UserId = 10;
         // Act
         var result = _transferBusiness.Create(_transferRequest, _userId);
         // Assert

@@ -2,7 +2,6 @@
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Models;
 using SimpleBankAPI.Models.Request;
-using Moq;
 using SimpleBankAPI.Models.Response;
 
 namespace SimpleBankAPI.Tests;

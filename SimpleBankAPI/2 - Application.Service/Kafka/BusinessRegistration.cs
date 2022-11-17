@@ -1,8 +1,8 @@
-﻿using SimpleBankAPI.Application.Repositories;
-using SimpleBankAPI.Business;
+﻿using SimpleBankAPI.Business;
 using SimpleBankAPI.Infrastructure.Kafka;
 using SimpleBankAPI.Interfaces;
 using SimpleBankAPI.Interfaces.Provider;
+using SimpleBankAPI.Application.Repositories;
 
 namespace SimpleBankAPI._1___Layers._1._3___Domain.Core.Bootstrap
 {
