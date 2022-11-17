@@ -52,7 +52,7 @@ namespace SimpleBankAPI.Business
             {
                 return await _documentsDb.GetById(documentId);
             }
-            throw new ArgumentException("Account not found");
+            throw new ArgumentException("Document not found");
         }
 
         public async Task<List<Document>> GetDocumentsByAccount(int accountId)
@@ -61,7 +61,7 @@ namespace SimpleBankAPI.Business
             {
                 return await _documentsDb.GetDocumentsByAccount(accountId);
             }
-            throw new ArgumentException("Account not found");
+            throw new ArgumentException("Documents not found");
         }
 
     }
