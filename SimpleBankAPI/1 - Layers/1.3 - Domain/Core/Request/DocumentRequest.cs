@@ -6,7 +6,7 @@
         public string FileName { get; set; }
         public string FileType { get; set; }
         public byte[] File { get; set; }
-        public static Document RequestToDocument(DocumentRequest request)
+        public Document RequestToDocument(DocumentRequest request)
         {
             var document = new Document()
             {
