@@ -13,7 +13,7 @@
 #pragma warning disable 3016 // Disable "CS3016 Arrays as attribute arguments is not CLS-compliant"
 #pragma warning disable 8603 // Disable "CS8603 Possible null reference return"
 
-namespace Blazor.Services
+namespace Blazor.Data.Services.Base
 {
     using System = global::System;
 
@@ -76,12 +76,12 @@ namespace Blazor.Services
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CreateUserResponse> LoginAsync(LoginUserRequest body);
+        System.Threading.Tasks.Task<LoginUserResponse> LoginAsync(LoginUserRequest body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CreateUserResponse> LoginAsync(LoginUserRequest body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<LoginUserResponse> LoginAsync(LoginUserRequest body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -775,7 +775,7 @@ namespace Blazor.Services
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<CreateUserResponse> LoginAsync(LoginUserRequest body)
+        public virtual System.Threading.Tasks.Task<LoginUserResponse> LoginAsync(LoginUserRequest body)
         {
             return LoginAsync(body, System.Threading.CancellationToken.None);
         }
@@ -783,7 +783,7 @@ namespace Blazor.Services
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<CreateUserResponse> LoginAsync(LoginUserRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<LoginUserResponse> LoginAsync(LoginUserRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/Login/login");
@@ -823,7 +823,7 @@ namespace Blazor.Services
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<CreateUserResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<LoginUserResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1285,124 +1285,314 @@ namespace Blazor.Services
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class AccountRequest
+    public partial class AccountRequest 
     {
+        private int _amount;
+        private string _currency = "EUR";
+
         [Newtonsoft.Json.JsonProperty("amount", Required = Newtonsoft.Json.Required.Always)]
-        public int Amount { get; set; }
+        public int Amount
+        {
+            get { return _amount; }
+
+            set { }
+        }
 
         [Newtonsoft.Json.JsonProperty("currency", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(int.MaxValue, MinimumLength = 3)]
-        public string Currency { get; set; } = "EUR";
+        public string Currency
+        {
+            get { return _currency; }
+
+            set { }
+        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class AccountResponse
+    public partial class AccountResponse 
     {
+        private double _balance;
+        private System.DateTimeOffset _createdAt;
+        private string _currency = "EUR";
+        private int _id;
+
         [Newtonsoft.Json.JsonProperty("balance", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double Balance { get; set; }
+        public double Balance
+        {
+            get { return _balance; }
+
+            set { }
+        }
 
         [Newtonsoft.Json.JsonProperty("createdAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset CreatedAt { get; set; }
+        public System.DateTimeOffset CreatedAt
+        {
+            get { return _createdAt; }
+
+            set {}
+        }
 
         [Newtonsoft.Json.JsonProperty("currency", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(int.MaxValue, MinimumLength = 3)]
-        public string Currency { get; set; } = "EUR";
+        public string Currency
+        {
+            get { return _currency; }
+
+            set {  }
+        }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Id { get; set; }
+        public int Id
+        {
+            get { return _id; }
+
+            set {  }
+        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class CreateUserRequest
+    public partial class CreateUserRequest 
     {
+        private string _email;
+        private string _fullName;
+        private string _password;
+        private string _userName;
+
         [Newtonsoft.Json.JsonProperty("email", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public string Email { get; set; }
+        public string Email
+        {
+            get { return _email; }
+
+            set {  }
+        }
 
         [Newtonsoft.Json.JsonProperty("fullName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(int.MaxValue, MinimumLength = 16)]
-        public string FullName { get; set; }
+        public string FullName
+        {
+            get { return _fullName; }
+
+            set {  }
+        }
 
         [Newtonsoft.Json.JsonProperty("password", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(int.MaxValue, MinimumLength = 8)]
-        public string Password { get; set; }
+        public string Password
+        {
+            get { return _password; }
+
+            set {  }
+        }
 
         [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(int.MaxValue, MinimumLength = 8)]
-        public string UserName { get; set; }
+        public string UserName
+        {
+            get { return _userName; }
+
+            set { }
+        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class CreateUserResponse
+    public partial class CreateUserResponse 
     {
+        private int _userId;
+        private System.DateTimeOffset _createdAt;
+        private string _email;
+        private string _fullName;
+        private System.DateTimeOffset _passwordChangedAt;
+        private string _username;
+
         [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int UserId { get; set; }
+        public int UserId
+        {
+            get { return _userId; }
+
+            set {  }
+        }
 
         [Newtonsoft.Json.JsonProperty("createdAt", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.DateTimeOffset CreatedAt { get; set; }
+        public System.DateTimeOffset CreatedAt
+        {
+            get { return _createdAt; }
+
+            set {  }
+        }
 
         [Newtonsoft.Json.JsonProperty("email", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public string Email { get; set; }
+        public string Email
+        {
+            get { return _email; }
+
+            set { }
+        }
 
         [Newtonsoft.Json.JsonProperty("fullName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public string FullName { get; set; }
+        public string FullName
+        {
+            get { return _fullName; }
+
+            set { }
+        }
 
         [Newtonsoft.Json.JsonProperty("passwordChangedAt", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.DateTimeOffset PasswordChangedAt { get; set; }
+        public System.DateTimeOffset PasswordChangedAt
+        {
+            get { return _passwordChangedAt; }
+
+            set { }
+        }
 
         [Newtonsoft.Json.JsonProperty("username", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public string Username { get; set; }
+        public string Username
+        {
+            get { return _username; }
+
+            set { }
+        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class LoginUserRequest
+    public partial class LoginUserRequest 
     {
+        private string _username;
+        private string _password;
+
         [Newtonsoft.Json.JsonProperty("username", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(20, MinimumLength = 5)]
-        public string Username { get; set; }
+        public string Username
+        {
+            get { return _username; }
+
+            set { }
+        }
 
         [Newtonsoft.Json.JsonProperty("password", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(20, MinimumLength = 6)]
-        public string Password { get; set; }
+        public string Password
+        {
+            get { return _password; }
+
+            set { }
+        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class RevalidateRequest
+    public partial class LoginUserResponse 
     {
+        private string _accessToken;
+        private System.DateTimeOffset _accessTokenExpiresAt;
+        private string _refreshToken;
+        private System.DateTimeOffset _refreshExpiresAt;
+        private CreateUserResponse _user;
+
+        [Newtonsoft.Json.JsonProperty("accessToken", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string AccessToken
+        {
+            get { return _accessToken; }
+
+            set { }
+        }
+
+        [Newtonsoft.Json.JsonProperty("accessTokenExpiresAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset AccessTokenExpiresAt
+        {
+            get { return _accessTokenExpiresAt; }
+
+            set { }
+        }
+
+        [Newtonsoft.Json.JsonProperty("refreshToken", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string RefreshToken
+        {
+            get { return _refreshToken; }
+
+            set { }
+        }
+
+        [Newtonsoft.Json.JsonProperty("refreshExpiresAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset RefreshExpiresAt
+        {
+            get { return _refreshExpiresAt; }
+
+            set {}
+        }
+
+        [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public CreateUserResponse User
+        {
+            get { return _user; }
+
+            set {}
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class RevalidateRequest 
+    {
+        private string _refreshToken;
+
         [Newtonsoft.Json.JsonProperty("refreshToken", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public string RefreshToken { get; set; }
+        public string RefreshToken
+        {
+            get { return _refreshToken; }
+
+            set {  }
+        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class TransferRequest
+    public partial class TransferRequest 
     {
+        private double _amount;
+        private int _fromAccount;
+        private int _toAccount;
+
         [Newtonsoft.Json.JsonProperty("amount", Required = Newtonsoft.Json.Required.Always)]
-        public double Amount { get; set; }
+        public double Amount
+        {
+            get { return _amount; }
+
+            set { }
+        }
 
         [Newtonsoft.Json.JsonProperty("fromAccount", Required = Newtonsoft.Json.Required.Always)]
-        public int FromAccount { get; set; }
+        public int FromAccount
+        {
+            get { return _fromAccount; }
+
+            set { }
+        }
 
         [Newtonsoft.Json.JsonProperty("toAccount", Required = Newtonsoft.Json.Required.Always)]
-        public int ToAccount { get; set; }
+        public int ToAccount
+        {
+            get { return _toAccount; }
+
+            set {  }
+        }
 
     }
 

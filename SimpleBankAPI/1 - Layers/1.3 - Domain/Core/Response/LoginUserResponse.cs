@@ -1,4 +1,5 @@
-﻿namespace SimpleBankAPI.Models.Response
+﻿
+namespace SimpleBankAPI.Models.Response
 {
     public class LoginUserResponse
     {

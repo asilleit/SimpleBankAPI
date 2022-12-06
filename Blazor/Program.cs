@@ -1,13 +1,19 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Blazor.Data;
+// using Blazor.Data.Providers;
+using Blazor.Data.Services;
+using Blazor.Data.Services.Base;
+using Blazor.Data.Services.Interfaces;
+using Blazor;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddTransient<IUsersService, UsersService>();
+builder.Services.AddTransient<IClient, Client>();
+//builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+
 
 var app = builder.Build();
 

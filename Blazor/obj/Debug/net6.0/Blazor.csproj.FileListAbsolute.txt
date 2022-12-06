@@ -6,7 +6,12 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\Blazor.deps
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\Blazor.runtimeconfig.json
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\Blazor.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\Blazor.pdb
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\AutoMapper.Collection.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\BizTalkComponents.PipelineComponents.SetProperty.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\Shared.Extensions.TypeExtensions.SetProperty.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.csproj.AssemblyReference.cache
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.AssemblyInfoInputs.cache
@@ -27,3 +32,4 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\refint\Blaz
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.pdb
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.genruntimeconfig.cache
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\ref\Blazor.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\System.Net.Http.WebRequest.dll
