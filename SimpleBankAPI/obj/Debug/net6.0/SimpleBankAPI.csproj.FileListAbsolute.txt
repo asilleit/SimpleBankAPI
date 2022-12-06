@@ -884,6 +884,9 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\Syst
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\System.Security.Permissions.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\xunit.abstractions.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\xunit.core.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\xunit.execution.dotnet.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\de\Microsoft.CodeAnalysis.resources.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -1093,6 +1096,3 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\obj\Debug\net6.0\refi
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\obj\Debug\net6.0\SimpleBankAPI.pdb
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\obj\Debug\net6.0\SimpleBankAPI.genruntimeconfig.cache
 C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\obj\Debug\net6.0\ref\SimpleBankAPI.dll
-C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\xunit.abstractions.dll
-C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\xunit.core.dll
-C:\Users\asilleit\source\repos\SimpleBankAPI\SimpleBankAPI\bin\Debug\net6.0\xunit.execution.dotnet.dll

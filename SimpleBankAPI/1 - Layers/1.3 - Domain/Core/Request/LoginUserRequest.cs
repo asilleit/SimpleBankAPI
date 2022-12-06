@@ -10,7 +10,7 @@ namespace SimpleBankAPI.Models.Request
         public string Password { get; set; }
 
 
-        public static User UsertoLoginRequest(LoginUserRequest request)
+        public User UsertoLoginRequest(LoginUserRequest request)
         {
             var user = new User()
             {

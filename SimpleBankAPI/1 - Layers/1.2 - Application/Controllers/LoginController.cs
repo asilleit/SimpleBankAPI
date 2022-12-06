@@ -26,7 +26,7 @@ namespace SimpleBankAPI.WebApi.Controllers
 
         [HttpPost("login", Name = "Login")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LoginUserResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
