@@ -14,11 +14,10 @@
                 <span class="input-group-text" id="basic-addon1">Currency</span>
                 <select class="form-select" >
                     @foreach (String currency in currencys)
+                    {
+                    <option value="@currency">@currency</option>
 
-                        {
-                        <option value="@currency">@currency</option>
-
-                        }
+                    }
                 </select>
             </div>
             </p>
@@ -52,6 +51,6 @@
 
     void cleanInput()
     {
-        Console.WriteLine("My debug Login");
+        Console.WriteLine("My debug --------");
     }
 }
