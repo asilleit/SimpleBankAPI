@@ -1,6 +1,6 @@
 ﻿@page "/login"
 
-<PageTitle>User Login</PageTitle>
+<title>User Login</title>
 
 @using Blazor.Data
 @using Blazor.Data.Models
@@ -14,11 +14,11 @@
             <p>
             <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Username</span>
-                     <input type="text" title="Username" name="Username" class="form-control" />
+                    <input type="text" title="Username" name="Username" class="form-control" value="Username"/>
             </div>
             <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Password</span>
-                     <input type="password" title="Password" name="Password" class="form-control" />
+                     <input type="password" title="Password" name="Password" class="form-control" value="Password" />
             </div>
             </p>
 
@@ -38,7 +38,6 @@
     {
         Console.WriteLine("My debug cancel.");
     }
-
 
 
     private async Task OnLoginClick()
