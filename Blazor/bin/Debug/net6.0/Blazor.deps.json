@@ -11,6 +11,7 @@
           "AutoMapper.Collection": "9.0.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "11.0.0",
           "BizTalkComponents.PipelineComponents.SetProperty": "1.7.0",
+          "LocalStorage": "2.1.0",
           "Microsoft.AspNetCore.Components.Authorization": "6.0.0",
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Newtonsoft.Json": "13.0.2",
@@ -63,6 +64,17 @@
           "lib/net40/BizTalkComponents.PipelineComponents.SetProperty.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "LocalStorage/2.1.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/LocalStorage.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
           }
         }
       },
@@ -364,6 +376,13 @@
       "sha512": "sha512-tJudez0w879z3b9PC3I7B1ZgqessZX4d2lvb/l9/EmCsPwu5LnwyNQ7eksRUNKFlVNavE7SYR5xkhMD4wyKbkA==",
       "path": "biztalkcomponents.pipelinecomponents.setproperty/1.7.0",
       "hashPath": "biztalkcomponents.pipelinecomponents.setproperty.1.7.0.nupkg.sha512"
+    },
+    "LocalStorage/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2FYxEN8aQT6TxzsSsD86XLPglqEPqhdBpBzmcr9BhPgcA7gXjaVXUSaPM1FB9dI70j3XRAA4Kjpl0QaPxK1IkQ==",
+      "path": "localstorage/2.1.0",
+      "hashPath": "localstorage.2.1.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authorization/6.0.0": {
       "type": "package",

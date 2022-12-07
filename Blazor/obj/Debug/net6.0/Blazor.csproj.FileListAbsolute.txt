@@ -33,3 +33,4 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.pdb
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.genruntimeconfig.cache
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\ref\Blazor.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\System.Net.Http.WebRequest.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\LocalStorage.dll

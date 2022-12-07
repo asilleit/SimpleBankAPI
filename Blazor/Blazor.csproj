@@ -16,5 +16,6 @@
     <PackageReference Include="System.Linq.Expressions" Version="4.3.0"/>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2"/>
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.0"/>
+    <PackageReference Include="LocalStorage" Version="2.1.0"/>
   </ItemGroup>
 </Project>

@@ -12,8 +12,8 @@
             <p>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Currency</span>
-                <select class="form-select">
-                    @foreach (String currency in cities)
+                <select class="form-select" >
+                    @foreach (String currency in currencys)
 
                         {
                         <option value="@currency">@currency</option>
@@ -38,7 +38,7 @@
 
 @code {
 
-    string[] cities = new string[2] { "EUR", "DOL" };
+    string[] currencys = new string[] { "EUR", "DOL" };
 
     private async Task OnCancelClick()
     {
