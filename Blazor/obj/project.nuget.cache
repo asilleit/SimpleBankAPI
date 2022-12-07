@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6U3t0QX0/9iI9Q3PLOWvNhxZDo4QY2nJT/y6KqGtKPDF+DYUYeWG2etH/DbJmwHTF6z2Rur/BsP2u1Z8AaMCjA==",
+  "dgSpecHash": "6VMp33GlBIGDcddcAegcBzLaxZDt8E97vEadCRmSun+7h6NjhdG5P+OMvaBnO3CB0AHxLHvFMnPmYoByTnMQFQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\Blazor.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\asilleit\\.nuget\\packages\\automapper.collection\\9.0.0\\automapper.collection.9.0.0.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\biztalkcomponents.pipelinecomponents.setproperty\\1.7.0\\biztalkcomponents.pipelinecomponents.setproperty.1.7.0.nupkg.sha512",
+    "C:\\Users\\asilleit\\.nuget\\packages\\localstorage\\2.1.0\\localstorage.2.1.0.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\microsoft.aspnetcore.authorization\\6.0.0\\microsoft.aspnetcore.authorization.6.0.0.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\microsoft.aspnetcore.components\\6.0.0\\microsoft.aspnetcore.components.6.0.0.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\6.0.0\\microsoft.aspnetcore.components.analyzers.6.0.0.nupkg.sha512",

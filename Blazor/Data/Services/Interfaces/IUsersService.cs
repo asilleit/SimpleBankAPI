@@ -9,5 +9,6 @@ namespace Blazor.Data.Services.Interfaces
     public interface IUsersService
     {
         Task<LoginUserResponse> LoginAsync(User user);
+        //Task<string> RegisterUserAsync(CreateUserRequest user);
     }
 }
