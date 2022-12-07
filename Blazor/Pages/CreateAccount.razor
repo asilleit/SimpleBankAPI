@@ -5,8 +5,6 @@
 @using Blazor.Data.Services.Interfaces
 @using Microsoft.Extensions.Logging
 
-
-
 <div class="row">
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
         <h2 class="text-center mb-3">Create Account</h2>
@@ -15,46 +13,45 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Currency</span>
                 <select class="form-select">
+                    @foreach (String currency in cities)
 
+                        {
+                        <option value="@currency">@currency</option>
+
+                        }
                 </select>
             </div>
             </p>
             <p>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Amount</span>
-                <input  placeholder="0" type="number">
-                    
-
+                <input placeholder="0" type="number">
             </div>
-            </p>        <p>
-            <button class="btn btn-outline-dark" type="submit" @onclick="OnLoginClick">Create Account</button> <button
-                        class="btn btn-outline-dark" type="cancel" @onclick="OnCancelClick">Cancel</button>
-        </p>
-
+            </p>
+            <p>
+                <button class="btn btn-outline-dark" type="submit" @onclick="OnLoginClick">Create Account</button>
+                <button class="btn btn-outline-dark" type="cancel" @onclick="OnCancelClick">Cancel</button>
+            </p>
         </form>
     </div>
-
 </div>
 
 @code {
+
+    string[] cities = new string[2] { "EUR", "DOL" };
 
     private async Task OnCancelClick()
     {
         Console.WriteLine("My debug cancel.");
     }
 
-
     private async Task OnLoginClick()
     {
         Console.WriteLine("My debug Login");
     }
 
-
-
     void cleanInput()
     {
-
         Console.WriteLine("My debug Login");
-
     }
 }
