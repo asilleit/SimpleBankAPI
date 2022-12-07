@@ -3,7 +3,7 @@
 @using Blazor.Data.Services
 @using Blazor.Data.Services.Base
 @using Blazor.Data.Services.Interfaces
-
+@using Blazor.Data.Services.Interfaces
 
 
 <div class="row">
@@ -34,8 +34,18 @@
                 <input type="text" class="form-control" />
             </div>
             </p>
-            <button class="btn btn-outline-dark" type="submit">Register</button> <button class="btn btn-outline-dark"
+            <button class="btn btn-outline-dark" type="submit" @onclick="OnRegisterClick">Register</button> <button class="btn btn-outline-dark"
                 type="submit">Cancel</button>
         </form>
     </div>
 </div>
+
+@code {
+    private CreateUser userRequest= new();
+    private string OperationStatus = "";
+
+    public async Task OnRegisterClick()
+    {
+        
+    }
+}

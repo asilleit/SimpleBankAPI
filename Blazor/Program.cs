@@ -1,13 +1,11 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Authorization;
+using Blazor;
 using Blazor.Data;
-using Blazor.Data.Models;
 using Blazor.Data.Providers;
 using Blazor.Data.Services;
 using Blazor.Data.Services.Base;
 using Blazor.Data.Services.Interfaces;
 using System.Reflection;
-using Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTransient<WeatherForecastService>();
+//builder.Services.AddTransient<IUsersService, UsersService>();
 //builder.Services.AddTransient<IClient, Client>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7248/") });
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
