@@ -1,31 +1,35 @@
 ﻿@page "/login"
 
-<PageTitle>Login User</PageTitle>
+<PageTitle>User Login</PageTitle>
 
 @using Blazor.Data
 @using Blazor.Data.Models
 @using Blazor.Data.Services
 @using Blazor.Data.Services.Interfaces
 
-<h1>Login User</h1>
-<p>
-<div>
-    <p>
-        Username <input type="text" title="Username" name="Username" id="u1"/>
-    </p>
-</div>
-<div>
-    <p>
-        Password <input type="password" title="Password" name="Password" id="u2"/>
-    </p>
-</div>
-</p>
+<div class="row">
+    <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
+        <h2 class="text-center mb-3">User Login</h2>
+        <form>
+            <p>
+            <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Username</span>
+                     <input type="text" title="Username" name="Username" class="form-control" />
+            </div>
+            <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Password</span>
+                     <input type="password" title="Password" name="Password" class="form-control" />
+            </div>
+            </p>
 
-<div>
-    <p>
-        <button class="btn btn-outline-dark" type="submit" @onclick="OnLoginClick">Login</button> <button
-            class="btn btn-outline-dark" type="cancel" @onclick="cleanInput">Cancel</button>
-    </p>
+            <div>
+                <p>
+                    <button class="btn btn-outline-dark" type="submit" @onclick="OnLoginClick">Login</button> <button
+                        class="btn btn-outline-dark" type="cancel" @onclick="OnCancelClick">Cancel</button>
+                </p>
+            </div>
+        </form>
+    </div>
 </div>
 
 @code {
@@ -35,12 +39,19 @@
         Console.WriteLine("My debug cancel.");
     }
 
+
+
     private async Task OnLoginClick()
     {
         Console.WriteLine("My debug Login");
     }
 
-    void cleanInput(){
+
+
+    void cleanInput()
+    {
+
         Console.WriteLine("My debug Login");
+
     }
 }
