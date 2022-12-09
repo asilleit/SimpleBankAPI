@@ -4,6 +4,7 @@
 @using Blazor.Data.Services.Base
 @using Blazor.Data.Services.Interfaces
 @using Microsoft.Extensions.Logging
+@inject IAccountsService _accountService
 
 <div class="row">
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
@@ -38,6 +39,7 @@
 @code {
 
     string[] currencys = new string[] { "EUR", "DOL" };
+        private Data.Models.CreateAccount accountRequest = new();
 
     private async Task OnCancelClick()
     {
@@ -46,6 +48,8 @@
 
     private async Task OnLoginClick()
     {
+        await _accountService.CreateAccountAsync(accountRequest);
+                StateHasChanged();
         Console.WriteLine("My debug Login");
     }
 
