@@ -9,12 +9,21 @@ using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Headers;
 using System.Runtime.Versioning;
-
 using System.Net.Http;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,13 +31,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTransient<WeatherForecastService>();
-
-//builder.Services.AddTransient<IClient, Client>();
-//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7248/") });
-builder.Services.AddHttpClient<IClient, Client>(cl => cl.BaseAddress = new Uri("https://localhost:7248"));
+builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IAccountsService, AccountsService;
+builder.Services.AddTransient<IClient, Client>();
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7248/") });
+//builder.Services.AddHttpClient<IClient, Client>(cl => cl.BaseAddress = new Uri("https://localhost:7248/"));
 // builder.Services.AddTransient<IClient, Client>();
 // builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7248/") });
-builder.Services.AddTransient<IUsersService, UsersService>();
+
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 //builder.Services.AddServices();

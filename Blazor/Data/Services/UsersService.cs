@@ -49,9 +49,9 @@ namespace Blazor.Data.Services
 
                 _mapper.Map<LoginUserRequest>(user);
                 var response = await _httpClient.LoginAsync(loginRequest);
-                //await _localStorage.SetAsync("token", response.AccessToken);
-                //await _localStorage.SetAsync("refreshToken", response.RefreshToken);
-                //((CustomAuthStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(response.User.Username);
+                await _localStorage.SetAsync("token", response.AccessToken);
+                await _localStorage.SetAsync("refreshToken", response.RefreshToken);
+                ((CustomAuthStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(response.User.Username);
                 return (response);
             }
             catch (ApiException ex)
@@ -61,18 +61,18 @@ namespace Blazor.Data.Services
                 return (ret);
             }
         }
-        public async Task<string> RegisterUserAsync(CreateUser user)
+        public async Task<(bool, string?)> RegisterUserAsync(CreateUser user)
         {
             try
             {
                 var createUserRequest = _mapper.Map<CreateUser, CreateUserRequest>(user);
                 var response = await _httpClient.CreateUserAsync(createUserRequest);
-                return ("User registered");
+                return (true, "User registered");
             }
             catch (ApiException ex)
             {
                 var response = HandleApiException(ex);
-                return (response.Item2);
+                return (false, response.Item2);
             }
         }
     }

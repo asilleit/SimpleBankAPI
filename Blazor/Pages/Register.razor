@@ -8,34 +8,35 @@
 <div class="row">
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
         <h2 class="text-center mb-3">User Register</h2>
-            <EditForm Model="@userRequest" OnSubmit="@SubmitForm"> 
+            <EditForm Model="@userRequest" > 
                 <p>
                 <div class="input-group mb-3">
-                    <span asp-validation-for="Email" class="text-addon2">Email</span>
-                    <input type="email" class="form-control" @bl-bind-Value="userRequest.Email/>
+                    <span class="text-addon2" id="basic-addon2">Email</span>
+                    <input type="email" class="form-control" @bind="userRequest.Email"/>
                 </div>
                 </p>
                 <p>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon2">Password</span>
-                    <input type="password" class="form-control" @bl-bind-Value="userRequest.Password/>
+                    <input type="password" class="form-control" @bind="userRequest.Password"/>
                 </div>
                 </p>
                 <p>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon2">Username</span>
-                    <input type="text" class="form-control" @bl-bind-Value="userRequest.UserName"/>
+                    <input type="text" class="form-control" @bind="userRequest.UserName"/>
                 </div>
                 </p>
                 <p>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon2">Full name</span>
-                    <input type="text" class="form-control"  @bl-bind-Value="userRequest.FullName"/>
+                    <input type="text" class="form-control"  @bind="userRequest.FullName"/>
                 </div>
                 </p>
-                <button class="btn btn-outline-dark" type="submit">Register</button> <button class="btn btn-outline-dark"
-                    type="submit">Cancel</button>
+                <button class="btn btn-outline-dark"  @onclick="OnCancelClick" >Register</button> <button class="btn btn-outline-dark"
+                    >Cancel</button>
             </EditForm>
+
     </div>
 </div>
 
@@ -43,10 +44,14 @@
     private CreateUser userRequest= new();
     private string OperationStatus = "";
 
-    public async Task SubmitForm()
+    public async Task OnCancelClick()
     {
-        var response = await _usersService.RegisterUserAsync(userRequest);
-        OperationStatus = response;
+        Console.WriteLine("My REgister User");
+        Console.WriteLine(userRequest.FullName);
+        Console.WriteLine(userRequest.UserName);
+        Console.WriteLine(userRequest);
+
+        var response = await _usersService.RegisterUserAsync(userRequest);;
         StateHasChanged();
     }
 }
