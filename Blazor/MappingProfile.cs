@@ -1,9 +1,11 @@
 ﻿
 using System.Reflection;
-using AutoMapper.Internal;
 using AutoMapper;
 using Blazor.Data.Models;
 using Blazor.Data.Services.Base;
+
+using System.Linq.Expressions;
+using AutoMapper.Configuration;
 
 namespace Blazor
 {

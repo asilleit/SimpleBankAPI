@@ -22,7 +22,6 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-
 namespace Blazor.Data.Services
 {
     public class UsersService : BaseService, IUsersService
@@ -41,38 +40,38 @@ namespace Blazor.Data.Services
         }
 
 
-        public async Task<LoginUserResponse> LoginAsync(User user)
+        public async Task<(bool, LoginUserResponse?, string?)> LoginAsync(User user)
         {
             try
             {
                 var loginRequest = _mapper.Map<LoginUserRequest>(user);
-
-                _mapper.Map<LoginUserRequest>(user);
                 var response = await _httpClient.LoginAsync(loginRequest);
-                //await _localStorage.SetAsync("token", response.AccessToken);
-                //await _localStorage.SetAsync("refreshToken", response.RefreshToken);
-                //((CustomAuthStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(response.User.Username);
-                return (response);
+                await _localStorage.SetAsync("token", response.AccessToken);
+                await _localStorage.SetAsync("refreshToken", response.RefreshToken);
+                ((CustomAuthStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(response.User.Username);
+                return (true, response, null);
             }
             catch (ApiException ex)
             {
                 var response = HandleApiException(ex);
-                var ret = new LoginUserResponse { User = null };
-                return (ret);
+                return (false, null, response.Item2);
             }
         }
-        public async Task<string> RegisterUserAsync(CreateUser user)
+        public async Task<(bool, string?)> RegisterUserAsync(CreateUser user)
         {
             try
             {
                 var createUserRequest = _mapper.Map<CreateUser, CreateUserRequest>(user);
+                Console.WriteLine("1");
+                Console.WriteLine(_httpClient.ToString());
                 var response = await _httpClient.CreateUserAsync(createUserRequest);
-                return ("User registered");
+                Console.WriteLine("2");
+                return (true, "User registered");
             }
             catch (ApiException ex)
             {
                 var response = HandleApiException(ex);
-                return (response.Item2);
+                return (false, response.Item2);
             }
         }
     }
