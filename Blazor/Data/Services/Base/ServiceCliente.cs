@@ -779,7 +779,8 @@ namespace Blazor.Data.Services.Base
         public virtual async System.Threading.Tasks.Task<LoginUserResponse> LoginAsync(LoginUserRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("v1/Login/login");
+            //urlBuilder_.Append("v1/Login/login");
+            urlBuilder_.Append("https://localhost:7043/v1/Login/login");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -793,7 +794,7 @@ namespace Blazor.Data.Services.Base
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-
+                    Console.WriteLine("PAssou no serviço");
                     PrepareRequest(client_, request_, urlBuilder_);
 
                     var url_ = urlBuilder_.ToString();
@@ -1115,10 +1116,7 @@ namespace Blazor.Data.Services.Base
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
 
                     PrepareRequest(client_, request_, url_);
-                    Console.WriteLine(client_);
-                    Console.WriteLine(url_);
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    Console.WriteLine(response_.StatusCode);
                     var disposeResponse_ = true;
                     try
                     {
