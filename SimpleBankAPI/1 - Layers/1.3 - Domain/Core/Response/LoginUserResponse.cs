@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 namespace SimpleBankAPI.Models.Response
 {
     public class LoginUserResponse

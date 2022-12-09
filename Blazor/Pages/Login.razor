@@ -1,56 +1,49 @@
 ﻿@page "/login"
-
-<title>User Login</title>
-
-@using Blazor.Data
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @using Blazor.Data.Models
 @using Blazor.Data.Services
+@using Blazor.Data.Services.Base
 @using Blazor.Data.Services.Interfaces
+@inject IUsersService _usersService
+@inject ProtectedLocalStorage _localStorage
 
 <div class="row">
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
-        <h2 class="text-center mb-3">User Login</h2>
-        <form>
-            <p>
-            <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Username</span>
-                    <input type="text" title="Username" name="Username" class="form-control" value="Username"/>
-            </div>
-            <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Password</span>
-                     <input type="password" title="Password" name="Password" class="form-control" value="Password" />
-            </div>
-            </p>
 
-            <div>
+        <h2 class="text-center mb-3">Login</h2>
+        <EditForm Model="@loginUser" OnSubmit="@SubmitForm">   
                 <p>
-                    <button class="btn btn-outline-dark" type="submit" @onclick="OnLoginClick">Login</button> <button
-                        class="btn btn-outline-dark" type="cancel" @onclick="OnCancelClick">Cancel</button>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon2">Username</span>
+                    <input type="text" class="form-control" @bind="loginUser.Username"/>
+                </div>
                 </p>
-            </div>
-        </form>
+             <p>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon2">Password</span>
+                    <input type="password" class="form-control" @bind="loginUser.Password"/>
+                </div>
+                </p>
+                <button class="btn btn-outline-dark"  type="submit" >Register</button> <button class="btn btn-outline-dark"
+                    >Cancel</button>
+
+        </EditForm>
     </div>
 </div>
 
+
 @code {
+    public User loginUser { get; set; } = new();
+    private (bool, LoginUserResponse?, string?) response;
 
-    private async Task OnCancelClick()
+    public async Task SubmitForm()
     {
-        Console.WriteLine("My debug cancel.");
+        response = await _usersService.LoginAsync(loginUser);
+        if (!response.Item1)
+        {
+            StateHasChanged();
+            return;
+        }
     }
 
-
-    private async Task OnLoginClick()
-    {
-        Console.WriteLine("My debug Login");
-    }
-
-
-
-    void cleanInput()
-    {
-
-        Console.WriteLine("My debug Login");
-
-    }
 }

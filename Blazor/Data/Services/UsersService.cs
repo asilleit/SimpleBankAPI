@@ -45,6 +45,7 @@ namespace Blazor.Data.Services
             try
             {
                 var loginRequest = _mapper.Map<LoginUserRequest>(user);
+                Console.WriteLine("passou");
                 var response = await _httpClient.LoginAsync(loginRequest);
                 await _localStorage.SetAsync("token", response.AccessToken);
                 await _localStorage.SetAsync("refreshToken", response.RefreshToken);
@@ -62,10 +63,7 @@ namespace Blazor.Data.Services
             try
             {
                 var createUserRequest = _mapper.Map<CreateUser, CreateUserRequest>(user);
-                Console.WriteLine("1");
-                Console.WriteLine(_httpClient.ToString());
                 var response = await _httpClient.CreateUserAsync(createUserRequest);
-                Console.WriteLine("2");
                 return (true, "User registered");
             }
             catch (ApiException ex)
