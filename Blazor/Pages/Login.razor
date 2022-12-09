@@ -24,7 +24,7 @@
                     <input type="password" class="form-control" @bind="loginUser.Password"/>
                 </div>
                 </p>
-                <button class="btn btn-outline-dark"  type="submit" >Register</button> <button class="btn btn-outline-dark"
+                <button class="btn btn-outline-dark"  type="submit" >Login</button> <button class="btn btn-outline-dark"
                     >Cancel</button>
 
         </EditForm>
@@ -39,11 +39,9 @@
     public async Task SubmitForm()
     {
         response = await _usersService.LoginAsync(loginUser);
-        if (!response.Item1)
-        {
+
+            Console.WriteLine("Passou no código Submit do Login");
             StateHasChanged();
-            return;
-        }
     }
 
 }
