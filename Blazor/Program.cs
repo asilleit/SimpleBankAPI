@@ -6,6 +6,15 @@ using Blazor.Data.Services;
 using Blazor.Data.Services.Base;
 using Blazor.Data.Services.Interfaces;
 using System.Reflection;
+using Microsoft.AspNetCore.Builder;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
+using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http.Headers;
+using System.Runtime.Versioning;
+
+using System.Net.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +22,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTransient<WeatherForecastService>();
-//builder.Services.AddTransient<IUsersService, UsersService>();
+
 //builder.Services.AddTransient<IClient, Client>();
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7248/") });
+//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7248/") });
+builder.Services.AddHttpClient<IClient, Client>(cl => cl.BaseAddress = new Uri("https://localhost:7248"));
+// builder.Services.AddTransient<IClient, Client>();
+// builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7248/") });
+builder.Services.AddTransient<IUsersService, UsersService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+
+//builder.Services.AddServices();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
