@@ -1,14 +1,15 @@
-﻿@page "/v1/Users"
+﻿@page "/register"
 @using Blazor.Data.Models
 @using Blazor.Data.Services
 @using Blazor.Data.Services.Base
 @using Blazor.Data.Services.Interfaces
+@using Microsoft.AspNetCore.Components.Forms
 @inject IUsersService _usersService
 
 <div class="row">
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
         <h2 class="text-center mb-3">User Register</h2>
-            <EditForm Model="@userRequest" > 
+        <EditForm Model="@userRequest" OnSubmit="@SubmitForm"> 
                 <p>
                 <div class="input-group mb-3">
                     <span class="text-addon2" id="basic-addon2">Email</span>
@@ -33,7 +34,7 @@
                     <input type="text" class="form-control"  @bind="userRequest.FullName"/>
                 </div>
                 </p>
-                <button class="btn btn-outline-dark"  @onclick="OnCancelClick" >Register</button> <button class="btn btn-outline-dark"
+                <button class="btn btn-outline-dark"  type="submit" >Register</button> <button class="btn btn-outline-dark"
                     >Cancel</button>
             </EditForm>
 
@@ -44,14 +45,15 @@
     private CreateUser userRequest= new();
     private string OperationStatus = "";
 
-    public async Task OnCancelClick()
+    public async Task SubmitForm()
     {
-        Console.WriteLine("My REgister User");
-        Console.WriteLine(userRequest.FullName);
-        Console.WriteLine(userRequest.UserName);
-        Console.WriteLine(userRequest);
+        Console.WriteLine("My Register User layout");
+             
 
-        var response = await _usersService.RegisterUserAsync(userRequest);;
+        var response = await _usersService.RegisterUserAsync(userRequest);
+        OperationStatus = response.Item2!;
+        Console.WriteLine(OperationStatus);
+        
         StateHasChanged();
     }
 }
