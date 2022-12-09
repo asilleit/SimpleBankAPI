@@ -3,40 +3,39 @@
 @using Blazor.Data.Services
 @using Blazor.Data.Services.Base
 @using Blazor.Data.Services.Interfaces
-@using Blazor.Data.Services.Interfaces
-
+@inject IUsersService _usersService
 
 <div class="row">
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
         <h2 class="text-center mb-3">User Register</h2>
-        <form  >
-            <p>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Email</span>
-                <input type="email" class="form-control" />
-            </div>
-            </p>
-            <p>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon2">Password</span>
-                <input type="password" class="form-control" />
-            </div>
-            </p>
-            <p>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon2">Username</span>
-                <input type="text" class="form-control" />
-            </div>
-            </p>
-            <p>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon2">Full name</span>
-                <input type="text" class="form-control" />
-            </div>
-            </p>
-            <button class="btn btn-outline-dark" type="submit" @onclick="OnRegisterClick">Register</button> <button class="btn btn-outline-dark"
-                type="submit">Cancel</button>
-        </form>
+            <EditForm Model="@userRequest" OnSubmit="@SubmitForm"> 
+                <p>
+                <div class="input-group mb-3">
+                    <span asp-validation-for="Email" class="text-addon2">Email</span>
+                    <input type="email" class="form-control" @bl-bind-Value="userRequest.Email/>
+                </div>
+                </p>
+                <p>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon2">Password</span>
+                    <input type="password" class="form-control" @bl-bind-Value="userRequest.Password/>
+                </div>
+                </p>
+                <p>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon2">Username</span>
+                    <input type="text" class="form-control" @bl-bind-Value="userRequest.UserName"/>
+                </div>
+                </p>
+                <p>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon2">Full name</span>
+                    <input type="text" class="form-control"  @bl-bind-Value="userRequest.FullName"/>
+                </div>
+                </p>
+                <button class="btn btn-outline-dark" type="submit">Register</button> <button class="btn btn-outline-dark"
+                    type="submit">Cancel</button>
+            </EditForm>
     </div>
 </div>
 
@@ -44,8 +43,10 @@
     private CreateUser userRequest= new();
     private string OperationStatus = "";
 
-    public async Task OnRegisterClick()
+    public async Task SubmitForm()
     {
-        
+        var response = await _usersService.RegisterUserAsync(userRequest);
+        OperationStatus = response;
+        StateHasChanged();
     }
 }
