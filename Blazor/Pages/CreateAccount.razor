@@ -1,4 +1,4 @@
-﻿
+﻿@attribute [Authorize]
 @page "/create-account"
 @using Blazor.Data.Models
 @using Blazor.Data.Services
@@ -39,7 +39,6 @@
     string[] currencys = new string[] { "EUR", "DOL" };
     private Data.Models.CreateAccount accountRequest = new();
 
-    private string OperationStatus = "";
     private async Task OnCancelClick()
     {
         Console.WriteLine("My debug cancel.");
@@ -49,10 +48,6 @@
     {
         var response = await _accountService.PostAccountAsync(accountRequest);
 
-        Console.WriteLine(response.Item1);
-        Console.WriteLine(response.Item2);
-        Console.WriteLine(accountRequest.Amount);
-        Console.WriteLine(accountRequest.Currency);
 
         StateHasChanged();
     }
