@@ -1,8 +1,27 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using Blazor.Data.Models;
-using Blazor.Data.Services.Base;
+﻿using Blazor.Data.Services.Base;
 using Blazor.Data.Services.Interfaces;
+using Blazor.Data.Models;
+using Blazor.Data.Providers;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.Components;
+using System.Linq.Expressions;
+using AutoMapper;
+using System.Linq.Expressions;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
 
 namespace Blazor.Data.Services
 {
@@ -51,14 +70,15 @@ namespace Blazor.Data.Services
         //         return (false, null, response.Item2);
         //     }
         // }
-        public async Task<(bool, AccountResponse?, string?)>? CreateAccountAsync(CreateAccount account)
+        public async Task<(bool, AccountResponse?, string?)>? PostAccount(CreateAccount account)
         {
             try
             {
                 var auth = await _localStorage.GetAsync<string>("token");
                 var token = String.Join(" ", "Bearer", auth.Value);
                 var accountRequest = _mapper.Map<AccountRequest>(account);
-                var response = await _httpClient.CreateAccountAsync( accountRequest);
+                Console.WriteLine(account);
+                var response = await _httpClient.CreateAccountAsync(token, accountRequest);
                 return (true, response, null);
             }
             catch (ApiException ex)

@@ -1,15 +1,15 @@
 #docker-compose -f "docker-compose.yml" up --build
 version: '3.7'
+name: 'bank-api-demo'
 networks:
   internal:
     driver: bridge
 services:
   postgres:
     ports:
-      - "5432:5432"
+      - "2181:2181"
     image: postgres:11.1
     environment:
-      POSTGRES_DB: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
   # Kafka - zookeper

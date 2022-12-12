@@ -4,6 +4,7 @@
 @using Blazor.Data.Services.Base
 @using Blazor.Data.Services.Interfaces
 @using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization
 @inject IUsersService _usersService
 
 <div class="row">
@@ -46,10 +47,7 @@
     private string OperationStatus = "";
 
     public async Task SubmitForm()
-    {
-        Console.WriteLine("My Register User layout");
-             
-
+    {             
         var response = await _usersService.RegisterUserAsync(userRequest);
         OperationStatus = response.Item2!;
         Console.WriteLine(OperationStatus);

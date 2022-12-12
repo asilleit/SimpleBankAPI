@@ -1,60 +1,62 @@
-﻿@page "/create-account"
+﻿@attribute [Authorize]
+@page "/create-account"
 @using Blazor.Data.Models
 @using Blazor.Data.Services
 @using Blazor.Data.Services.Base
 @using Blazor.Data.Services.Interfaces
 @using Microsoft.Extensions.Logging
-@inject IAccountsService _accountService
-
+@using Blazor.Data.Services.Interfaces
+@inject IAccountsService _accountService;
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@inject IUsersService _usersService
+@inject ProtectedLocalStorage _localStorage
 <div class="row">
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
         <h2 class="text-center mb-3">Create Account</h2>
-        <form>
+        <EditForm Model="@accountRequest" OnSubmit="@CreateAccountforUSer">
             <p>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Currency</span>
-                <select class="form-select" >
-                    @foreach (String currency in currencys)
-                    {
-                    <option value="@currency">@currency</option>
-
-                    }
-                </select>
+                <input type="text" @bind="accountRequest.Currency">
             </div>
             </p>
             <p>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Amount</span>
-                <input placeholder="0" type="number">
+                <input placeholder="0" type="number" @bind="accountRequest.Amount">
             </div>
             </p>
             <p>
-                <button class="btn btn-outline-dark" type="submit" @onclick="OnLoginClick">Create Account</button>
-                <button class="btn btn-outline-dark" type="cancel" @onclick="OnCancelClick">Cancel</button>
+                <button class="btn btn-outline-dark" type="submit">Create Account</button>
+                <button class="btn btn-outline-dark">Cancel</button>
             </p>
-        </form>
+        </EditForm>
     </div>
 </div>
 
 @code {
 
     string[] currencys = new string[] { "EUR", "DOL" };
-        private Data.Models.CreateAccount accountRequest = new();
+    private Data.Models.CreateAccount accountRequest = new();
 
+    private string OperationStatus = "";
     private async Task OnCancelClick()
     {
         Console.WriteLine("My debug cancel.");
     }
 
-    private async Task OnLoginClick()
+    private async Task CreateAccountforUSer()
     {
-        await _accountService.CreateAccountAsync(accountRequest);
-                StateHasChanged();
-        Console.WriteLine("My debug Login");
+        var response = await _accountService.PostAccount(accountRequest);
+
+        Console.WriteLine(response.Item1);
+        Console.WriteLine(response.Item2);
+        Console.WriteLine(accountRequest.Amount);
+        Console.WriteLine(accountRequest.Currency);
+
+        StateHasChanged();
+
+
     }
 
-    void cleanInput()
-    {
-        Console.WriteLine("My debug --------");
-    }
 }

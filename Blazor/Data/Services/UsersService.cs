@@ -45,7 +45,6 @@ namespace Blazor.Data.Services
             try
             {
                 var loginRequest = _mapper.Map<LoginUserRequest>(user);
-                Console.WriteLine("passou");
                 var response = await _httpClient.LoginAsync(loginRequest);
                 Console.WriteLine(response.AccessToken);                
                 await _localStorage.SetAsync("token", response.AccessToken);
