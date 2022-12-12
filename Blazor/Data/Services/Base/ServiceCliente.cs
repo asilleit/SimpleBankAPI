@@ -13,6 +13,9 @@
 #pragma warning disable 3016 // Disable "CS3016 Arrays as attribute arguments is not CLS-compliant"
 #pragma warning disable 8603 // Disable "CS8603 Possible null reference return"
 
+using Microsoft.AspNetCore.Components.Authorization;
+
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 namespace Blazor.Data.Services.Base
 {
     using System = global::System;
@@ -31,12 +34,12 @@ namespace Blazor.Data.Services.Base
 
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(AccountRequest body);
+        System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string token, AccountRequest body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(AccountRequest body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string token, AccountRequest body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -235,21 +238,23 @@ namespace Blazor.Data.Services.Base
 
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(AccountRequest body)
+        public virtual System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string token, AccountRequest body)
         {
-            return CreateAccountAsync(body, System.Threading.CancellationToken.None);
+            return CreateAccountAsync(token, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(AccountRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string token, AccountRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("v1/Accounts");
+            // urlBuilder_.Append("v1/Accounts");
+            urlBuilder_.Append("https://localhost:7043/v1/Accounts");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
+    
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -257,6 +262,8 @@ namespace Blazor.Data.Services.Base
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    //client_.DefaultRequestHeaders.Add("Authorization", token);
+                    Console.WriteLine(json_);
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -794,7 +801,6 @@ namespace Blazor.Data.Services.Base
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-                    Console.WriteLine("PAssou no serviço");
                     PrepareRequest(client_, request_, urlBuilder_);
 
                     var url_ = urlBuilder_.ToString();

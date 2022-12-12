@@ -11,21 +11,21 @@
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
 
         <h2 class="text-center mb-3">Login</h2>
-        <EditForm Model="@loginUser" OnSubmit="@SubmitForm">   
-                <p>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon2">Username</span>
-                    <input type="text" class="form-control" @bind="loginUser.Username"/>
-                </div>
-                </p>
-             <p>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon2">Password</span>
-                    <input type="password" class="form-control" @bind="loginUser.Password"/>
-                </div>
-                </p>
-                <button class="btn btn-outline-dark"  type="submit" >Register</button> <button class="btn btn-outline-dark"
-                    >Cancel</button>
+        <EditForm Model="@loginUser" OnSubmit="@SubmitForm">
+            <p>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">Username</span>
+                <input type="text" class="form-control" @bind="loginUser.Username" />
+            </div>
+            </p>
+            <p>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">Password</span>
+                <input type="password" class="form-control" @bind="loginUser.Password" />
+            </div>
+            </p>
+            <button class="btn btn-outline-dark" type="submit">Login</button> <button
+                class="btn btn-outline-dark">Cancel</button>
 
         </EditForm>
     </div>
@@ -39,11 +39,6 @@
     public async Task SubmitForm()
     {
         response = await _usersService.LoginAsync(loginUser);
-        if (!response.Item1)
-        {
-            StateHasChanged();
-            return;
-        }
+        StateHasChanged();
     }
-
 }
