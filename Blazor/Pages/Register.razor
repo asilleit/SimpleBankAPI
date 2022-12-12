@@ -48,7 +48,7 @@
 
     public async Task SubmitForm()
     {             
-        var response = await _usersService.RegisterUserAsync(userRequest);
+        var response = await _usersService.PostUserAsync(userRequest);
         OperationStatus = response.Item2!;
         Console.WriteLine(OperationStatus);
         

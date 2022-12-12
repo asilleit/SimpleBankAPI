@@ -1,4 +1,4 @@
-﻿@attribute [Authorize]
+﻿
 @page "/create-account"
 @using Blazor.Data.Models
 @using Blazor.Data.Services
@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
         <h2 class="text-center mb-3">Create Account</h2>
-        <EditForm Model="@accountRequest" OnSubmit="@CreateAccountforUSer">
+        <EditForm Model="@accountRequest" OnSubmit="@SubmitForm">
             <p>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Currency</span>
@@ -45,9 +45,9 @@
         Console.WriteLine("My debug cancel.");
     }
 
-    private async Task CreateAccountforUSer()
+    private async Task SubmitForm()
     {
-        var response = await _accountService.PostAccount(accountRequest);
+        var response = await _accountService.PostAccountAsync(accountRequest);
 
         Console.WriteLine(response.Item1);
         Console.WriteLine(response.Item2);
@@ -55,8 +55,5 @@
         Console.WriteLine(accountRequest.Currency);
 
         StateHasChanged();
-
-
     }
-
 }

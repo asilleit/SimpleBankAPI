@@ -57,7 +57,7 @@ namespace Blazor.Data.Services
                 return (false, null, response.Item2);
             }
         }
-        public async Task<(bool, string?)> RegisterUserAsync(CreateUser user)
+        public async Task<(bool, string?)> PostUserAsync(CreateUser user)
         {
             try
             {
