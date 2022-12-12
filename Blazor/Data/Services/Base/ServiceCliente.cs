@@ -238,15 +238,15 @@ namespace Blazor.Data.Services.Base
 
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string token, AccountRequest body)
+        public virtual System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string authorization,  AccountRequest body)
         {
-            return CreateAccountAsync(token, body, System.Threading.CancellationToken.None);
+            return CreateAccountAsync(authorization,  body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string token, AccountRequest body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string authorization, AccountRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             // urlBuilder_.Append("v1/Accounts");
@@ -259,6 +259,8 @@ namespace Blazor.Data.Services.Base
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+                                        if (authorization != null)
+                        request_.Headers.TryAddWithoutValidation("authorization", ConvertToString(authorization, System.Globalization.CultureInfo.InvariantCulture));
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");

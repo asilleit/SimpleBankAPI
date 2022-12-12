@@ -6,10 +6,10 @@ networks:
 services:
   postgres:
     ports:
-      - "5432:5432"
+      - "2181:2181"
     image: postgres:11.1
     environment:
-      POSTGRES_DB: postgres
+    
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
   # Kafka - zookeper

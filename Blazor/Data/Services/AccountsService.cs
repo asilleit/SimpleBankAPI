@@ -22,7 +22,6 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-
 namespace Blazor.Data.Services
 {
     public class AccountsService : BaseService, IAccountsService
@@ -70,11 +69,12 @@ namespace Blazor.Data.Services
         //         return (false, null, response.Item2);
         //     }
         // }
-        public async Task<(bool, AccountResponse?, string?)>? PostAccount(CreateAccount account)
+        public async Task<(bool, AccountResponse?, string?)>? PostAccountAsync(CreateAccount account)
         {
             try
             {
                 var auth = await _localStorage.GetAsync<string>("token");
+                Console.WriteLine("");
                 var token = String.Join(" ", "Bearer", auth.Value);
                 var accountRequest = _mapper.Map<AccountRequest>(account);
                 Console.WriteLine(account);
@@ -87,6 +87,5 @@ namespace Blazor.Data.Services
                 return (false, null, response.Item2);
             }
         }
-
     }
 }

@@ -5,7 +5,7 @@ namespace Blazor.Data.Services.Interfaces
 {
     public interface IAccountsService
     {
-        Task<(bool, AccountResponse?, string?)>? PostAccount(CreateAccount account);
+        Task<(bool, AccountResponse?, string?)>? PostAccountAsync(CreateAccount account);
 
     }
 }
