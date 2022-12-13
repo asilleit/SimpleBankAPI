@@ -1,7 +1,7 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Blazor</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+        <a class="navbar-brand" href="">SimpleBankAPI</a>
+        <button type="button" title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
@@ -15,13 +15,8 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            <NavLink class="nav-link" href="register">
+                <span class="oi oi-plus" aria-hidden="true"></span> Register
             </NavLink>
         </div>
         <div class="nav-item px-3">
@@ -29,23 +24,35 @@
                 <span class="oi oi-account-login" aria-hidden="true"></span> Login
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="register">
-                <span class="mdi mdi:register" aria-hidden="true"></span> User Register
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="create-account">
-                <span class="oi oi-plus" aria-hidden="true"></span> Create Account
-            </NavLink>
+        <div class="nav-item px-3" id="accordionFlushExample">
+            <button class="nav-item accordion-button collapsed transparency" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                <span class="oi oi-briefcase" aria-hidden="true"></span> Accounts
+            </button>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushExample">
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="accounts">
+                        <span class="oi oi-plus" aria-hidden="true"></span> My Accounts
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="create-account">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Create Account
+                    </NavLink>
+                </div>
+            </div>
+            <UserCard></UserCard>
         </div>
     </nav>
 </div>
 
 @code {
+
     private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapseNav" : null;
+
 
     private void ToggleNavMenu()
     {
