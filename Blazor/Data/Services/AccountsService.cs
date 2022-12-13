@@ -36,39 +36,39 @@ namespace Blazor.Data.Services
             _localStorage = localStorage;
             _mapper = mapper;
         }
-        // public async Task<(bool, IList<Account>?, string?)> GetAllAccounts()
-        // {
-        //     try
-        //     {
-        //         var auth = await _localStorage.GetAsync<string>("token");
-        //         var token = String.Join(" ", "Bearer", auth.Value);
-        //         var response = await _httpClient.AccountsAllAsync(token);
-        //         var accounts = _mapper.Map<IList<Account>>(response);
+        public async Task<(bool, IList<Account>?, string?)> GetAllAccounts()
+        {
+            try
+            {
+                var auth = await _localStorage.GetAsync<string>("token");
+                var token = String.Join(" ", "Bearer", auth.Value);
+                var response = await _httpClient.GetAccountsAsync(token);
+                var accounts = _mapper.Map<IList<Account>>(response);
 
-        //         return (true, accounts, null);
-        //     }
-        //     catch (ApiException ex)
-        //     {
-        //         var response = HandleApiException(ex);
-        //         return (false, null, response.Item2);
-        //     }
-        // }
-        // public async Task<(bool, AccountDetails?, string?)> GetAccountDetails(int id)
-        // {
-        //     try
-        //     {
-        //         var auth = await _localStorage.GetAsync<string>("token");
-        //         var token = String.Join(" ", "Bearer", auth.Value);
-        //         var response = await _httpClient.AccountsGETAsync(id, token);
-        //         var account = _mapper.Map<GetAccountResponse, AccountDetails>(response);
-        //         return (true, account, null);
-        //     }
-        //     catch (ApiException ex)
-        //     {
-        //         var response = HandleApiException(ex);
-        //         return (false, null, response.Item2);
-        //     }
-        // }
+                return (true, accounts, null);
+            }
+            catch (ApiException ex)
+            {
+                var response = HandleApiException(ex);
+                return (false, null, response.Item2);
+            }
+        }
+        public async Task<(bool, AccountDetails?, string?)> GetAccountDetails(int id)
+        {
+            try
+            {
+                var auth = await _localStorage.GetAsync<string>("token");
+                var token = String.Join(" ", "Bearer", auth.Value);
+                var response = await _httpClient.GetAccountAsync(token, id);
+                var account = _mapper.Map<AccountResponse, AccountDetails>(response);
+                return (true, account, null);
+            }
+            catch (ApiException ex)
+            {
+                var response = HandleApiException(ex);
+                return (false, null, response.Item2);
+            }
+        }
         public async Task<(bool, AccountResponse?, string?)>? PostAccountAsync(CreateAccount account)
         {
             try
