@@ -16,10 +16,11 @@
         <EditForm Model="@accountRequest" OnSubmit="@SubmitForm">
             <div class="input-group mb-3">
                 <label class="input-group-text">Currency</label>
-                <select placeholder="EUR" class="form-select" @bind="accountRequest.Currency">
+                <select placeholder="EUR" class="form-select" aria-label="accountSelect" id="accountSelect"
+                    @bind="accountRequest.Currency">
                     @foreach (string currency in currencys)
                     {
-                        <option value="@currency">@currency</option>
+                        <option value="@currency" for="accountSelect">@currency</option>
                     }
                 </select>
 
@@ -31,7 +32,7 @@
 
             <p>
                 <button class="btn btn-outline-dark" type="submit">Create Account</button>
-                <button class="btn btn-outline-dark"  @onclick="OnCancelClick">Cancel</button>
+                <button class="btn btn-outline-dark" type="btn" @onclick="OnCancelClick">Cancel</button>
             </p>
         </EditForm>
     </div>

@@ -1,0 +1,8 @@
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\SimpleBankAPI.Blazor.csproj.AssemblyReference.cache
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\SimpleBankAPI.Blazor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\SimpleBankAPI.Blazor.AssemblyInfoInputs.cache
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\SimpleBankAPI.Blazor.AssemblyInfo.cs
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\SimpleBankAPI.Blazor.csproj.CoreCompileInputs.cache
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\SimpleBankAPI.Blazor.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\SimpleBankAPI.Blazor.RazorAssemblyInfo.cache
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\SimpleBankAPI.Blazor.RazorAssemblyInfo.cs

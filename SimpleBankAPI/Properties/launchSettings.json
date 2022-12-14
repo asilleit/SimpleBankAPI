@@ -25,14 +25,5 @@
       "publishAllPorts": true,
       "useSSL": true
     }
-  },
-  "$schema": "https://json.schemastore.org/launchsettings.json",
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:10442",
-      "sslPort": 44314
-    }
   }
 }

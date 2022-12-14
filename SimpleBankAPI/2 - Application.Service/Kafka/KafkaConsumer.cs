@@ -6,7 +6,7 @@ namespace SimpleBankAPI.Infrastructure.Kafka
     public class KafkaConsumer : BackgroundService
     {
         private readonly string _topic;
-        private readonly IConsumer<string, string> _kafkaConsumer;
+        private readonly IConsumer<string, string> _kafkaConsumer = null;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public KafkaConsumer(IServiceScopeFactory serviceScopeFactory, IConfiguration configuration)

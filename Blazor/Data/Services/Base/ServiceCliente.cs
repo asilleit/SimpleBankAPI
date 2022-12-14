@@ -177,6 +177,7 @@ namespace Blazor.Data.Services.Base
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
+                                    Console.WriteLine(response_);
                     try
                     {
                         var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
@@ -187,7 +188,6 @@ namespace Blazor.Data.Services.Base
                         }
 
                         ProcessResponse(client_, response_);
-
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 201)
                         {
