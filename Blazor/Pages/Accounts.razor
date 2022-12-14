@@ -11,8 +11,7 @@
 <h3>Accounts</h3>
 
 
-@if(accounts != null)
-{
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -22,23 +21,13 @@
                 <th scope="col"></th>
             </tr>
         </thead>
-        <tbody>
-        @foreach(var account in accounts)
-        {
-            <tr>
-                <td scope="row">@account.Id</td>
-                <td>@account.Balance  @account.Currency</td>
-                <td>@account.CreatedAt.ToString("dd/MM/yy")</td>
-                <td><button class="btn btn-outline-dark" @onclick="@(e => GoToAccountDetails(account.Id))">Details</button></td>
-            </tr>
-        }
-        </tbody>
+
     </table>
-}
+
 @code {
 
 
-    private List<Account>? accounts;
+    private List<Account> accounts;
 
     protected async override Task OnInitializedAsync()
     {
@@ -50,6 +39,6 @@
     }
     public void GoToAccountDetails(int accountId)
     {
-        _navigationManager.NavigateTo($"/account/{accountId}", true);
+        _navigationManager.NavigateTo($"/account/{43}", true);
     }
 }

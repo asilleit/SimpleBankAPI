@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "e+u8w7bwyFAdSfYOt+XdrGBUotreK9+MQSlUxkGbIyA=",
+  "Hash": "2sPb+dXVDqwXI8+38y/CNUzshPOWKAj8vuCwaHVPTRU=",
   "Source": "Blazor",
   "BasePath": "_content/Blazor",
   "Mode": "Default",
@@ -270,6 +270,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\wwwroot\\Images\\imagemUser.png",
+      "SourceId": "Blazor",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\wwwroot\\",
+      "BasePath": "_content/Blazor",
+      "RelativePath": "Images/imagemUser.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\imagemUser.png"
     }
   ]
 }
