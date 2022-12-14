@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using Blazor.Shared
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">SimpleBankAPI</a>
         <button type="button" title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -32,13 +34,13 @@
             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
                 data-bs-parent="#accordionFlushExample">
                 <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="accounts">
-                        <span class="oi oi-plus" aria-hidden="true"></span> My Accounts
+                    <NavLink class="nav-link" href="create-account">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Create Account
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="create-account">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Create Account
+                    <NavLink class="nav-link" href="accounts">
+                        <span class="oi oi-plus" aria-hidden="true"></span> My Accounts
                     </NavLink>
                 </div>
             </div>

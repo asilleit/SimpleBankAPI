@@ -1,0 +1,77 @@
+﻿@attribute [Authorize]
+@using Blazor.Data.Services
+@using Blazor.Data.Services.Base
+@using Blazor.Data.Services.Interfaces
+@inject NavigationManager _navigationManager
+@inject IAccountsService _accountService
+
+@page "/account/{id:int}"
+
+<div class="row mb-2">
+    <div class="col-8"></div>
+    <div class="col-2">
+        <button class="btn btn-sm btn-outline-info" @onclick="RedirectToAccounts">Back</button>
+    </div>
+</div>
+<div class="row">
+    @if (account != null)
+    {
+        <h3>Account</h3>
+        <table class="table w-25">
+            <tr>
+                <td scope="row">Account nr.</td>
+                <td>@account.Account.Id</td>
+            </tr>
+            <tr>
+                <td>Currency</td>
+                <td>@account.Account.Currency</td>
+            </tr>
+            <tr>
+                <td>Balance</td>
+                <td>@account.Account.Balance</td>
+            </tr>
+
+        </table>
+
+        <h3 class="mt-5">Account Details</h3>
+        <table class="table table-striped w-75">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Amount</th>
+                </tr>
+            </thead>
+        </table>
+    }
+
+</div>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    [CascadingParameter]
+    public EventCallback SessionStatusEvent { get; set; }
+
+
+    private Data.Models.AccountDetails? account;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await _accountService.GetAccountDetails(id);
+        if(result.Item3 == "token expired")
+        {
+            await SessionStatusEvent.InvokeAsync();
+            return;
+        }
+
+        if (!result.Item1)
+            return;
+        account = result.Item2;
+        StateHasChanged();
+    }
+    protected void RedirectToAccounts()
+    {
+        _navigationManager.NavigateTo("/Accounts");
+    }
+
+}

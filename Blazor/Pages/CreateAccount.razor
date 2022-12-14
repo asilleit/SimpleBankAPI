@@ -14,21 +14,24 @@
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
         <h2 class="text-center mb-3">Create Account</h2>
         <EditForm Model="@accountRequest" OnSubmit="@SubmitForm">
-            <p>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Currency</span>
-                <input type="text" @bind="accountRequest.Currency">
+                <label class="input-group-text">Currency</label>
+                <select placeholder="EUR" class="form-select" @bind="accountRequest.Currency">
+                    @foreach (string currency in currencys)
+                    {
+                        <option value="@currency">@currency</option>
+                    }
+                </select>
+
             </div>
-            </p>
-            <p>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Amount</span>
                 <input placeholder="0" type="number" @bind="accountRequest.Amount">
             </div>
-            </p>
+
             <p>
                 <button class="btn btn-outline-dark" type="submit">Create Account</button>
-                <button class="btn btn-outline-dark">Cancel</button>
+                <button class="btn btn-outline-dark"  @onclick="OnCancelClick">Cancel</button>
             </p>
         </EditForm>
     </div>
@@ -38,6 +41,8 @@
 
     string[] currencys = new string[] { "EUR", "DOL" };
     private Data.Models.CreateAccount accountRequest = new();
+    [CascadingParameter]
+    public EventCallback SessionStatusEvent { get; set; }
 
     private async Task OnCancelClick()
     {
@@ -47,7 +52,13 @@
     private async Task SubmitForm()
     {
         var response = await _accountService.PostAccountAsync(accountRequest);
-
+        if (response.Item3 == "token expired")
+        {
+            await SessionStatusEvent.InvokeAsync();
+            return;
+        }
+        if (!response.Item1)
+            return;
 
         StateHasChanged();
     }
