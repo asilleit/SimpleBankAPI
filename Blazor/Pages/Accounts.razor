@@ -23,7 +23,7 @@
         </tr>
     </thead>
         <tbody>
-        @foreach(Account account in accounts)
+        @foreach(AccountResponse account in accounts)
         {
             <tr>
                 <td scope="row">@account.Id</td>
@@ -38,14 +38,14 @@
 @code {
 
 
-    private List<Account> accounts;
+    private List<AccountResponse> accounts;
 
     protected async override Task OnInitializedAsync()
     {
         var response = await _accountsService.GetAllAccounts();
 
         Console.WriteLine(response.ToString());
-        accounts = (List<Account>)response.Item2!;
+        accounts = (List<AccountResponse>)response.Item2!;
         StateHasChanged();
     }
     public void GoToAccountDetails(int accountId)

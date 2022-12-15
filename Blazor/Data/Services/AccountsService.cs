@@ -36,14 +36,14 @@ namespace Blazor.Data.Services
             _localStorage = localStorage;
             _mapper = mapper;
         }
-        public async Task<(bool, IList<Account>?, string?)> GetAllAccounts()
+        public async Task<(bool, IList<AccountResponse>?, string?)> GetAllAccounts()
         {
             try
             {
                 var auth = await _localStorage.GetAsync<string>("token");
                 var token = String.Join(" ", "Bearer", auth.Value);
                 var response = await _httpClient.GetAccountsAsync(token);
-                var accounts = _mapper.Map<IList<Account>>(response);
+                var accounts = _mapper.Map<IList<AccountResponse>>(response);
                 Console.WriteLine(accounts.ToString());
                 return (true, accounts, null);
             }

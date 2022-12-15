@@ -12,39 +12,6 @@
   "ProjectWorkspaceState": {
     "TagHelpers": [
       {
-        "HashCode": -857260915,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Transfers",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Transfers"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Transfers"
-        }
-      },
-      {
-        "HashCode": -81708103,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Transfers",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Blazor.Pages.Transfers"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Transfers",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": -1992176251,
         "Kind": "Components.Component",
         "Name": "Blazor.Pages.Index",
@@ -140,39 +107,6 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Blazor.Pages.Register",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": 478210619,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Accounts",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Accounts"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Accounts"
-        }
-      },
-      {
-        "HashCode": -1017623720,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Accounts",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Blazor.Pages.Accounts"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Accounts",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -325,6 +259,72 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Blazor.Pages.FetchData",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -857260915,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Transfers",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Transfers"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Transfers"
+        }
+      },
+      {
+        "HashCode": -81708103,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Transfers",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Blazor.Pages.Transfers"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Transfers",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": 478210619,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Accounts",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Accounts"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Accounts"
+        }
+      },
+      {
+        "HashCode": -1017623720,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Accounts",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Blazor.Pages.Accounts"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Accounts",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
