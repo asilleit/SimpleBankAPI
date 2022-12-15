@@ -13,9 +13,6 @@
 #pragma warning disable 3016 // Disable "CS3016 Arrays as attribute arguments is not CLS-compliant"
 #pragma warning disable 8603 // Disable "CS8603 Possible null reference return"
 
-using Microsoft.AspNetCore.Components.Authorization;
-
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 namespace Blazor.Data.Services.Base
 {
     using System = global::System;
@@ -23,23 +20,23 @@ namespace Blazor.Data.Services.Base
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial interface IClient
     {
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AccountResponse>> GetAccountsAsync(string authorization);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AccountResponse>> GetAccountsAsync(string authorization, System.Threading.CancellationToken cancellationToken);
+
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AccountResponse> GetAccountsAsync(string authorization);
+        System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string authorization, AccountRequest body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AccountResponse> GetAccountsAsync(string authorization, System.Threading.CancellationToken cancellationToken);
-
-        /// <returns>Created</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string token, AccountRequest body);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Created</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string token, AccountRequest body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string authorization, AccountRequest body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -142,17 +139,17 @@ namespace Blazor.Data.Services.Base
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-        /// <returns>Created</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<AccountResponse> GetAccountsAsync(string authorization)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AccountResponse>> GetAccountsAsync(string authorization)
         {
             return GetAccountsAsync(authorization, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Created</returns>
+        /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<AccountResponse> GetAccountsAsync(string authorization, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AccountResponse>> GetAccountsAsync(string authorization, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("v1/Accounts");
@@ -177,7 +174,6 @@ namespace Blazor.Data.Services.Base
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                                    Console.WriteLine(response_);
                     try
                     {
                         var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
@@ -188,10 +184,11 @@ namespace Blazor.Data.Services.Base
                         }
 
                         ProcessResponse(client_, response_);
+
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 201)
+                        if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<AccountResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<AccountResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -251,12 +248,10 @@ namespace Blazor.Data.Services.Base
         public virtual async System.Threading.Tasks.Task<AccountResponse> CreateAccountAsync(string authorization, AccountRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            // urlBuilder_.Append("v1/Accounts");
-            urlBuilder_.Append("https://localhost:7043/v1/Accounts");
+            urlBuilder_.Append("v1/Accounts");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
-
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -266,8 +261,6 @@ namespace Blazor.Data.Services.Base
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    //client_.DefaultRequestHeaders.Add("Authorization", token);
-                    Console.WriteLine(json_);
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
@@ -792,8 +785,7 @@ namespace Blazor.Data.Services.Base
         public virtual async System.Threading.Tasks.Task<LoginUserResponse> LoginAsync(LoginUserRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            //urlBuilder_.Append("v1/Login/login");
-            urlBuilder_.Append("https://localhost:7043/v1/Login/login");
+            urlBuilder_.Append("v1/Login/login");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1108,8 +1100,7 @@ namespace Blazor.Data.Services.Base
         public virtual async System.Threading.Tasks.Task<CreateUserResponse> CreateUserAsync(CreateUserRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            //urlBuilder_.Append("/v1/Users");
-            urlBuilder_.Append("https://localhost:7043/v1/Users");
+            urlBuilder_.Append("v1/Users");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1130,6 +1121,7 @@ namespace Blazor.Data.Services.Base
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
 
                     PrepareRequest(client_, request_, url_);
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try

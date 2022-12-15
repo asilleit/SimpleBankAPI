@@ -42,9 +42,7 @@ namespace Blazor.Data.Services
             {
                 var auth = await _localStorage.GetAsync<string>("token");
                 var token = String.Join(" ", "Bearer", auth.Value);
-                Console.WriteLine("Antes do GetAccountsAsync");
                 var response = await _httpClient.GetAccountsAsync(token);
-                Console.WriteLine("Depois do GetAccountsAsync");
                 var accounts = _mapper.Map<IList<Account>>(response);
                 Console.WriteLine(accounts.ToString());
                 return (true, accounts, null);

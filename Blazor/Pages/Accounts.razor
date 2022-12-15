@@ -11,19 +11,30 @@
 <h3>Accounts</h3>
 
 
-
-    <table class="table table-striped">
-        <thead>
+@if(accounts != null)
+{
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Account Id</th>
+            <th scope="col">Balance</th>
+            <th scope="col">Date Created</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+        <tbody>
+        @foreach(Account account in accounts)
+        {
             <tr>
-                <th scope="col">Account Id</th>
-                <th scope="col">Balance</th>
-                <th scope="col">Date Created</th>
-                <th scope="col"></th>
+                <td scope="row">@account.Id</td>
+                <td>@account.Balance  @account.Currency</td>
+                <td>@account.CreatedAt.ToString("dd/MM/yy")</td>
+                <td><button class="btn btn-outline-dark" @onclick="@(e => GoToAccountDetails(account.Id))">Details</button></td>
             </tr>
-        </thead>
-
-    </table>
-
+        }
+        </tbody>
+</table>
+}
 @code {
 
 

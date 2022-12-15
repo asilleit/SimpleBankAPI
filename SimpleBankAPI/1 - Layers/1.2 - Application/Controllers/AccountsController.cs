@@ -30,10 +30,10 @@ namespace SimpleBankAPI.Controllers
         // GET: api/Accounts
         [HttpGet(Name = "GetAccounts")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(List<AccountResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
         {
             try
@@ -42,8 +42,8 @@ namespace SimpleBankAPI.Controllers
                 int userId = int.Parse(_jwtAuth.GetClaim(authToken: Request.Headers.Authorization, claimName: "user"));
 
                 var accounts = await _accountsBusiness.GetAccountsByUser(userId);
-                var accountResponseList = AccountResponse.FromListAccountsUser(accounts);
-                return StatusCode(StatusCodes.Status201Created, accountResponseList);
+                List<AccountResponse> accountResponseList = AccountResponse.FromListAccountsUser(accounts);
+                return StatusCode(StatusCodes.Status200OK, accountResponseList);
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace SimpleBankAPI.Controllers
 
                 var createdUser = await _accountsBusiness.Create(request, userId);
 
-                return StatusCode(StatusCodes.Status200OK, request);
+                return StatusCode(StatusCodes.Status201Created, request);
             }
             catch (Exception ex)
             {
@@ -86,7 +86,7 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             try
@@ -115,7 +115,7 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IEnumerable<Document>>> GetDocumentsByAccount([FromRoute] int id)
         {
             try
@@ -193,7 +193,7 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status415UnsupportedMediaType)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> PostDocument([FromRoute] int id)
         {
             try
@@ -223,7 +223,7 @@ namespace SimpleBankAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> DownloadDocument([FromRoute] int id, int docId)
         {
             try

@@ -13,7 +13,6 @@ namespace Blazor
     {
         public MappingProfile()
         {
-            CreateMap<Account, AccountResponse>().ReverseMap();
             CreateMap<CreateAccount, AccountRequest>();
             CreateMap<Transfer, TransferRequest>();
             CreateMap<CreateUserRequest, CreateUser>().ReverseMap();
