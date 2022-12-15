@@ -1,9 +1,4 @@
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\CoverletSourceRootsMapping
-C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.csproj.AssemblyReference.cache
-C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.AssemblyInfoInputs.cache
-C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.AssemblyInfo.cs
-C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.csproj.CoreCompileInputs.cache
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\testhost.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\SimpleBankAPI.deps.json
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\SimpleBankAPI.runtimeconfig.json
@@ -21,6 +16,7 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\SimpleBankAP
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\BCrypt.Net-Next.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\Castle.Core.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\Confluent.Kafka.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\HtmlAgilityPack.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\Humanizer.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\MailKit.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\MessagePack.dll
@@ -93,6 +89,7 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\NuGet.Packag
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\NuGet.ProjectModel.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\NuGet.Protocol.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\NuGet.Versioning.dll
+C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\nunit.framework.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\BouncyCastle.Crypto.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\SendGrid.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\StarkbankEcdsa.dll
@@ -375,10 +372,14 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\runtimes\win
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\SimpleBankAPI.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\SimpleBankAPI.pdb
+C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.csproj.AssemblyReference.cache
+C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.AssemblyInfoInputs.cache
+C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.AssemblyInfo.cs
+C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.csproj.CoreCompileInputs.cache
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.csproj.CopyComplete
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\refint\SimpleBankAPI.Tests.dll
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.pdb
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\SimpleBankAPI.Tests.genruntimeconfig.cache
 C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\obj\Debug\net6.0\ref\SimpleBankAPI.Tests.dll
-C:\Users\asilleit\source\repos\SimpleBankAPI\Tests\bin\Debug\net6.0\nunit.framework.dll

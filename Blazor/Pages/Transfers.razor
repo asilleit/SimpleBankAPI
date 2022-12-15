@@ -7,87 +7,137 @@
 @using Blazor.Data.Services.Base
 @using Blazor.Data.Services.Interfaces
 
-    <h3> Transfers </h3>
-    @if(accounts != null)
-    {
-        <div class="row w-50 mt-5 shadow-lg p-5 border m-2 border-opacity-25">
-             <EditForm Model="@transfer" OnSubmit="@MakeTransfer">
-                 <div class="input-group mb-3">
-                    <select class="form-select" aria-label="accountSelect" id="accountSelect" @bind="transfer.FromAccount">
-                        @foreach(Account account in accounts)
-                        {
-                            <option value="@account.Id">@account.Id</option>
-                        }
-                    </select>
-                    <label class="input-group-text" for="accountSelect"> Account </label>
-                 </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label"> Transfer to </label>
-                    <input @bind-value="transfer.ToAccount" type="number" class="form-control" id="exampleFormControlInput1" placeholder="account number">
+<h3> Transfers </h3>
+@if (accounts != null)
+
+{
+    <div class="row w-50 mt-5 shadow-lg p-5 border m-2 border-opacity-25">
+        <EditForm Model="@transfer" OnSubmit="@MakeTransfer">
+            <div class="input-group mb-3">
+                <select class="form-select" aria-label="accountSelect" id="accountSelect" @bind="transfer.FromAccount">
+                    @foreach (AccountResponse account in accounts)
+                    {
+                        <option value="@account.Id">@account.Id</option>
+
+                    }
+                </select>
+                <label class="input-group-text" for="accountSelect"> Account </label>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"> Transfer to </label>
+                <input @bind-value="transfer.ToAccount" type="number" class="form-control" id="exampleFormControlInput1"
+                placeholder="account number">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"> Amount </label>
+                <input @bind-value="transfer.Amount" type="number" class="form-control" id="exampleFormControlInput1"
+                placeholder="amount">
+            </div>
+            @if (OperationStatus != "Transfer Succeded")
+
+            {
+                <button class="btn btn-outline-dark" type="submit"> Transfer </button>
+
+            }
+            @if (OperationStatus == "Transfer Succeded")
+
+            {
+                <div class="alert alert-success mt-3" role="alert">
+                    @OperationStatus
                 </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label"> Amount </label>
-                    <input @bind-value="transfer.Amount" type="number" class="form-control" id="exampleFormControlInput1" placeholder="amount">
+
+            }
+            @if (OperationStatus == "transfer failed")
+
+            {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @OperationError
                 </div>
-                @if(OperationStatus != "Transfer Succeded")
-                {
-                    <button class="btn btn-outline-dark"type="submit"> Transfer  </button>
-                }
-                @if(OperationStatus == "Transfer Succeded")
-                {
-                    <div class="alert alert-success mt-3" role="alert">
-                        @OperationStatus
-                    </div>
-                }
-                @if(OperationStatus == "transfer failed")
-                {
-                    <div class="alert alert-danger mt-3" role="alert">
-                        @OperationError
-                    </div>
-                }
-            </EditForm>
-        </div>
-     }
+
+            }
+        </EditForm>
+    </div>
+
+}
 
 
 @code {
+
     [CascadingParameter]
+
     public EventCallback SessionStatusEvent { get; set; }
 
-    private IList<Account>? accounts;
+
+
+    private IList<AccountResponse>? accounts;
+
+
 
     private Transfer transfer = new();
+
     private string OperationStatus = "";
+
     private string OperationError = "";
 
+
+
     protected async override Task OnInitializedAsync()
+
     {
+
         var response = await _accountsService.GetAllAccounts();
-        if(response.Item3 == "token expired")
+
+        if (response.Item3 == "token expired")
+
         {
+
             await SessionStatusEvent.InvokeAsync();
+
             return;
+
         }
+
         if (!response.Item1)
+
             return;
+
         accounts = response.Item2!;
+
     }
+
     public async void MakeTransfer()
+
     {
+
         var response = await _transfersService.Transfer(transfer);
-        if(response.Item3 == "token expired")
+
+        if (response.Item3 == "token expired")
+
         {
+
             await SessionStatusEvent.InvokeAsync();
+
             return;
+
         }
+
         if (!response.Item1)
+
         {
+
             OperationStatus = "transfer failed";
+
             OperationError = response.Item2;
+
             StateHasChanged();
+
             return;
+
         }
+
         OperationStatus = "Transfer Succeded";
+
         StateHasChanged();
+
     }
 }

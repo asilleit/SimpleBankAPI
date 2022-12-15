@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "WBBx1jpg4dO6Tg3RHmSUdRUKNLXi0UQYYtgTTM+9TavjB9jCmOhlhlwiMNexiTrSFN/Z+Jiun+OAOGB6WEvTxA==",
+  "dgSpecHash": "U6XIoE1DM83O9zmQHba4My6LjRWZakBZIfqHw7COQvsiBSksNWxoKZspOgRfFFR7E7PEkTZB8rMj7rd7nV2EXw==",
   "success": true,
   "projectFilePath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\asilleit\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\confluent.kafka\\1.9.3\\confluent.kafka.1.9.3.nupkg.sha512",
+    "C:\\Users\\asilleit\\.nuget\\packages\\htmlagilitypack\\1.11.46\\htmlagilitypack.1.11.46.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\librdkafka.redist\\1.9.2\\librdkafka.redist.1.9.2.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\mailkit\\3.4.2\\mailkit.3.4.2.nupkg.sha512",

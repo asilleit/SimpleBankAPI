@@ -10,6 +10,7 @@
         "dependencies": {
           "BCrypt.Net-Next": "4.0.3",
           "Confluent.Kafka": "1.9.3",
+          "HtmlAgilityPack": "1.11.46",
           "MailKit": "3.4.2",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.10",
           "Microsoft.EntityFrameworkCore": "6.0.10",
@@ -46,6 +47,14 @@
           "lib/net6.0/Confluent.Kafka.dll": {
             "assemblyVersion": "1.9.3.0",
             "fileVersion": "1.9.3.0"
+          }
+        }
+      },
+      "HtmlAgilityPack/1.11.46": {
+        "runtime": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.11.46.0",
+            "fileVersion": "1.11.46.0"
           }
         }
       },
@@ -2590,6 +2599,13 @@
       "sha512": "sha512-xdol/eagNz6hdldqcm7ctjRuRGENJyctFyNmNAX+lgqJ7xXIVQa9c0L9jPaYWeMYg0gSMihtaH950HzDPKnmbg==",
       "path": "confluent.kafka/1.9.3",
       "hashPath": "confluent.kafka.1.9.3.nupkg.sha512"
+    },
+    "HtmlAgilityPack/1.11.46": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dLMn4EVfJBHWmWK4Uh0XGD76FPLHI0qr2Tm0s1m/xmgiHb1JUb9zB8AzO8HtrkBBlMN6JfCUBYddhqC0hZNR+g==",
+      "path": "htmlagilitypack/1.11.46",
+      "hashPath": "htmlagilitypack.1.11.46.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",
