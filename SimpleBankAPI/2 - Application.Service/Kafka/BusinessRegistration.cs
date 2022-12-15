@@ -18,13 +18,13 @@ namespace SimpleBankAPI._1___Layers._1._3___Domain.Core.Bootstrap
             .AddTransient<ITransfersRepository, TransferRepository>()
             .AddTransient<IDocumentsBusiness, DocumentsBusiness>()
             .AddTransient<IDocumentsRepository, DocumentsRepository>()
-            .AddTransient<ITokenRepository, TokenRepository>()
+            .AddScoped<ITokenRepository, TokenRepository>()
             .AddTransient<ITokenBusiness, TokenBusiness>()
             .AddTransient<ITransfersBusiness, TransfersBusiness>()
-            .AddTransient<IJwtAuth, JwtAuth>()
-            .AddTransient<ICommunicationsService, MailService>()
-            .AddTransient<ICommunicationsBusiness, CommunicationsBusiness>()
-            .AddTransient<IEventProducer, KafkaProducer>()
+            .AddScoped<IJwtAuth, JwtAuth>()
+            .AddScoped<ICommunicationsService, MailService>()
+            .AddScoped<ICommunicationsBusiness, CommunicationsBusiness>()
+            .AddScoped<IEventProducer, KafkaProducer>()
             .AddHostedService<KafkaConsumer>();
 
             return services;

@@ -15,7 +15,7 @@ namespace Blazor.Data.Services
             : base(httpClient, _localStorage)
         {
             _httpClient = httpClient;
-            _localStorage = _localStorage;
+            this._localStorage = _localStorage;
             _mapper = mapper;
         }
         public async Task<(bool, string?, string?)> Transfer(Transfer transfer)
