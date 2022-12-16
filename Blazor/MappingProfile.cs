@@ -18,7 +18,7 @@ namespace Blazor
             CreateMap<CreateUserRequest, CreateUser>().ReverseMap();
             CreateMap<User, LoginUserRequest>().ReverseMap();
             CreateMap<Account, AccountResponse>().ReverseMap();
-            CreateMap<AccountDetails, AccountResponse>().ReverseMap();
+            CreateMap<AccountResponse, AccountDetails>();
         }
     }
 }

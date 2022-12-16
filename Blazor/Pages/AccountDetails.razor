@@ -4,6 +4,7 @@
 @using Blazor.Data.Services.Interfaces
 @inject NavigationManager _navigationManager
 @inject IAccountsService _accountService
+@inject ITransfersService _transfersService
 
 @page "/account/{id:int}"
 
@@ -20,45 +21,57 @@
         <table class="table w-25">
             <tr>
                 <td scope="row">Account nr.</td>
-                <td>@account.Account.Id</td>
+                <td>@account.Id</td>
             </tr>
             <tr>
                 <td>Currency</td>
-                <td>@account.Account.Currency</td>
+                <td>@account.Currency</td>
             </tr>
             <tr>
                 <td>Balance</td>
-                <td>@account.Account.Balance</td>
+                <td>@account.Balance</td>
             </tr>
 
         </table>
+    }
+</div>
 
-        <h3 class="mt-5">Account Details</h3>
-        <table class="table table-striped w-75">
-            <thead>
-                <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Amount</th>
-                </tr>
-            </thead>
+<div class="row">
+    @if (account != null)
+    {
+        <h3>Account</h3>
+        <table class="table w-25">
+            <tr>
+                <td scope="row">Account nr.</td>
+                <td>@account.Id</td>
+            </tr>
+            <tr>
+                <td>Currency</td>
+                <td>@account.Currency</td>
+            </tr>
+            <tr>
+                <td>Balance</td>
+                <td>@account.Balance</td>
+            </tr>
+
         </table>
     }
-
 </div>
 
 @code {
+
     [Parameter]
+
     public int id { get; set; }
+
     [CascadingParameter]
+
     public EventCallback SessionStatusEvent { get; set; }
-
-
-    private Data.Models.AccountDetails? account;
-
+    private AccountResponse? account;
     protected override async Task OnInitializedAsync()
     {
         var result = await _accountService.GetAccountDetails(id);
-        if(result.Item3 == "token expired")
+        if (result.Item3 == "token expired")
         {
             await SessionStatusEvent.InvokeAsync();
             return;
@@ -67,11 +80,12 @@
         if (!result.Item1)
             return;
         account = result.Item2;
+
         StateHasChanged();
     }
+
     protected void RedirectToAccounts()
     {
         _navigationManager.NavigateTo("/Accounts");
     }
-
 }
