@@ -53,14 +53,15 @@ namespace Blazor.Data.Services
                 return (false, null, response.Item2);
             }
         }
-        public async Task<(bool, AccountDetails?, string?)> GetAccountDetails(int id)
+        
+        public async Task<(bool, AccountResponse?, string?)> GetAccountDetails(int id)
         {
             try
             {
                 var auth = await _localStorage.GetAsync<string>("token");
                 var token = String.Join(" ", "Bearer", auth.Value);
                 var response = await _httpClient.GetAccountAsync(token, id);
-                var account = _mapper.Map<AccountResponse, AccountDetails>(response);
+                var account = _mapper.Map<AccountResponse>(response);
                 return (true, account, null);
             }
             catch (ApiException ex)
