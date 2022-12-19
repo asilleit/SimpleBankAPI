@@ -20,7 +20,7 @@ namespace SimpleBankAPI.Application.Repositories
 
         public async Task<Token> GetTokensByRefreshToken(string refreshToken)
         {
-            return await _db.Tokens.FirstOrDefaultAsync(a => a.Refresh_token == refreshToken);
+            return await _db.Tokens.FirstOrDefaultAsync(a => a.RefreshToken == refreshToken);
         }
 
     }

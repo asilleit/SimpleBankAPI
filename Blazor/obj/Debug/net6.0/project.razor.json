@@ -78,39 +78,6 @@
         }
       },
       {
-        "HashCode": 831563942,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Transfers",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Transfers"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Transfers"
-        }
-      },
-      {
-        "HashCode": -760021183,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Transfers",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Blazor.Pages.Transfers"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Transfers",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": 990392730,
         "Kind": "Components.Component",
         "Name": "Blazor.Pages.FetchData",
@@ -243,6 +210,92 @@
         }
       },
       {
+        "HashCode": 1418717351,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.AccountDetails",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "AccountDetails"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "id",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "id"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.AccountDetails"
+        }
+      },
+      {
+        "HashCode": -440213148,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.AccountDetails",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Blazor.Pages.AccountDetails"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "id",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "id"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.AccountDetails",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": 831563942,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Transfers",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Transfers"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Transfers"
+        }
+      },
+      {
+        "HashCode": -760021183,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Transfers",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Blazor.Pages.Transfers"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Transfers",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
         "HashCode": -1018202481,
         "Kind": "Components.Component",
         "Name": "Blazor.Pages.Accounts",
@@ -276,35 +329,35 @@
         }
       },
       {
-        "HashCode": -1800118983,
+        "HashCode": 1505766778,
         "Kind": "Components.Component",
-        "Name": "Blazor.Shared.UserCard",
+        "Name": "Blazor.App",
         "AssemblyName": "Blazor",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "UserCard"
+            "TagName": "App"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Shared.UserCard"
+          "Common.TypeName": "Blazor.App"
         }
       },
       {
-        "HashCode": 1249203313,
+        "HashCode": -800966389,
         "Kind": "Components.Component",
-        "Name": "Blazor.Shared.UserCard",
+        "Name": "Blazor.App",
         "AssemblyName": "Blazor",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Blazor.Shared.UserCard"
+            "TagName": "Blazor.App"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Shared.UserCard",
+          "Common.TypeName": "Blazor.App",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -491,35 +544,35 @@
         }
       },
       {
-        "HashCode": 1505766778,
+        "HashCode": -1800118983,
         "Kind": "Components.Component",
-        "Name": "Blazor.App",
+        "Name": "Blazor.Shared.UserCard",
         "AssemblyName": "Blazor",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "App"
+            "TagName": "UserCard"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.App"
+          "Common.TypeName": "Blazor.Shared.UserCard"
         }
       },
       {
-        "HashCode": -800966389,
+        "HashCode": 1249203313,
         "Kind": "Components.Component",
-        "Name": "Blazor.App",
+        "Name": "Blazor.Shared.UserCard",
         "AssemblyName": "Blazor",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Blazor.App"
+            "TagName": "Blazor.Shared.UserCard"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.App",
+          "Common.TypeName": "Blazor.Shared.UserCard",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },

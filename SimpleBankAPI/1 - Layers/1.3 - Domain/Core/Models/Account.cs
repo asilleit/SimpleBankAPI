@@ -6,13 +6,19 @@ namespace SimpleBankAPI.Models
 {
     public partial class Account
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+       
+        public Account()
+        {
+            Movements = new HashSet<Movement>();
+        }
+
         public int Id { get; set; }
         public int UserId { get; set; }
         public decimal Balance { get; set; }
-        [MinLength(3), DefaultValue("EUR")]
-        public string Currency { get; set; }
+        public string Currency { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
-        public User? User { get; set; }
+
+        public virtual User User { get; set; } = null!;
+        public virtual ICollection<Movement> Movements { get; set; }
     }
 }

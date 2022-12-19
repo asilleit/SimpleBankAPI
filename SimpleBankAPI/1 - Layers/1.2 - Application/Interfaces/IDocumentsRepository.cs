@@ -3,7 +3,7 @@ using SimpleBankAPI.Models;
 
 namespace SimpleBankAPI.Interfaces
 {
-    public interface IDocumentsRepository : IBaseRepository<Document>
+    public interface IDocumentsRepository 
     {
         Task<Document> Create(Document documentCreate);
         Task<List<Document>> GetDocumentsByAccount(int accountId);

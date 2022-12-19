@@ -7,10 +7,10 @@ namespace SimpleBankAPI.Business
 {
     public class TokenBusiness : ITokenBusiness
     {
-        private ITokenRepository _tokenDb;
-        private IUsersRepository _usersDb;
-        private IJwtAuth _jwtAuth;
-        private IConfiguration _config;
+        protected ITokenRepository _tokenDb;
+        protected IUsersRepository _usersDb;
+        protected IJwtAuth _jwtAuth;
+        protected IConfiguration _config;
 
         public TokenBusiness(ITokenRepository tokenDb, IUsersRepository usersDb, IJwtAuth jwtAuth, IConfiguration config)
         {
@@ -37,13 +37,13 @@ namespace SimpleBankAPI.Business
             string refreshToken = _jwtAuth.CreateUserRefreshToken();
 
             token.UserId = user.Id;
-            token.Refresh_token = refreshToken;
-            token.Refresh_token_expire_at = DateTime.UtcNow.AddMinutes(int.Parse(_config["Jwt:ExpiresMin"]));
+            token.RefreshToken = refreshToken;
+            token.RefreshTokenExpireAt = DateTime.UtcNow.AddMinutes(int.Parse(_config["Jwt:ExpiresMin"]));
 
             //Persist Token
             await _tokenDb.Update(token);
 
-            return (user, access, refreshToken, accessToken.ValidTo, token.Refresh_token_expire_at);
+            return (user, access, refreshToken, accessToken.ValidTo, token.RefreshTokenExpireAt);
         }
 
     }
