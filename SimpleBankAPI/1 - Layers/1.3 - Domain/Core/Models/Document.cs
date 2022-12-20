@@ -1,17 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SimpleBankAPI.Models
 {
     public partial class Document
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string FileName { get; set; }
-        public string FileType { get; set; }
-        public byte[] File { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public string FileName { get; set; } = null!;
+        public string FileType { get; set; } = null!;
+        public byte[] File { get; set; } = null!;
         public int AccountId { get; set; }
-        public User User { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

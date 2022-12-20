@@ -83,7 +83,7 @@ namespace SimpleBankAPI.Controllers
         // GET: Accounts/5
         [HttpGet("{id:int}", Name = "GetAccount")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(AccountResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetAccountResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -96,7 +96,8 @@ namespace SimpleBankAPI.Controllers
                 //Get Account ID
                 if (account.UserId != userId) return StatusCode(StatusCodes.Status401Unauthorized, "User don't have Owner from account");
 
-                var accountResponse = AccountResponse.ToAcountResponse(account);
+                //var accountResponse = AccountResponse.ToAcountResponse(account);
+                var accountResponse = GetAccountResponse.FromAccountToAccountResponse(account);
                 return StatusCode(StatusCodes.Status200OK, accountResponse);
             }
             catch (Exception ex)

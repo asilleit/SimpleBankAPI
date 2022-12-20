@@ -6,10 +6,10 @@ namespace SimpleBankAPI.Business
 {
     public class DocumentsBusiness : IDocumentsBusiness
     {
-        private readonly IDocumentsRepository _documentsDb;
-        private readonly IAccountsRepository _accountsDb;
-        private readonly IJwtAuth _jwtAuth;
-        private string[] permittedExtensions = { ".png", ".pdf" };
+       protected IDocumentsRepository _documentsDb;
+        protected IAccountsRepository _accountsDb;
+        protected IJwtAuth _jwtAuth;
+        protected string[] permittedExtensions = { ".png", ".pdf" };
         public DocumentsBusiness(IDocumentsRepository documentsDb, IJwtAuth jwtAuth, IAccountsRepository accountsDb)
         {
             _documentsDb = documentsDb;

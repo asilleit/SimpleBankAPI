@@ -11,6 +11,7 @@ public class TransferTests
     private Mock<ITransfersRepository> _transfersRepository;
     private Mock<IAccountsRepository> _accountRepository;
     private Mock<ICommunicationsBusiness> _communicationsBusiness;
+    private Mock<IMovementsBusiness> _movementsBusiness;
     private TransfersBusiness _transferBusiness;
     private TransferRequest _transferRequest;
     private Transfer _transfer;
@@ -31,7 +32,8 @@ public class TransferTests
         _transfersRepository = new Mock<ITransfersRepository>();
         _accountRepository = new Mock<IAccountsRepository>();
         _communicationsBusiness = new Mock<ICommunicationsBusiness>();
-        _transferBusiness = new TransfersBusiness(_transfersRepository.Object, _accountRepository.Object, _communicationsBusiness.Object);
+        _movementsBusiness = new Mock<IMovementsBusiness>();
+        _transferBusiness = new TransfersBusiness(_movementsBusiness.Object, _transfersRepository.Object, _accountRepository.Object, _communicationsBusiness.Object);
 
         var _user = new User { Id = 1, Username = "adrianoleite", Password = "123456789", FullName = "adrianofullname", Email = "adriano@gmail.com", CreatedAt = DateTime.Now };
         _account1 = new Account { Id = 1, UserId = 1, Balance = 100, Currency = "EUR", CreatedAt = DateTime.Now };

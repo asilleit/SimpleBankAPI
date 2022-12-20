@@ -10,6 +10,6 @@ namespace Blazor.Data.Services.Interfaces
     {
         Task<(bool, AccountResponse?, string?)>? PostAccountAsync(CreateAccount account);
         Task<(bool, IList<AccountResponse>?, string?)> GetAllAccounts();
-        Task<(bool, AccountResponse?, string?)> GetAccountDetails(int id);
+        Task<(bool, GetAccountResponse?, string?)> GetAccountDetails(int id);
     }
 }

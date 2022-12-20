@@ -10,10 +10,10 @@ namespace SimpleBankAPI.Business
 {
     public class UserBusiness : IUserBusiness
     {
-        private readonly IUsersRepository _userDb;
-        private readonly ITokenRepository _tokenDb;
-        private readonly IJwtAuth _jwtAuth;
-        private readonly IConfiguration _config;
+        protected IUsersRepository _userDb;
+        protected ITokenRepository _tokenDb;
+        protected IJwtAuth _jwtAuth;
+        protected IConfiguration _config;
 
         public UserBusiness(IUsersRepository usersDb, IJwtAuth jwtAuth, ITokenRepository tokenDb, IConfiguration _configuration)
         {
@@ -62,8 +62,8 @@ namespace SimpleBankAPI.Business
             Token token = new Token();
 
             token.UserId = user.Id;
-            token.Refresh_token = refreshToken;
-            token.Refresh_token_expire_at = DateTime.UtcNow.AddMinutes(int.Parse(_config["Jwt:ExpiresMin"]));
+            token.RefreshToken = refreshToken;
+            token.RefreshTokenExpireAt = DateTime.UtcNow.AddMinutes(int.Parse(_config["Jwt:ExpiresMin"]));
 
             //Persist Token
             await _tokenDb.Create(token);
@@ -72,7 +72,7 @@ namespace SimpleBankAPI.Business
 
             if (!Crypto.VerifySecret(user.Password, userRequest.Password)) { throw new("Error Password"); }
 
-            return (user, access, refreshToken, accessToken.ValidTo, token.Refresh_token_expire_at);
+            return (user, access, refreshToken, accessToken.ValidTo, token.RefreshTokenExpireAt);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace SimpleBankAPI.Application.Repositories
         public AccountsRepository(DbContextOptions<postgresContext> options) : base(options)
         {
         }
-        public async  Task<Account> Create(Account account)
+        public async Task<Account> Create(Account account)
         {
             await _db.AddAsync(account);
             await _db.SaveChangesAsync();
@@ -24,9 +24,10 @@ namespace SimpleBankAPI.Application.Repositories
 
         }
 
-        public async Task<Account> GetById(int accountId)
+        public async Task<Account> GetById(int id)
         {
-            return await _db.Accounts.FirstOrDefaultAsync(a => a.Id == accountId);
+            // return await _db.Accounts.FirstOrDefaultAsync(a => a.Id == accountId);
+            return await _db.Accounts.Include(a => a.Movements).FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<Account> Update(Account accountUpdate)
