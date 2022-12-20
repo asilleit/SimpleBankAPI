@@ -20,6 +20,10 @@
 
 
 
+
+
+
+
     {
         <h3> Account </h3>
         <table class="table w-25">
@@ -43,6 +47,7 @@
             <thead>
                 <tr>
                     <th scope="col"> Date </th>
+                    <th scope="col"> Hour </th>
                     <th scope="col"> Amount </th>
                 </tr>
             </thead>
@@ -51,17 +56,30 @@
 
 
 
+
+
+
+
                 {
                     <tr>
-                        <td scope="row">@movim.CreatedAt.ToString("dd/MM/yyyy") @movim.CreatedAt.ToString("HH:mm:ss")</td>
+                        <td scope="row">@movim.CreatedAt.ToString("dd/MM/yyyy") </td>
+                        <td scope="row">@movim.CreatedAt.ToString("HH:mm:ss") </td>
                         <td>@movim.Amount</td>
                     </tr>
+
+
+
+
 
 
 
                 }
             </tbody>
         </table>
+
+
+
+
 
 
 
@@ -78,7 +96,23 @@
 
 
 
+
+
+
+
+
+
+
+
     [Parameter]
+
+
+
+
+
+
+
+
 
 
 
@@ -90,7 +124,15 @@
 
 
 
+
+
+
+
     [CascadingParameter]
+
+
+
+
 
 
 
@@ -102,7 +144,19 @@
 
 
 
+
+
+
+
+
+
+
+
     private Blazor.Data.Services.Base.GetAccountResponse? account;
+
+
+
+
 
 
 
@@ -110,27 +164,55 @@
 
 
 
+
+
+
+
     {
+
+
+
+
 
 
 
         var result = await _accountService.GetAccountDetails(id);
 
+
+
         if (result.Item3 == "token expired")
+
+
 
         {
 
+
+
             await SessionStatusEvent.InvokeAsync();
+
+
 
             return;
 
+
+
         }
+
+
 
         if (!result.Item1)
 
 
 
+
+
+
+
             return;
+
+
+
+
 
 
 
@@ -138,7 +220,15 @@
 
 
 
+
+
+
+
         StateHasChanged();
+
+
+
+
 
 
 
@@ -146,7 +236,15 @@
 
 
 
+
+
+
+
     protected void RedirectToAccounts()
+
+
+
+
 
 
 
@@ -154,7 +252,15 @@
 
 
 
+
+
+
+
         _navigationManager.NavigateTo("/Accounts");
+
+
+
+
 
 
 
