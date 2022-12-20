@@ -1,10 +1,10 @@
-﻿namespace Blazor.Data.Models
+﻿using Blazor.Data.Services.Base;
+
+namespace Blazor.Data.Models
 {
     public class AccountDetails
     {
-        public int Id { get; set; }
-        public double Balance { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public string Currency { get; set; }
+        public AccountResponse Account { get; set; }
+        public List<Movim> Movims { get; set; }
     }
 }
