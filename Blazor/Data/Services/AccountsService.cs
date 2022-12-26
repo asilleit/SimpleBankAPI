@@ -21,6 +21,8 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace Blazor.Data.Services
 {
@@ -77,11 +79,63 @@ namespace Blazor.Data.Services
             try
             {
                 var auth = await _localStorage.GetAsync<string>("token");
-                Console.WriteLine("");
                 var token = String.Join(" ", "Bearer", auth.Value);
                 var accountRequest = _mapper.Map<AccountRequest>(account);
-                Console.WriteLine(account);
                 var response = await _httpClient.CreateAccountAsync(token, accountRequest);
+                return (true, response, null);
+            }
+            catch (ApiException ex)
+            {
+                var response = HandleApiException(ex);
+                return (false, null, response.Item2);
+            }
+        }
+
+        public async Task<(bool, string?, string?)> PostDocumentAsync(int id,IBrowserFile file)
+        {
+            try
+            {
+                var auth = await _localStorage.GetAsync<string>("token");
+                var token = String.Join(" ", "Bearer", auth.Value);
+                var response = await _httpClient.UploadDocumentAsync(token, id);
+                return (false, "Upload document sucess", null);
+            }
+            catch (ApiException ex)
+            {
+                var response = HandleApiException(ex);
+                return (false, null, response.Item2);
+            }
+        }
+
+        public async Task<(bool, DocumentResponse?, string?)> DownloadDocumentfromAccountAsync(int id)
+        {
+            try
+            {
+                var auth = await _localStorage.GetAsync<string>("token");
+                var token = String.Join(" ", "Bearer", auth.Value);
+                var response = await _httpClient.DownloadDocumentAsync(token, id,id );
+
+                //CreateMap<AccountDetails, GetAccountResponse>().ReverseMap();
+                //var account = _mapper.Map<GetAccountResponse, AccountDetails>(response);
+                return (true, response, null);
+            }
+            catch (ApiException ex)
+            {
+                var response = HandleApiException(ex);
+                return (false, null, response.Item2);
+            }
+        }
+
+        public async Task<(bool, ICollection<DocumentResponse>?, string?)> GetDoccumentAccountAsync(int id)
+        {
+            try
+            {
+                var auth = await _localStorage.GetAsync<string>("token");
+                var token = String.Join(" ", "Bearer", auth.Value);
+                var response = await _httpClient.GetDoccumentByAccountAsync(token, id);
+
+                //CreateMap<AccountDetails, GetAccountResponse>().ReverseMap();
+                //var account = _mapper.Map<GetAccountResponse, AccountDetails>(response);
                 return (true, response, null);
             }
             catch (ApiException ex)

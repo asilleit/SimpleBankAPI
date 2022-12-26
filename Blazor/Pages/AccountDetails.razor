@@ -17,13 +17,6 @@
 </div>
 <div class="row">
     @if (account != null)
-
-
-
-
-
-
-
     {
         <h3> Account </h3>
         <table class="table w-25">
@@ -41,8 +34,9 @@
             </tr>
 
         </table>
+         <td><button class="btn btn-outline-dark" @onclick="@(e => GoToAccountDocuments(account.Account.Id))">Documents</button></td>
 
-        <h3 class="mt-5"> Account Details </h3>
+        <h3 class="mt-5"> Moviments Account </h3>
         <table class="table table-striped w-75">
             <thead>
                 <tr>
@@ -53,216 +47,57 @@
             </thead>
             <tbody>
                 @foreach (Movim movim in account.Movims)
-
-
-
-
-
-
-
                 {
                     <tr>
                         <td scope="row">@movim.CreatedAt.ToString("dd/MM/yyyy") </td>
                         <td scope="row">@movim.CreatedAt.ToString("HH:mm:ss") </td>
                         <td>@movim.Amount</td>
                     </tr>
-
-
-
-
-
-
-
                 }
             </tbody>
         </table>
-
-
-
-
-
-
-
     }
-
 </div>
-
 
 @code {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     [Parameter]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public int id { get; set; }
-
-
-
-
-
-
-
     [CascadingParameter]
-
-
-
-
-
-
 
     public EventCallback SessionStatusEvent { get; set; }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private Blazor.Data.Services.Base.GetAccountResponse? account;
-
-
-
-
-
-
 
     protected override async Task OnInitializedAsync()
 
-
-
-
-
-
-
     {
-
-
-
-
-
-
-
         var result = await _accountService.GetAccountDetails(id);
-
-
 
         if (result.Item3 == "token expired")
 
-
-
         {
 
-
-
             await SessionStatusEvent.InvokeAsync();
-
-
-
             return;
-
-
-
         }
 
 
 
         if (!result.Item1)
-
-
-
-
-
-
-
             return;
-
-
-
-
-
-
-
         account = result.Item2;
-
-
-
-
-
-
-
         StateHasChanged();
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
 
     protected void RedirectToAccounts()
 
-
-
-
-
-
-
     {
-
-
-
-
-
-
-
         _navigationManager.NavigateTo("/Accounts");
-
-
-
-
-
-
-
+    }
+        public void GoToAccountDocuments(int accountId)
+    {
+        _navigationManager.NavigateTo($"/account/{accountId}/documents", true);
     }
 }

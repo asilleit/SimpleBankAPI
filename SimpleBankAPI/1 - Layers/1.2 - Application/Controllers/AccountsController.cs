@@ -113,7 +113,7 @@ namespace SimpleBankAPI.Controllers
         // GET: Accounts/5/Documents
         [HttpGet("{id:int}/doc", Name = "GetDoccumentByAccount")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<DocumentResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -219,7 +219,7 @@ namespace SimpleBankAPI.Controllers
 
         [HttpGet("{id:int}/doc/{docid}", Name = "DownloadDocument")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(DocumentResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
@@ -239,10 +239,10 @@ namespace SimpleBankAPI.Controllers
                 MemoryStream ms = new MemoryStream(result.File);
                 return new FileStreamResult(ms, "application/pdf");
 
-                var stream = new MemoryStream();
-                await stream.WriteAsync(result.File, 0, result.File.Length);
-                stream.Position = 0;
-                return File(stream, result.FileType, result.FileName);
+                // var stream = new MemoryStream();
+                // await stream.WriteAsync(result.File, 0, result.File.Length);
+                // stream.Position = 0;
+                // return File(stream, result.FileType, result.FileName);
 
             }
             catch (Exception ex)

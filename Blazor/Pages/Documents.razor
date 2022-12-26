@@ -1,0 +1,139 @@
+﻿@attribute [Authorize]
+@using Blazor.Data.Services
+@using Blazor.Data.Services.Base
+@using Blazor.Data.Services.Interfaces
+@using System.IO;
+@using System;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Hosting;
+@using Microsoft.AspNetCore.StaticFiles;
+@inject NavigationManager _navigationManager
+@inject IAccountsService _accountService
+@inject ITransfersService _transfersService
+
+
+@page "/account/{id:int}/documents"
+
+<div class="row mb-2">
+    <div class="col-8"></div>
+    <div class="col-2">
+        <button class="btn btn-sm btn-outline-info" @onclick="RedirectToAccounts"> Back </button>
+    </div>
+</div>
+<div class="row">
+    @if (account != null)
+    {
+        <h3> Account </h3>
+        <table class="table w-25">
+            <tr>
+                <td scope="row"> Account nr. </td>
+                <td>@account.Account.Id</td>
+            </tr>
+            <tr>
+                <td> Currency </td>
+                <td>@account.Account.Currency</td>
+            </tr>
+            <tr>
+                <td> Balance </td>
+                <td>@account.Account.Balance</td>
+            </tr>
+
+        </table>
+        <td>
+            <div class="file-input-zone">
+                <InputFile OnChange="@LoadFile" />
+            </div>
+            @* <button class="btn btn-outline-dark" @onclick="@(e => UploadDocument(account.Account.Id))">Upload 
+                Document</button>*@
+        </td>
+
+
+        <h3 class="mt-5"> Dcoments Account </h3>
+        <table class="table table-striped w-75">
+            <thead>
+                <tr>
+                    <th scope="col"> ID </th>
+                    <th scope="col"> File Name </th>
+                    <th scope="col"> Created At </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (DocumentResponse doc in document)
+                {
+                    <tr>
+                        <td scope="row">@doc.AccountId </td>
+                        <td scope="row">@doc.FileName </td>
+                        <td scope="row">@doc.FileType</td>
+                        <td><button class="btn btn-outline-dark" @onclick="@(e => DownloadDocument(doc.AccountId))">Download
+                                Document</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+</div>
+
+@code {
+
+    [Parameter]
+
+    public int id { get; set; }
+    [CascadingParameter]
+
+    public EventCallback SessionStatusEvent { get; set; }
+
+    private Blazor.Data.Services.Base.GetAccountResponse? account;
+
+    private IList<DocumentResponse>? document;
+
+    private DocumentResponse? fileDocument;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var resultacc = await _accountService.GetAccountDetails(id);
+
+        account = resultacc.Item2;
+        var result = await _accountService.GetAccountDetails(id);
+
+        var resultDoc = await _accountService.GetDoccumentAccountAsync(id);
+        if (resultDoc.Item3 == "token expired")
+        {
+            await SessionStatusEvent.InvokeAsync();
+            return;
+        }
+        if (!resultDoc.Item1)
+            return;
+        document = (List<DocumentResponse>)resultDoc.Item2;
+        StateHasChanged();
+    }
+    public async Task LoadFile(InputFileChangeEventArgs e)
+    {
+        @* var result = await _accountService.PostDocumentAsync(id);
+        var sucess = result.Item2; *@
+        StateHasChanged();
+    }
+
+
+
+    protected void RedirectToAccounts()
+    {
+        _navigationManager.NavigateTo("/Accounts");
+    }
+
+    public async Task DownloadDocument(int id)
+    {
+        var result1 = await _accountService.DownloadDocumentfromAccountAsync(id);
+        fileDocument = result1.Item2;
+        //FileContentResult file = new FileContentResult(fileDocument.File, "application/pdf");
+        @* return new FileStream(fileDocument.File, "application/pdf", "PDF_FILE.pdf"); *@
+        //return new FileContentResult(fileDocument.File, "application/pdf");
+            MemoryStream ms = new MemoryStream(fileDocument.File);
+            //return new File(fileDocument.File, "text/plain", "Result.PDF");
+               
+
+        StateHasChanged();
+    }
+
+}

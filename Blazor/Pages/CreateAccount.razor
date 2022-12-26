@@ -15,9 +15,10 @@
         <h2 class="text-center mb-3">Create Account</h2>
         <EditForm Model="@accountRequest" OnSubmit="@SubmitForm">
             <div class="input-group mb-3">
-                <label class="input-group-text">Currency</label>
+               
                 <select placeholder="EUR" class="form-select" aria-label="accountSelect" id="accountSelect"
                     @bind="accountRequest.Currency">
+                     <label class="input-group-text">Currency</label>
                     @foreach (string currency in currencys)
                     {
                         <option value="@currency" for="accountSelect">@currency</option>
