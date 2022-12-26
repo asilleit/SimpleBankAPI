@@ -106,6 +106,8 @@ C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\bin\Debug\net6.0\runtimes\wi
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.csproj.AssemblyReference.cache
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.Pages.AccountDetails.en.resources
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.Pages.AccountDetails.pt.resources
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.Pages.Accounts.en.resources
+C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.Pages.Accounts.pt.resources
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.Pages.CreateAccount.en.resources
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.Pages.CreateAccount.pt.resources
 C:\Users\asilleit\source\repos\SimpleBankAPI\Blazor\obj\Debug\net6.0\Blazor.Pages.Login.en.resources

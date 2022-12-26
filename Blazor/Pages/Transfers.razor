@@ -7,12 +7,10 @@
 @using Blazor.Data.Services.Base
 @using Blazor.Data.Services.Interfaces
 @using Microsoft.Extensions.Localization;
-@inject IStringLocalizer<NavMenu> Loc
+@inject IStringLocalizer<Transfers> Loc
 
 <h3> @Loc["Transfer"] </h3>
 @if (accounts != null)
-
-
 
 {
     <div class="row w-50 mt-5 shadow-lg p-5 border m-2 border-opacity-25">
@@ -37,11 +35,7 @@
                 <input @bind="transfer.Amount" type="number" class="form-control" id="exampleFormControlInput1"
                 placeholder="amount">
             </div>
-            @if (OperationStatus != "transfer completed")
-            {
-                <button class="btn btn-outline-dark" type="submit"> @Loc["Transfer"] </button>
 
-            }
             @if (OperationStatus == "transfer completed")
             {
                 <div class="alert alert-success mt-3" role="alert">
