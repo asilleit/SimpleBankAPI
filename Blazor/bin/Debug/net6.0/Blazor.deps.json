@@ -29,6 +29,14 @@
         },
         "runtime": {
           "Blazor.dll": {}
+        },
+        "resources": {
+          "en/Blazor.resources.dll": {
+            "locale": "en"
+          },
+          "pt/Blazor.resources.dll": {
+            "locale": "pt"
+          }
         }
       },
       "AutoMapper/12.0.0": {

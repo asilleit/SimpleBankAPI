@@ -43,7 +43,7 @@
             <div class="file-input-zone">
                 <InputFile OnChange="@LoadFile" />
             </div>
-            @* <button class="btn btn-outline-dark" @onclick="@(e => UploadDocument(account.Account.Id))">Upload 
+            @* <button class="btn btn-outline-dark" @onclick="@(e => UploadDocument(account.Account.Id))">Upload
                 Document</button>*@
         </td>
 
@@ -111,7 +111,7 @@
     public async Task LoadFile(InputFileChangeEventArgs e)
     {
         @* var result = await _accountService.PostDocumentAsync(id);
-        var sucess = result.Item2; *@
+            var sucess = result.Item2; *@
         StateHasChanged();
     }
 
@@ -129,9 +129,9 @@
         //FileContentResult file = new FileContentResult(fileDocument.File, "application/pdf");
         @* return new FileStream(fileDocument.File, "application/pdf", "PDF_FILE.pdf"); *@
         //return new FileContentResult(fileDocument.File, "application/pdf");
-            MemoryStream ms = new MemoryStream(fileDocument.File);
-            //return new File(fileDocument.File, "text/plain", "Result.PDF");
-               
+        MemoryStream ms = new MemoryStream(fileDocument.File);
+        //return new File(fileDocument.File, "text/plain", "Result.PDF");
+
 
         StateHasChanged();
     }

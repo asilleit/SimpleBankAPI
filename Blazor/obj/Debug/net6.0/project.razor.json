@@ -12,39 +12,6 @@
   "ProjectWorkspaceState": {
     "TagHelpers": [
       {
-        "HashCode": 1929489589,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Register",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Register"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Register"
-        }
-      },
-      {
-        "HashCode": -1479154849,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Register",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Blazor.Pages.Register"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Register",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": -125185249,
         "Kind": "Components.Component",
         "Name": "Blazor.Pages.FetchData",
@@ -111,39 +78,6 @@
         }
       },
       {
-        "HashCode": -1593233598,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Login",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Login"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Login"
-        }
-      },
-      {
-        "HashCode": 1859957624,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Login",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Blazor.Pages.Login"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Login",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": -1575651001,
         "Kind": "Components.Component",
         "Name": "Blazor.Pages.Counter",
@@ -173,158 +107,6 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Blazor.Pages.Counter",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": -26823843,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Accounts",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Accounts"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Accounts"
-        }
-      },
-      {
-        "HashCode": -219000984,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Accounts",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Blazor.Pages.Accounts"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Accounts",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": -1514152465,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.AccountDetails",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "AccountDetails"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "id",
-            "TypeName": "System.Int32",
-            "Metadata": {
-              "Common.PropertyName": "id"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.AccountDetails"
-        }
-      },
-      {
-        "HashCode": 2096099518,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.AccountDetails",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Blazor.Pages.AccountDetails"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "id",
-            "TypeName": "System.Int32",
-            "Metadata": {
-              "Common.PropertyName": "id"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.AccountDetails",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": 138699163,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Transfers",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Transfers"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Transfers"
-        }
-      },
-      {
-        "HashCode": 917276094,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.Transfers",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Blazor.Pages.Transfers"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.Transfers",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": -796323655,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.CreateAccount",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "CreateAccount"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.CreateAccount"
-        }
-      },
-      {
-        "HashCode": -1297477414,
-        "Kind": "Components.Component",
-        "Name": "Blazor.Pages.CreateAccount",
-        "AssemblyName": "Blazor",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Blazor.Pages.CreateAccount"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Pages.CreateAccount",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -382,6 +164,224 @@
         }
       },
       {
+        "HashCode": -26823843,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Accounts",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Accounts"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Accounts"
+        }
+      },
+      {
+        "HashCode": -219000984,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Accounts",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Blazor.Pages.Accounts"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Accounts",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": 138699163,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Transfers",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Transfers"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Transfers"
+        }
+      },
+      {
+        "HashCode": 917276094,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Transfers",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Blazor.Pages.Transfers"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Transfers",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -1593233598,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Login",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Login"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Login"
+        }
+      },
+      {
+        "HashCode": 1859957624,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Login",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Blazor.Pages.Login"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Login",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": 1929489589,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Register",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Register"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Register"
+        }
+      },
+      {
+        "HashCode": -1479154849,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.Register",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Blazor.Pages.Register"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.Register",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -796323655,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.CreateAccount",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "CreateAccount"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.CreateAccount"
+        }
+      },
+      {
+        "HashCode": -1297477414,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.CreateAccount",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Blazor.Pages.CreateAccount"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.CreateAccount",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -1514152465,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.AccountDetails",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "AccountDetails"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "id",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "id"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.AccountDetails"
+        }
+      },
+      {
+        "HashCode": 2096099518,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Pages.AccountDetails",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Blazor.Pages.AccountDetails"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "id",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "id"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Pages.AccountDetails",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
         "HashCode": 1798476773,
         "Kind": "Components.Component",
         "Name": "Blazor.App",
@@ -415,68 +415,88 @@
         }
       },
       {
-        "HashCode": -1847946205,
+        "HashCode": -564393301,
         "Kind": "Components.Component",
-        "Name": "Blazor.Shared.UserCard",
+        "Name": "Blazor.Shared.SurveyPrompt",
         "AssemblyName": "Blazor",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "UserCard"
+            "TagName": "SurveyPrompt"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Title",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Title"
+            }
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Shared.UserCard"
+          "Common.TypeName": "Blazor.Shared.SurveyPrompt"
         }
       },
       {
-        "HashCode": -1258762557,
+        "HashCode": 890991631,
         "Kind": "Components.Component",
-        "Name": "Blazor.Shared.UserCard",
+        "Name": "Blazor.Shared.SurveyPrompt",
         "AssemblyName": "Blazor",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Blazor.Shared.UserCard"
+            "TagName": "Blazor.Shared.SurveyPrompt"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Title",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Title"
+            }
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Shared.UserCard",
+          "Common.TypeName": "Blazor.Shared.SurveyPrompt",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
       {
-        "HashCode": -1046880289,
+        "HashCode": -131742048,
         "Kind": "Components.Component",
-        "Name": "Blazor.Shared.NavMenu",
+        "Name": "Blazor.Shared.CultureSelector",
         "AssemblyName": "Blazor",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "NavMenu"
+            "TagName": "CultureSelector"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Shared.NavMenu"
+          "Common.TypeName": "Blazor.Shared.CultureSelector"
         }
       },
       {
-        "HashCode": -978815218,
+        "HashCode": -477840648,
         "Kind": "Components.Component",
-        "Name": "Blazor.Shared.NavMenu",
+        "Name": "Blazor.Shared.CultureSelector",
         "AssemblyName": "Blazor",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Blazor.Shared.NavMenu"
+            "TagName": "Blazor.Shared.CultureSelector"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Shared.NavMenu",
+          "Common.TypeName": "Blazor.Shared.CultureSelector",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -577,55 +597,68 @@
         }
       },
       {
-        "HashCode": -564393301,
+        "HashCode": -1046880289,
         "Kind": "Components.Component",
-        "Name": "Blazor.Shared.SurveyPrompt",
+        "Name": "Blazor.Shared.NavMenu",
         "AssemblyName": "Blazor",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "SurveyPrompt"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Title"
-            }
+            "TagName": "NavMenu"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Shared.SurveyPrompt"
+          "Common.TypeName": "Blazor.Shared.NavMenu"
         }
       },
       {
-        "HashCode": 890991631,
+        "HashCode": -978815218,
         "Kind": "Components.Component",
-        "Name": "Blazor.Shared.SurveyPrompt",
+        "Name": "Blazor.Shared.NavMenu",
         "AssemblyName": "Blazor",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Blazor.Shared.SurveyPrompt"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Title"
-            }
+            "TagName": "Blazor.Shared.NavMenu"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Blazor.Shared.SurveyPrompt",
+          "Common.TypeName": "Blazor.Shared.NavMenu",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -1847946205,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Shared.UserCard",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "UserCard"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Shared.UserCard"
+        }
+      },
+      {
+        "HashCode": -1258762557,
+        "Kind": "Components.Component",
+        "Name": "Blazor.Shared.UserCard",
+        "AssemblyName": "Blazor",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Blazor.Shared.UserCard"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Blazor.Shared.UserCard",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -16978,6 +17011,11 @@
     {
       "FilePath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\Shared\\MainLayout.razor",
       "TargetPath": "Shared\\MainLayout.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\Shared\\CultureSelector.razor",
+      "TargetPath": "Shared\\CultureSelector.razor",
       "FileKind": "component"
     },
     {

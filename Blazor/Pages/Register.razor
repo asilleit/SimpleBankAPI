@@ -5,53 +5,54 @@
 @using Blazor.Data.Services.Interfaces
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<NavMenu> Loc
 @inject IUsersService _usersService
 
 <div class="row">
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
-        <h2 class="text-center mb-3">User Register</h2>
-        <EditForm Model="@userRequest" OnSubmit="@SubmitForm"> 
-                <p>
-                <div class="input-group mb-3">
-                    <span class="text-addon2" id="basic-addon2">Email</span>
-                    <input type="email" class="form-control" @bind="userRequest.Email"/>
-                </div>
-                </p>
-                <p>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon2">Password</span>
-                    <input type="password" class="form-control" @bind="userRequest.Password"/>
-                </div>
-                </p>
-                <p>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon2">Username</span>
-                    <input type="text" class="form-control" @bind="userRequest.UserName"/>
-                </div>
-                </p>
-                <p>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon2">Full name</span>
-                    <input type="text" class="form-control"  @bind="userRequest.FullName"/>
-                </div>
-                </p>
-                <button class="btn btn-outline-dark"  type="submit" >Register</button> <button class="btn btn-outline-dark"
-                    >Cancel</button>
-            </EditForm>
+        <h2 class="text-center mb-3">@Loc["Register"]</h2>
+        <EditForm Model="@userRequest" OnSubmit="@SubmitForm">
+            <p>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">Email</span>
+                <input type="email" class="form-control" @bind="userRequest.Email" />
+            </div>
+            </p>
+            <p>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">@Loc["Password"]</span>
+                <input type="password" class="form-control" @bind="userRequest.Password" />
+            </div>
+            </p>
+            <p>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">@Loc["Username"]</span>
+                <input type="text" class="form-control" @bind="userRequest.UserName" />
+            </div>
+            </p>
+            <p>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">@Loc["Full name"]</span>
+                <input type="text" class="form-control" @bind="userRequest.FullName" />
+            </div>
+            </p>
+            <button class="btn btn-outline-dark" type="submit">@Loc["Register"]</button>
+        </EditForm>
 
     </div>
 </div>
 
 @code {
-    private CreateUser userRequest= new();
+    private CreateUser userRequest = new();
     private string OperationStatus = "";
 
     public async Task SubmitForm()
-    {             
+    {
         var response = await _usersService.PostUserAsync(userRequest);
         OperationStatus = response.Item2!;
         Console.WriteLine(OperationStatus);
-        
+
         StateHasChanged();
     }
 }

@@ -6,19 +6,21 @@
 @using Blazor.Data.Services.Interfaces
 @using Microsoft.Extensions.Logging
 @using Blazor.Data.Services.Interfaces
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<NavMenu> Loc
 @inject IAccountsService _accountService;
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 @inject IUsersService _usersService
 @inject ProtectedLocalStorage _localStorage
 <div class="row">
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
-        <h2 class="text-center mb-3">Create Account</h2>
+        <h2 class="text-center mb-3">@Loc["Create Account"]</h2>
         <EditForm Model="@accountRequest" OnSubmit="@SubmitForm">
             <div class="input-group mb-3">
-               
+
                 <select placeholder="EUR" class="form-select" aria-label="accountSelect" id="accountSelect"
                     @bind="accountRequest.Currency">
-                     <label class="input-group-text">Currency</label>
+                    <label class="input-group-text">@Loc["Currency"]</label>
                     @foreach (string currency in currencys)
                     {
                         <option value="@currency" for="accountSelect">@currency</option>
@@ -27,13 +29,12 @@
 
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Amount</span>
+                <span class="input-group-text" id="basic-addon1">@Loc["Amount"]</span>
                 <input placeholder="0" type="number" @bind="accountRequest.Amount">
             </div>
 
             <p>
-                <button class="btn btn-outline-dark" type="submit">Create Account</button>
-                <button class="btn btn-outline-dark" type="btn" @onclick="OnCancelClick">Cancel</button>
+                <button class="btn btn-outline-dark" type="submit">@Loc["Create Account"]</button>
             </p>
         </EditForm>
     </div>

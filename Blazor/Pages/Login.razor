@@ -4,6 +4,8 @@
 @using Blazor.Data.Services
 @using Blazor.Data.Services.Base
 @using Blazor.Data.Services.Interfaces
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<NavMenu> Loc
 @inject IUsersService _usersService
 @inject ProtectedLocalStorage _localStorage
 @inject NavigationManager Navigation
@@ -11,25 +13,27 @@
 <div class="row">
     <div class="col-5 shadow-lg p-5 border m-2 border-opacity-25 bg-light bg-gradient">
 
-        <h2 class="text-center mb-3">Login</h2>
-        <EditForm Model="@loginUser" OnSubmit="@SubmitForm">
-            <p>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon2">Username</span>
-                <input type="text" class="form-control" @bind="loginUser.Username" />
-            </div>
-            </p>
-            <p>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon2">Password</span>
-                <input type="password" class="form-control" @bind="loginUser.Password" />
-            </div>
-            </p>
-            <button class="btn btn-outline-dark" type="submit">Login</button> <button
-                class="btn btn-outline-dark">Cancel</button>
+                <h2 class="text-center mb-3">@Loc["Login"]</h2>
+                <EditForm Model="@loginUser" OnSubmit="@SubmitForm">
+                    <p>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2">@Loc["Username"]</span>
+                        <input type="text" class="form-control" @bind="loginUser.Username" />
+                    </div>
+                    </p>
+                    <p>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2">@Loc["Password"]</span>
+                        <input type="password" class="form-control" @bind="loginUser.Password" />
+                    </div>
+                    </p>
+                    <button class="btn btn-outline-dark" type="submit">@Loc["Login"]</button> 
 
-        </EditForm>
+                </EditForm>
     </div>
+    @if (response.Item1 == false)
+    {
+    }
 </div>
 
 
