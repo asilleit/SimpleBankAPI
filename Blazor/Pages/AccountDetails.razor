@@ -19,7 +19,7 @@
 <div class="row">
     @if (account != null)
     {
-        <h3> Account </h3>
+        <h3> @Loc["Account"] </h3>
         <table class="table w-25">
             <tr>
                 <td scope="row"> @Loc["Account nr."] </td>
@@ -38,7 +38,7 @@
         <td><button class="btn btn-outline-dark"
             @onclick="@(e => GoToAccountDocuments(account.Account.Id))">@Loc["Documents"]</button></td>
 
-        <h3 class="mt-5"> Moviments Account </h3>
+        <h3 class="mt-5"> @Loc["Moviments Account"] </h3>
         <table class="table table-striped w-75">
             <thead>
                 <tr>

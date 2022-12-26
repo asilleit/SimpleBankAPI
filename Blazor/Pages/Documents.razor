@@ -10,7 +10,8 @@
 @inject NavigationManager _navigationManager
 @inject IAccountsService _accountService
 @inject ITransfersService _transfersService
-
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Documents> Loc
 
 @page "/account/{id:int}/documents"
 
@@ -23,18 +24,18 @@
 <div class="row">
     @if (account != null)
     {
-        <h3> Account </h3>
+        <h3> @Loc["Account"] </h3>
         <table class="table w-25">
             <tr>
-                <td scope="row"> Account nr. </td>
+                <td scope="row"> @Loc["Account nr."]  </td>
                 <td>@account.Account.Id</td>
             </tr>
             <tr>
-                <td> Currency </td>
+                <td> @Loc["Currency"] </td>
                 <td>@account.Account.Currency</td>
             </tr>
             <tr>
-                <td> Balance </td>
+                <td> @Loc["Balance"] </td>
                 <td>@account.Account.Balance</td>
             </tr>
 
@@ -48,13 +49,13 @@
         </td>
 
 
-        <h3 class="mt-5"> Dcoments Account </h3>
+        <h3 class="mt-5"> @Loc["Dcoments Account"] </h3>
         <table class="table table-striped w-75">
             <thead>
                 <tr>
                     <th scope="col"> ID </th>
-                    <th scope="col"> File Name </th>
-                    <th scope="col"> Created At </th>
+                    <th scope="col"> @Loc["File Name"] </th>
+                    <th scope="col"> @Loc["File Type"] </th>
                 </tr>
             </thead>
             <tbody>
@@ -64,8 +65,7 @@
                         <td scope="row">@doc.AccountId </td>
                         <td scope="row">@doc.FileName </td>
                         <td scope="row">@doc.FileType</td>
-                        <td><button class="btn btn-outline-dark" @onclick="@(e => DownloadDocument(doc.AccountId))">Download
-                                Document</button></td>
+                        <td><button class="btn btn-outline-dark" @onclick="@(e => DownloadDocument(doc.AccountId))">@Loc["Download Document"]</button></td>
                     </tr>
                 }
             </tbody>

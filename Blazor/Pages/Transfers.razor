@@ -9,7 +9,7 @@
 @using Microsoft.Extensions.Localization;
 @inject IStringLocalizer<Transfers> Loc
 
-<h3> @Loc["Transfer"] </h3>
+<h3> @Loc["Transfers"] </h3>
 @if (accounts != null)
 
 {
@@ -34,15 +34,23 @@
                 <input @bind="transfer.Amount" type="number" class="form-control" id="exampleFormControlInput1"
                 placeholder="amount">
             </div>
-
+            @if (OperationStatus != "Transfer Succeded")
+            {
+                <button class="btn btn-outline-dark" type="submit">@Loc["Transfer"] </button>
+            }
             @if (OperationStatus == "transfer completed")
             {
                 <div class="alert alert-success mt-3" role="alert">
                     @OperationStatus
                 </div>
-
             }
-            @if (OperationStatus == "Insufficient funds from your account")
+            @if (OperationStatus == "Insufficient funds")
+            {
+                <div class="alert alert-error mt-3" role="alert">
+                    @OperationError
+                </div>
+            }
+            @if (OperationStatus == "User don't owner account")
             {
                 <div class="alert alert-danger mt-3" role="alert">
                     @OperationError
@@ -55,7 +63,6 @@
                 </div>
             }
             @if (OperationStatus == "transfer failed")
-
             {
                 <div class="alert alert-danger mt-3" role="alert">
                     @OperationError

@@ -118,47 +118,47 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Account" xml:space="preserve">
-    <value>Conta</value>
-    <comment/>
-  </data>
-  <data name="Account Details" xml:space="preserve">
-    <value>Detalhes Conta</value>
-    <comment/>
-  </data>
-  <data name="Account nr." xml:space="preserve">
-    <value>Nr. Conta</value>
+    <value>Account</value>
     <comment/>
   </data>
   <data name="Amount" xml:space="preserve">
-    <value>Quantia</value>
+    <value>Inicial balance</value>
     <comment/>
   </data>
-  <data name="Back" xml:space="preserve">
-    <value>Voltar a contas</value>
-    <comment/>
-  </data>
-  <data name="Balance" xml:space="preserve">
-    <value>Saldo</value>
+  <data name="Create Account" xml:space="preserve">
+    <value>Create Account</value>
     <comment/>
   </data>
   <data name="Currency" xml:space="preserve">
-    <value>Moeda</value>
+    <value>Currency</value>
     <comment/>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>Data</value>
+  <data name="Account Details" xml:space="preserve">
+    <value>Account Details</value>
     <comment/>
   </data>
-  <data name="Documents" xml:space="preserve">
-    <value>Documentos</value>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
     <comment/>
   </data>
-  <data name="Hour" xml:space="preserve">
-    <value>Horas</value>
+  <data name="Balance" xml:space="preserve">
+    <value>Balance</value>
     <comment/>
   </data>
-  <data name="Moviments Account " xml:space="preserve">
-    <value>Movimentos da Conta</value>
+  <data name="Dcoments Account" xml:space="preserve">
+    <value>Dcoments Account</value>
+    <comment/>
+  </data>
+  <data name="File Name" xml:space="preserve">
+    <value>File Name</value>
+    <comment/>
+  </data>
+  <data name="File Type" xml:space="preserve">
+    <value>File Type</value>
+    <comment/>
+  </data>
+  <data name="Download Document" xml:space="preserve">
+    <value>Download Document</value>
     <comment/>
   </data>
 </root>
