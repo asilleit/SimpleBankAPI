@@ -6,88 +6,122 @@
 @using Blazor.Data.Services
 @using Blazor.Data.Services.Base
 @using Blazor.Data.Services.Interfaces
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<Transfers> Loc
 
-    <h3> Transfers </h3>
-    @if(accounts != null)
-    {
-        <div class="row w-50 mt-5 shadow-lg p-5 border m-2 border-opacity-25">
-             <EditForm Model="@transfer" OnSubmit="@MakeTransfer">
-                 <div class="input-group mb-3">
-                    <select class="form-select" aria-label="accountSelect" id="accountSelect" @bind="transfer.FromAccount">
-                        @foreach(AccountResponse account in accounts)
-                        {
-                            <option value="@account.Id">@account.Id</option>
-                        }
-                    </select>
-                    <label class="input-group-text" for="accountSelect"> Account </label>
-                 </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label"> Transfer to </label>
-                    <input @bind="transfer.ToAccount" type="number" class="form-control" id="exampleFormControlInput1" placeholder="account number">
+<h3> @Loc["Transfer"] </h3>
+@if (accounts != null)
+
+{
+    <div class="row w-50 mt-5 shadow-lg p-5 border m-2 border-opacity-25">
+        <EditForm Model="@transfer" OnSubmit="@MakeTransfer">
+            <div class="input-group mb-3">
+                <select class="form-select" aria-label="accountSelect" id="accountSelect" @bind="transfer.FromAccount">
+                    @foreach (AccountResponse account in accounts)
+                    {
+                        <option value="@account.Id">@account.Id</option>
+
+                    }
+                </select>
+                <label class="input-group-text" for="accountSelect"> @Loc["Account"] </label>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">@Loc["Transfer to"] </label>
+                <input @bind="transfer.ToAccount" type="number" class="form-control" id="exampleFormControlInput1"
+                placeholder="account number">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"> @Loc["Amount"] </label>
+                <input @bind="transfer.Amount" type="number" class="form-control" id="exampleFormControlInput1"
+                placeholder="amount">
+            </div>
+
+            @if (OperationStatus == "transfer completed")
+            {
+                <div class="alert alert-success mt-3" role="alert">
+                    @OperationStatus
                 </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label"> Amount </label>
-                    <input @bind="transfer.Amount" type="number" class="form-control" id="exampleFormControlInput1" placeholder="amount">
+
+            }
+            @if (OperationStatus == "Insufficient funds from your account")
+            {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @OperationError
                 </div>
-                @if(OperationStatus != "Transfer Succeded")
-                {
-                    <button class="btn btn-outline-dark"type="submit"> Transfer  </button>
-                }
-                @if(OperationStatus == "Transfer Succeded")
-                {
-                    <div class="alert alert-success mt-3" role="alert">
-                        @OperationStatus
-                    </div>
-                }
-                @if(OperationStatus == "transfer failed")
-                {
-                    <div class="alert alert-danger mt-3" role="alert">
-                        @OperationError
-                    </div>
-                }
-            </EditForm>
-        </div>
-     }
+            }
+            @if (OperationStatus == "Currency isn't the same")
+            {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @OperationError
+                </div>
+            }
+            @if (OperationStatus == "transfer failed")
+
+            {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @OperationError
+                </div>
+
+            }
+        </EditForm>
+    </div>
+}
 
 
 @code {
     [CascadingParameter]
+
     public EventCallback SessionStatusEvent { get; set; }
-
     private IList<AccountResponse>? accounts;
-
     private Transfer transfer = new();
     private string OperationStatus = "";
     private string OperationError = "";
 
     protected async override Task OnInitializedAsync()
+
     {
+
         var response = await _accountsService.GetAllAccounts();
-        if(response.Item3 == "token expired")
+
+        if (response.Item3 == "token expired")
+
         {
+
             await SessionStatusEvent.InvokeAsync();
+
             return;
+
         }
+
         if (!response.Item1)
+
             return;
+
         accounts = response.Item2!;
+
     }
+
     public async void MakeTransfer()
+
     {
+
         var response = await _transfersService.Transfer(transfer);
-        if(response.Item3 == "token expired")
+        if (response.Item3 == "token expired")
         {
             await SessionStatusEvent.InvokeAsync();
             return;
         }
+
         if (!response.Item1)
         {
             OperationStatus = "transfer failed";
             OperationError = response.Item2!;
+
+
+
             StateHasChanged();
             return;
         }
-
         OperationStatus = response.Item2!;
 
         StateHasChanged();

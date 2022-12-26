@@ -49,12 +49,12 @@ namespace Blazor.Data.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<string> GetDoccumentByAccountAsync(string authorization, int id);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DocumentResponse>> GetDoccumentByAccountAsync(string authorization, int id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<string> GetDoccumentByAccountAsync(string authorization, int id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DocumentResponse>> GetDoccumentByAccountAsync(string authorization, int id, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -67,12 +67,12 @@ namespace Blazor.Data.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> DownloadDocumentAsync(string authorization, int id, int docId);
+        System.Threading.Tasks.Task<DocumentResponse> DownloadDocumentAsync(string authorization, int id, int docId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> DownloadDocumentAsync(string authorization, int id, int docId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<DocumentResponse> DownloadDocumentAsync(string authorization, int id, int docId, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -437,7 +437,7 @@ namespace Blazor.Data.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<string> GetDoccumentByAccountAsync(string authorization, int id)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DocumentResponse>> GetDoccumentByAccountAsync(string authorization, int id)
         {
             return GetDoccumentByAccountAsync(authorization, id, System.Threading.CancellationToken.None);
         }
@@ -445,7 +445,7 @@ namespace Blazor.Data.Services.Base
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<string> GetDoccumentByAccountAsync(string authorization, int id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DocumentResponse>> GetDoccumentByAccountAsync(string authorization, int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -488,7 +488,8 @@ namespace Blazor.Data.Services.Base
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<DocumentResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -562,7 +563,10 @@ namespace Blazor.Data.Services.Base
                 {
                     if (authorization != null)
                         request_.Headers.TryAddWithoutValidation("authorization", ConvertToString(authorization, System.Globalization.CultureInfo.InvariantCulture));
-                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    // request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(_settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
@@ -658,7 +662,7 @@ namespace Blazor.Data.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> DownloadDocumentAsync(string authorization, int id, int docId)
+        public virtual System.Threading.Tasks.Task<DocumentResponse> DownloadDocumentAsync(string authorization, int id, int docId)
         {
             return DownloadDocumentAsync(authorization, id, docId, System.Threading.CancellationToken.None);
         }
@@ -666,7 +670,7 @@ namespace Blazor.Data.Services.Base
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> DownloadDocumentAsync(string authorization, int id, int docId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<DocumentResponse> DownloadDocumentAsync(string authorization, int id, int docId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -675,16 +679,17 @@ namespace Blazor.Data.Services.Base
                 throw new System.ArgumentNullException("docId");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("v1/Accounts/{id}/doc/{docid}");
+            urlBuilder_.Append("v1/Accounts/{id}/doc/{docId}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{docId}", System.Uri.EscapeDataString(ConvertToString(docId, System.Globalization.CultureInfo.InvariantCulture)));
-
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+                    if (authorization != null)
+                        request_.Headers.TryAddWithoutValidation("authorization", ConvertToString(authorization, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
@@ -711,10 +716,12 @@ namespace Blazor.Data.Services.Base
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200 || status_ == 206)
                         {
-                            var responseStream_ = response_.Content == null ? System.IO.Stream.Null : await response_.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, null, response_);
-                            disposeClient_ = false; disposeResponse_ = false; // response and client are disposed by FileResponse
-                            return fileResponse_;
+                            var objectResponse_ = await ReadObjectResponseAsync<DocumentResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         if (status_ == 400)
@@ -1379,6 +1386,18 @@ namespace Blazor.Data.Services.Base
 
     }
 
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class DocumentResponse
+    {
+        [Newtonsoft.Json.JsonProperty("accountId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int AccountId { get; set; }
+        [Newtonsoft.Json.JsonProperty("fileName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string FileName { get; set; }
+        [Newtonsoft.Json.JsonProperty("fileType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string FileType { get; set; }
+        [Newtonsoft.Json.JsonProperty("file", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public byte[] File { get; set; }
+    }
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class GetAccountResponse
     {

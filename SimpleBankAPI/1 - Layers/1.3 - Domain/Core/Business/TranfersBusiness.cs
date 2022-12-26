@@ -52,6 +52,8 @@ namespace SimpleBankAPI.Business
 
                     await _transfersDb.Create(transfer);
 
+                    await _communicationsBusiness.TransferCommunication(transfer);
+
                     scope.Complete();
                 }
             }
