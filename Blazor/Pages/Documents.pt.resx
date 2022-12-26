@@ -121,44 +121,44 @@
     <value>Conta</value>
     <comment/>
   </data>
-  <data name="Account Details" xml:space="preserve">
-    <value>Detalhes Conta</value>
-    <comment/>
-  </data>
-  <data name="Account nr." xml:space="preserve">
-    <value>Nr. Conta</value>
-    <comment/>
-  </data>
   <data name="Amount" xml:space="preserve">
-    <value>Quantia</value>
+    <value>Saldo inicial</value>
     <comment/>
   </data>
-  <data name="Back" xml:space="preserve">
-    <value>Voltar a contas</value>
-    <comment/>
-  </data>
-  <data name="Balance" xml:space="preserve">
-    <value>Saldo</value>
+  <data name="Create Account" xml:space="preserve">
+    <value>Criar Conta</value>
     <comment/>
   </data>
   <data name="Currency" xml:space="preserve">
     <value>Moeda</value>
     <comment/>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>Data</value>
+  <data name="Account Details" xml:space="preserve">
+    <value>Detalhe da conta</value>
     <comment/>
   </data>
-  <data name="Documents" xml:space="preserve">
-    <value>Documentos</value>
+  <data name="Back" xml:space="preserve">
+    <value>Voltar</value>
     <comment/>
   </data>
-  <data name="Hour" xml:space="preserve">
-    <value>Horas</value>
+  <data name="Balance" xml:space="preserve">
+    <value>Saldo</value>
     <comment/>
   </data>
-  <data name="Moviments Account " xml:space="preserve">
-    <value>Movimentos da Conta</value>
+  <data name="Dcoments Account" xml:space="preserve">
+    <value>Documentos da conta</value>
+    <comment/>
+  </data>
+  <data name="File Name" xml:space="preserve">
+    <value>Nome do Ficheiro</value>
+    <comment/>
+  </data>
+  <data name="File Type" xml:space="preserve">
+    <value>Tipo do Ficheiro</value>
+    <comment/>
+  </data>
+  <data name="Download Document" xml:space="preserve">
+    <value>Download Documento</value>
     <comment/>
   </data>
 </root>
