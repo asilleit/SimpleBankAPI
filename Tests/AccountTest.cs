@@ -62,17 +62,7 @@ public class AccountTest
         Assert.Equal(_account.Currency, result.Currency);
         Assert.Equal(_account.Balance.ToString(), result.Balance.ToString());
     }
-    [Fact]
-    public async Task CreateAccount_TestError()
-    {
-        // Arrange
-        _accountsDb.Setup(a => a.Create(It.IsAny<Account>())).Throws(new ArgumentException());
-        var result = _accountsBusiness.GetById(99999);
-        // Assert
-        Assert.NotNull(result);
-        Assert.ThrowsAsync<Exception>(() => result);
-        Assert.Equal("One or more errors occurred. (Account not found)", result.Exception.Message.ToString());
-    }
+
     [Fact]
     public async Task GetAllAccounts_TestOK()
     {

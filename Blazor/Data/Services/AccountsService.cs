@@ -64,8 +64,6 @@ namespace Blazor.Data.Services
                 var token = String.Join(" ", "Bearer", auth.Value);
                 var response = await _httpClient.GetAccountAsync(token, id);
 
-                //CreateMap<AccountDetails, GetAccountResponse>().ReverseMap();
-                //var account = _mapper.Map<GetAccountResponse, AccountDetails>(response);
                 return (true, response, null);
             }
             catch (ApiException ex)
