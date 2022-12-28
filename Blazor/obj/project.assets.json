@@ -11329,11 +11329,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\Blazor.csproj",
+      "projectUniqueName": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\Blazor.csproj",
       "projectName": "Blazor",
-      "projectPath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\Blazor.csproj",
+      "projectPath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\Blazor.csproj",
       "packagesPath": "C:\\Users\\asilleit\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\obj\\",
+      "outputPath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\asilleit\\AppData\\Roaming\\NuGet\\NuGet.Config"

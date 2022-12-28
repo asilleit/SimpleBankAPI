@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PM7Wc/YOyCclYN9pkNi5wI6pzzlSRqQhG06t5oRbiVGjF//YnZweGMpwgsAURCQNSzZgvKsn9cHZy/pufOZ3yw==",
+  "dgSpecHash": "DVRK0KhRrz58/BNubMkB9RrmVBir5OnMyH5Sp1jmyiFiNywBQ4YuxGxYRLrmWRp/3A3y+6wnnBgsUEKmaTf88Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\Blazor.csproj",
+  "projectFilePath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Blazor\\Blazor.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\asilleit\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
