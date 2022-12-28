@@ -63,7 +63,7 @@ public class TransferTests
         var result = await _transferBusiness.Create(_transferRequest, _userId);
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(result.ToString(), "Transfer completed");
+        Assert.Equal(result.ToString(), "transfer completed");
     }
     #endregion
     [Fact]

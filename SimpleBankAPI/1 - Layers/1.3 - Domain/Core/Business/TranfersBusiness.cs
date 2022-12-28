@@ -23,9 +23,7 @@ namespace SimpleBankAPI.Business
         }
         public async Task<string> Create(TransferRequest transferRequest, int userId)
         {
-            // using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            // {
-            // Colar um try Catch e retornar exceção controlada para o controller
+
             //Convert TransferRequest to Transfer
             var transfer = TransferRequest.FromTransferRequestToTransfer(transferRequest);
             var fromAccount = await _accountsDb.GetById(transfer.Fromaccountid);
@@ -62,10 +60,6 @@ namespace SimpleBankAPI.Business
                 throw;
             }
             return "transfer completed";
-            // }
-
-
-
         }
     }
 }
