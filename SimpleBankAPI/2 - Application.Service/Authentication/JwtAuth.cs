@@ -84,7 +84,7 @@ namespace SimpleBankAPI.Interfaces.Provider
                 _config["Jwt:Audience"],
                 claims,
                 expires: DateTime.UtcNow.AddMinutes(int.Parse(_config["Jwt:ExpiresMin"])),
-                signingCredentials: credentials);
+                signingCredentials: credentials); 
 
             var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(token);
 
