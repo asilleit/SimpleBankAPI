@@ -10821,11 +10821,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj",
       "projectName": "SimpleBankAPI.Tests",
-      "projectPath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj",
+      "projectPath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\SimpleBankAPI.Tests.csproj",
       "packagesPath": "C:\\Users\\asilleit\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\obj\\",
+      "outputPath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\asilleit\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -10840,8 +10840,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj": {
-              "projectPath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj"
+            "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj": {
+              "projectPath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj"
             }
           }
         }

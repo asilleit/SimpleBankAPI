@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SpV1+xtNOHVRdm1YaheDAv4afO8+7OLv/0oZC083R9daJqZUNVKwNAIX9NswvwU0w+XKYcsZK+7NcTXvyg/yZw==",
+  "dgSpecHash": "U6XIoE1DM83O9zmQHba4My6LjRWZakBZIfqHw7COQvsiBSksNWxoKZspOgRfFFR7E7PEkTZB8rMj7rd7nV2EXw==",
   "success": true,
-  "projectFilePath": "c:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj",
+  "projectFilePath": "C:\\Users\\asilleit\\source\\repos\\SimpleBankAPI\\SimpleBankAPI\\SimpleBankAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\asilleit\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\asilleit\\.nuget\\packages\\confluent.kafka\\1.9.3\\confluent.kafka.1.9.3.nupkg.sha512",
